@@ -12,10 +12,8 @@ public class Sc_LevelManager : MonoBehaviour {
 		
 		if (exists == 0){
 			exists = 1;
-			print("Woken");
 		} else {
 			Destroy(gameObject);
-			print("destroyed Level Manager");
 		}
 	}
 	public void clicked(){

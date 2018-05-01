@@ -8,7 +8,6 @@ public class Sc_KeepOnLoad : MonoBehaviour {
 	void Awake()	{
 		GameObject.DontDestroyOnLoad(gameObject);
 		if (exists == 0){
-			print("Woken");
 		} else {
 			Destroy(gameObject);
 		}
