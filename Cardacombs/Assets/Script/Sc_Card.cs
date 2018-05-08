@@ -3,21 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sc_Card : MonoBehaviour {
-	private float placementInHand; 
+	public int placementInHand; 
 	public int cardID;
+	private int apCost; 
+	private float yPosition;
+	private GameObject[] _cards;
+	private Sc_BattleManager battleManager; 
 
-	public static List<GameObject> currentHandObjects = new List<GameObject>();
+	// Variables to change spirte
+	private Renderer render;
+    public Material[] materials;
 
-	// Use this for initialization
-	void Awake () {
-		currentHandObjects.Add(this.gameObject);
-		placementInHand = currentHandObjects.Count;
-		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0);
+	
+
+	void Start(){
+		yPosition = 0.5f;
+
+		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
+		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
+		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
 		this.transform.position = newPosition;
-		if (IsEven(placementInHand)){
-			print("true");
-		} else {
-			print("false");
+		// Get other components 
+		render = gameObject.GetComponent<Renderer>();
+		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
+		// Change the spirte of the object 
+		render.sharedMaterial = materials[cardID];	
+		// Get the Ap cost of the card 
+		if (cardID == 0 || cardID == 2){
+			apCost = 1;
+		} else if (cardID == 1){
+			apCost = 2;
 		}
 	}
 	
@@ -28,35 +43,43 @@ public class Sc_Card : MonoBehaviour {
 
 	void PositionCard() {
 		
-		if (IsEven(currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
-			if (placementInHand < (currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
-				float PositionFromMiddle = (currentHandObjects.Count /2f) - placementInHand;
+		if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
+			if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
+				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
 				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, 2.2f, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
 				this.transform.position = newPosition;
 			} else { // if it was to the right 
-				float PositionFromMiddle = placementInHand - (currentHandObjects.Count /2f) - 1;
+				float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
 				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, 2.2f, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
 				this.transform.position = newPosition;
 			}
 		} else { // If the number of cards or odd 
-			if (placementInHand == (currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
+			if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
 				float newXPosition = 7.5f;
-				Vector3 newPosition = new Vector3 (newXPosition, 2.2f, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
 				this.transform.position = newPosition;
-			} else if (placementInHand < (currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
-				float PositionFromMiddle = (currentHandObjects.Count /2f) - 0.5f - placementInHand;
+			} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
+				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
 				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, 2.2f, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
 				this.transform.position = newPosition;
-			} else if (placementInHand > (currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
-				float PositionFromMiddle = placementInHand - 1.5f -  (currentHandObjects.Count /2f);
+			} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
+				float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
 				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, 2.2f, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
 				this.transform.position = newPosition;
 			}
 		}
+	}
+	void OnMouseDown(){
+		if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
+		battleManager.PlayCard(cardID);
+		battleManager.currentApUsed += apCost;
+		DestroyCard();
+		}
+		
 	}
 
 	public bool IsEven (float number){ // checks if a float is even or odd 
@@ -70,4 +93,18 @@ public class Sc_Card : MonoBehaviour {
 		}
 		return false;
 	}
+
+	public void DestroyCard() {
+		print(placementInHand - 1);
+		Sc_BattleManager.currentHandObjects.RemoveAt(placementInHand - 1);
+		_cards = GameObject.FindGameObjectsWithTag("Card");
+		for (int i = 0; i < _cards.Length; i++){
+			Sc_Card otherScript = _cards[i].GetComponent<Sc_Card>();
+			if (otherScript.placementInHand > placementInHand){
+				otherScript.placementInHand -= 1;
+			}
+		}
+		Destroy(this.gameObject);
+	}
+
 }
