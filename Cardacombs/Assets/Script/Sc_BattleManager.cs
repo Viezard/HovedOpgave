@@ -6,6 +6,7 @@ using UnityEngine;
 public class Sc_BattleManager : MonoBehaviour {
 
 	public Sc_GameManager gameManager;
+	private Sc_CardDataBase cardDataBase;
 // Varibels used in the Battle section
 	public List<int> currentDeck = new List<int>(); // The cards you have in your Deck
 	public static List<GameObject> currentHandObjects = new List<GameObject>(); // holdes the cards in your hand 
@@ -22,7 +23,10 @@ public class Sc_BattleManager : MonoBehaviour {
 	public static List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<int> currentEquimentDamage = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
 	private int currentTotalDefence; 
-	private int currentTotalAttack;
+	private int currentNormalAttack;
+	private int currentBluntAttack;
+	private int currentPiercingAttack;
+	private int currentPoisonttack;
 	public Text defenceText;
 	public int currentMonster; // The id of the monster the player is figtig at the moment
 	public int maxHandSize; // The current max hand size the player has. 
@@ -36,6 +40,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	void Awake(){
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		monster = GameObject.FindObjectOfType<Sc_Monster>();
+		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 	}
 	// Use this for initialization
 	void Start () {
@@ -45,7 +50,10 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentApMax = 2; 
 		currentApUsed = 0; 
 		currentTotalDefence = 0; 
-		currentTotalAttack = 0;
+		currentNormalAttack = 0;
+		currentBluntAttack = 0;
+		currentPiercingAttack = 0;
+		currentPoisonttack = 0;
 		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
@@ -124,19 +132,27 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentDiscard.Add(id);
 		//currentHand.RemoveAt(randomCard);
 		print("The number of cards left in hand is " + currentHandObjects.Count);
-		if (id == 0){ // If the card is a melee card 
-			Melee ();
-		} else if (id == 1){
+		if (id < 1000){ // If the card is a melee card 
+			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
+			Melee (id, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
+		} else if (id < 2000){
 			Utility ();
-		} else if (id == 2){
+		} else if (id < 3000){
 			Defence();
 		}
 	}
 
-	public void Melee () {
-		currentTotalAttack +=1;
-		print("helloooooo");
-		GameObject newEquipment = (GameObject)Instantiate (weapon, transform.position, transform.rotation);
+	public void Melee (int id, int normal, int blunt, int piercing, int poison) {
+		
+	currentNormalAttack += normal;
+	currentBluntAttack += blunt;
+	currentPiercingAttack += piercing;
+	currentPoisonttack += poison;
+	print("helloooooo");
+	
+	GameObject newEquipment = (GameObject)Instantiate (weapon, transform.position, transform.rotation);
+	Sc_MeleeEquipment newCardScript =  newEquipment.GetComponent<Sc_MeleeEquipment>();
+	newCardScript.id = id;
 	}
 
 	public void Utility () {
@@ -162,6 +178,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 
 	public void DamageCalc (int target,int lifeDrain = 0, int poison = 0, int blunt = 0, int damage = 0, int piercing = 0 ){ // Target 0 = player 1 = enemy
+		print(target + "Is being attacked");
 		if (target == 0){ // if the target is the player 
 			if (currentTotalDefence <= 0){ // if the player has 0 defence 
 				if (lifeDrain > 0){ // If there is any life drain damage dealt 
@@ -192,7 +209,25 @@ public class Sc_BattleManager : MonoBehaviour {
 			}
 		}
 		else if (target == 1){
+			if (monster.defence <= 0){
+				monster.health -= poison;
+			} 
+			if (monster.defence - blunt >= 0){
+				monster.defence -= blunt;
+			} else {
+				monster.defence = 0;
+			}
 			
+			for (int i = 0; i < damage; i++){
+				if (monster.defence > 0){
+					monster.defence -= 1;
+				} else {
+					monster.health -=1;
+				}
+			}
+			monster.health -= piercing;
+			monster.healthText.text = "" + monster.health;
+			monster.defenceText.text = "" + monster.defence;
 		}
 	}
 	public void TakeDamage (int damage, int type){	// type blunt = 0 normal = 1 piercing = 2 
@@ -250,8 +285,10 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void EndTurn () {
 		currentStage = 2;
 		currentApUsed = 0;
-		monster.TakeDamage(currentTotalAttack, 0);
-		currentTotalAttack = 0;
+		DamageCalc(target: 1, damage: currentNormalAttack, blunt: currentBluntAttack, piercing: currentPiercingAttack, poison: currentPoisonttack);
+		currentNormalAttack = 0;
+		currentBluntAttack = 0;
+		currentPiercingAttack = 0;
 		for (int i = 0; i < currentEquipmentMelee.Count; i++){
 			Destroy(currentEquipmentMelee[i]);
 		}

@@ -7,7 +7,7 @@ public class Sc_Monster : MonoBehaviour {
 	public int health;
 	public int maxHealth;
 	public Text healthText;
-	private int defence;
+	public int defence;
 	public Text defenceText;
 	private Sc_BattleManager battleManager;
 
@@ -16,7 +16,7 @@ public class Sc_Monster : MonoBehaviour {
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>();
 		health = 8;
 		maxHealth = 8;
-		defence = 0;
+		defence = 1;
 		healthText.text = "" + health;
 		defenceText.text = "" + defence;
 	}

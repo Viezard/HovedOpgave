@@ -7,33 +7,35 @@ public class Sc_Card : MonoBehaviour {
 	public int cardID;
 	private int apCost; 
 	private float yPosition;
+	public SO_CardMelee card;
+	public GameObject background;
 	private GameObject[] _cards;
+	private Sc_CardDataBase cardDataBase;
 	private Sc_BattleManager battleManager; 
 
-	// Variables to change spirte
-	private Renderer render;
-    public Material[] materials;
 
 	
 
 	void Start(){
-		yPosition = 0.5f;
+		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
+		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
+		if (cardID < 1000){
+			card = cardDataBase.FindMeleeCardByID(cardID);
+		}
+		// Set the background of the card
+		background = this.gameObject.transform.GetChild(0).gameObject;
+		SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
+		backgroundSR.sprite = card.image;
+		// Set local apcost 
+		apCost = card.apCost;
+		
 
+		yPosition = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
 		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 		// Get other components 
-		render = gameObject.GetComponent<Renderer>();
-		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
-		// Change the spirte of the object 
-		render.sharedMaterial = materials[cardID];	
-		// Get the Ap cost of the card 
-		if (cardID == 0 || cardID == 2){
-			apCost = 1;
-		} else if (cardID == 1){
-			apCost = 2;
-		}
 	}
 	
 	// Update is called once per frame
@@ -74,6 +76,7 @@ public class Sc_Card : MonoBehaviour {
 		}
 	}
 	void OnMouseDown(){
+
 		if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
 		battleManager.PlayCard(cardID);
 		battleManager.currentApUsed += apCost;
