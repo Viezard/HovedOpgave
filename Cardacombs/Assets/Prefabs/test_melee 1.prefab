@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212686579937091196}
   - component: {fileID: 114474510154188924}
   m_Layer: 0
-  m_Name: test_defence
+  m_Name: test_melee 1
   m_TagString: Armor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -27,4 +27,11 @@ public class Sc_GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
+
+    void SaveGame()
+    {
+        // saves all information that is need to recreate the current point of the game 
+        // Player hp, current deck, current discard, current banish, current hand, current hand size, current buffs and debuffs.
+        // Slay Count, Current boss, current scene, current choice progress, Boss hp, boss buff debuff, 
+    }
 }
