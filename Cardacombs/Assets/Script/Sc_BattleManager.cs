@@ -22,12 +22,17 @@ public class Sc_BattleManager : MonoBehaviour {
 	public static List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
 	public static List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<int> currentEquimentDamage = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
+	public List<int> currentEquimentspiked = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
 	private int currentTotalDefence; 
 	private int currentNormalAttack;
 	private int currentBluntAttack;
 	private int currentPiercingAttack;
+	
 	private int currentPoisonttack;
+	public int currentSpiked;
+	public int currentRage;
 	public Text defenceText;
+	public Text SpikedText;
 	public int currentMonster; // The id of the monster the player is figtig at the moment
 	public int maxHandSize; // The current max hand size the player has. 
 
@@ -54,6 +59,8 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentBluntAttack = 0;
 		currentPiercingAttack = 0;
 		currentPoisonttack = 0;
+		currentSpiked = 0;
+		currentRage = 0;
 		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
@@ -63,11 +70,16 @@ public class Sc_BattleManager : MonoBehaviour {
 		for (int i = 0; i < currentDeck.Count; i++){
 			print ("number " + i + "In Deck is " + currentDeck[i]);
 		}
+		// Shuffle the deck 
+		ShuffleDeck();
+		// Draw Hand
 		DrawHand();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		CalcSpiked();
+		SpikedText.text = "" + currentSpiked;
 		StageManager ();
 	}
 	void StageManager () {
@@ -136,15 +148,17 @@ public class Sc_BattleManager : MonoBehaviour {
 			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
 			Melee (id, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
 		} else if (id < 2000){
-			Utility ();
+			SO_CardArmor card = cardDataBase.FindArmorCardByID(id);
+			Defence (id, card.armorBonus, card.spickedBonus);
 		} else if (id < 3000){
-			Defence();
+			
+			Utility(id);
 		}
 	}
 
 	public void Melee (int id, int normal, int blunt, int piercing, int poison) {
 		
-	currentNormalAttack += normal;
+	currentNormalAttack += normal + currentRage;
 	currentBluntAttack += blunt;
 	currentPiercingAttack += piercing;
 	currentPoisonttack += poison;
@@ -155,14 +169,19 @@ public class Sc_BattleManager : MonoBehaviour {
 	newCardScript.id = id;
 	}
 
-	public void Utility () {
-		monster.TakeDamage(0, 2);
+	public void Utility (int id) {
+		CardUtility card = cardDataBase.FindUtilityCardByID(id);
+		card.PlayedFunction();
 	}
-	public void Defence() {
-		currentTotalDefence += 1; 
+	public void Defence(int id, int defence, int spiked) {
+		print("" + spiked);
+		currentTotalDefence += defence; 
 		GameObject newEquipment = (GameObject)Instantiate (armor, transform.position, transform.rotation);
+		Sc_DefenceEquipment newCardScript =  newEquipment.GetComponent<Sc_DefenceEquipment>();
+		newCardScript.id = id;
 		defenceText.text = "" + currentTotalDefence;
-		currentEquimentDamage.Add(1);
+		currentEquimentDamage.Add(defence);
+		currentEquimentspiked.Add(spiked);
 	}
 
 	public void ShuffleDeck(){ // Shuffleling the deck useing the Fisher Yates Shuffle
@@ -243,6 +262,7 @@ public class Sc_BattleManager : MonoBehaviour {
 						Destroy(currentEquipmentArmor[0]);
 						currentEquipmentArmor.RemoveAt(0);
 						currentEquimentDamage.RemoveAt(0);
+						currentEquimentspiked.RemoveAt(0);
 						GameObject[] _armor = GameObject.FindGameObjectsWithTag("Armor");
 						for (int j = 0; j < _armor.Length; j++){
 							Sc_DefenceEquipment otherScript = _armor[j].GetComponent<Sc_DefenceEquipment>();
@@ -282,6 +302,26 @@ public class Sc_BattleManager : MonoBehaviour {
 			}
 		}
 	}
+	public void Healing(int healing) {
+		print("number of cards in banish pile " + currentBanished.Count);
+		print("number of cards in Discard pile " + currentDiscard.Count);
+		for (int i = 0; i <= healing; i++){
+			if (currentBanished.Count > 0){
+				int random = Random.Range(0, currentBanished.Count - 1);
+				currentDiscard.Add(currentBanished[random]);
+				currentBanished.RemoveAt(random);
+			}
+		}
+		print("number of cards in banish pile " + currentBanished.Count);
+		print("number of cards in Discard pile " + currentDiscard.Count);
+	}
+	public void CalcSpiked () {
+		currentSpiked = 0;
+		for (int i = 0; i < currentEquimentspiked.Count; i++){
+			currentSpiked += currentEquimentspiked[i];
+		}
+	}
+
 	public void EndTurn () {
 		currentStage = 2;
 		currentApUsed = 0;

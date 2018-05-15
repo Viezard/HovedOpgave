@@ -53,6 +53,7 @@ public class Sc_Monster : MonoBehaviour {
 		defenceText.text = "" + defence;
 	}
 	public void MonsterTurn () {
+		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
 		battleManager.DamageCalc(target: 0, damage: 2, poison: 0);
 		battleManager.currentStage = 0;
 	}

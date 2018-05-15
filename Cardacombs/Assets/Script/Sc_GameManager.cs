@@ -18,10 +18,7 @@ public class Sc_GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 15; i++ ){
-			int randomCard = Random.Range(0,4);
-			fullDeck.Add (randomCard);
-		}
+
 	}
 	
 	// Update is called once per frame

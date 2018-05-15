@@ -7,7 +7,7 @@ public class Sc_Card : MonoBehaviour {
 	public int cardID;
 	private int apCost; 
 	private float yPosition;
-	public SO_CardMelee card;
+
 	public GameObject background;
 	private GameObject[] _cards;
 	private Sc_CardDataBase cardDataBase;
@@ -17,18 +17,25 @@ public class Sc_Card : MonoBehaviour {
 	
 
 	void Start(){
+
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
-		if (cardID < 1000){
-			card = cardDataBase.FindMeleeCardByID(cardID);
-		}
 		// Set the background of the card
 		background = this.gameObject.transform.GetChild(0).gameObject;
 		SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
-		backgroundSR.sprite = card.image;
-		// Set local apcost 
-		apCost = card.apCost;
-		
+		if (cardID < 1000){
+			 SO_CardMelee card = cardDataBase.FindMeleeCardByID(cardID);
+			 apCost = card.apCost;
+			 backgroundSR.sprite = card.image;
+		} else if (cardID < 2000){
+			 SO_CardArmor card = cardDataBase.FindArmorCardByID(cardID);
+			 apCost = card.apCost;
+			 backgroundSR.sprite = card.image;
+		} else if (cardID < 3000){
+			CardUtility card = cardDataBase.FindUtilityCardByID(cardID);
+			apCost = card.apCost;
+			backgroundSR.sprite = card.image;
+		}
 
 		yPosition = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
