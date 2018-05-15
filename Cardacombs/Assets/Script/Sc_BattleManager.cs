@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Sc_BattleManager : MonoBehaviour {
 
-	public Sc_GameManager gameManager;
+   
+    public SaveDataManager SaveDataManager;
+    public Sc_GameManager gameManager;
 	private Sc_CardDataBase cardDataBase;
 // Varibels used in the Battle section
 	public List<int> currentDeck = new List<int>(); // The cards you have in your Deck
@@ -46,7 +48,9 @@ public class Sc_BattleManager : MonoBehaviour {
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		monster = GameObject.FindObjectOfType<Sc_Monster>();
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
-	}
+        SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+        
+    }
 	// Use this for initialization
 	void Start () {
 		// set op some basic variables 
@@ -333,5 +337,8 @@ public class Sc_BattleManager : MonoBehaviour {
 			Destroy(currentEquipmentMelee[i]);
 		}
 		currentEquipmentMelee.Clear();
-	}
+        SaveDataManager.saveData.date = System.DateTime.Now.ToShortDateString();
+        SaveDataManager.saveData.time = System.DateTime.Now.ToShortTimeString();
+        SaveDataManager.SaveGameData();
+    }
 }
