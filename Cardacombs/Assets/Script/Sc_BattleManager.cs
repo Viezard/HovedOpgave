@@ -9,6 +9,8 @@ public class Sc_BattleManager : MonoBehaviour {
     public SaveDataManager SaveDataManager;
     public Sc_GameManager gameManager;
 	private Sc_CardDataBase cardDataBase;
+
+	private Sc_LevelManager levelManager;
 // Varibels used in the Battle section
 	public List<int> currentDeck = new List<int>(); // The cards you have in your Deck
 	public static List<GameObject> currentHandObjects = new List<GameObject>(); // holdes the cards in your hand 
@@ -44,11 +46,16 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public Sc_Monster monster;
 
+	public Text discardPile;
+	public Text DeckPile;
+	public Text BanishPile;
+
 	void Awake(){
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		monster = GameObject.FindObjectOfType<Sc_Monster>();
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
         SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
         
     }
 	// Use this for initialization
@@ -65,12 +72,19 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentPoisonttack = 0;
 		currentSpiked = 0;
 		currentRage = 0;
+		currentHandObjects.Clear();
+		currentEquipmentArmor.Clear();
+		currentEquipmentMelee.Clear();
+		currentEquimentDamage.Clear();
+		currentEquimentspiked.Clear();
+
 		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
 		// Add some random cards to deck 
-		
-		currentDeck = gameManager.fullDeck;
+		for (int i = 0; i < gameManager.fullDeck.Count; i++){
+			currentDeck.Add(gameManager.fullDeck[i]);
+		}
 		for (int i = 0; i < currentDeck.Count; i++){
 			print ("number " + i + "In Deck is " + currentDeck[i]);
 		}
@@ -84,6 +98,9 @@ public class Sc_BattleManager : MonoBehaviour {
 	void Update () {
 		CalcSpiked();
 		SpikedText.text = "" + currentSpiked;
+		discardPile.text = currentDiscard.Count + " in the discard pile";
+		DeckPile.text = currentDeck.Count + " in the deck pile";
+		BanishPile.text = currentBanished.Count + " in the banish pile";
 		StageManager ();
 	}
 	void StageManager () {
@@ -93,6 +110,9 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 		if (currentStage == 2){
 			monster.MonsterTurn();
+		}
+		if (currentStage == 10){
+			BattleWon();
 		}
 	}
 	public void DrawHand() { // Used to draw a full hand 
@@ -251,6 +271,9 @@ public class Sc_BattleManager : MonoBehaviour {
 			monster.health -= piercing;
 			monster.healthText.text = "" + monster.health;
 			monster.defenceText.text = "" + monster.defence;
+			if (monster.health <= 0){
+				currentStage = 10;
+			}
 		}
 	}
 	public void TakeDamage (int damage, int type){	// type blunt = 0 normal = 1 piercing = 2 
@@ -282,7 +305,7 @@ public class Sc_BattleManager : MonoBehaviour {
 				} else if (currentDiscard.Count > 0){ // Check if there are cards in discard pile. 
 					print("Dicard pile is being shuffled into deck");
 					for (int j = 0; j < currentDiscard.Count; j++){
-						currentDeck.Add(currentDiscard[i]);
+						currentDeck.Add(currentDiscard[j]);
 					}
 					ShuffleDeck();
 					currentDiscard.Clear();
@@ -309,7 +332,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void Healing(int healing) {
 		print("number of cards in banish pile " + currentBanished.Count);
 		print("number of cards in Discard pile " + currentDiscard.Count);
-		for (int i = 0; i <= healing; i++){
+		for (int i = 0; i < healing; i++){
 			if (currentBanished.Count > 0){
 				int random = Random.Range(0, currentBanished.Count - 1);
 				currentDiscard.Add(currentBanished[random]);
@@ -326,6 +349,45 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 	}
 
+	public void BattleWon () {
+		if (Input.GetMouseButtonDown(0)){
+			ExitBattle();
+			levelManager.ChangeSceneTo("Navigation");
+		}
+	}
+	public void ExitBattle() {
+		gameManager.fullDeck.Clear();
+		for (int i = 0; i < currentDeck.Count; i++){
+			print("Card added from deck");
+			gameManager.fullDeck.Add(currentDeck[i]);
+		}
+		for (int i = 0; i < currentDiscard.Count; i++){
+			print("Card added from Discard");
+			gameManager.fullDeck.Add(currentDiscard[i]);
+		}
+		for (int i = 0; i < currentHandObjects.Count; i++){
+			print("Card added from Hand");
+			GameObject card = currentHandObjects[i];
+			Sc_Card cardScript = card.GetComponent<Sc_Card>();
+			gameManager.fullDeck.Add(cardScript.cardID);
+		}
+		
+		for (int i = 0; i < currentBanished.Count; i++){
+			gameManager.lostCards.Add(currentBanished[i]);
+		}
+	}
+
+	public void Recycle (int cardsToTake){
+		if (currentDiscard.Count > 0){
+			for (int i = 0; i < cardsToTake; i++){
+				int random = Random.Range(0, currentDiscard.Count);
+				GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
+				Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
+				newCardScript.cardID = currentDiscard[random];
+				currentDiscard.RemoveAt(random);
+			}
+		}
+	}
 	public void EndTurn () {
 		currentStage = 2;
 		currentApUsed = 0;

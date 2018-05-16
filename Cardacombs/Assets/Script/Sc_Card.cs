@@ -105,7 +105,6 @@ public class Sc_Card : MonoBehaviour {
 	}
 
 	public void DestroyCard() {
-		print(placementInHand - 1);
 		Sc_BattleManager.currentHandObjects.RemoveAt(placementInHand - 1);
 		_cards = GameObject.FindGameObjectsWithTag("Card");
 		for (int i = 0; i < _cards.Length; i++){

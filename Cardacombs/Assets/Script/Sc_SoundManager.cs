@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class Sc_SoundManager : MonoBehaviour {
 	public AudioClip click; 
+
+	public static int isCreated = 0;
 	// Make sure it does not get destroied on level load 
 	static int exists = 0; 
 	void Awake()	{
-		GameObject.DontDestroyOnLoad(gameObject);
+		if (isCreated == 0){
+			GameObject.DontDestroyOnLoad(gameObject);
+			isCreated = 1;
+		} else {
+			Destroy(this);
+		}
+		
 
 		if (exists == 0){
 			exists = 1;
