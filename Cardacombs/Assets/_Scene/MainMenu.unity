@@ -934,7 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38797158d83fc142b7276f93666b5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nyScene: Navigation
+  nyScene: Battle
   thisButton: {fileID: 1587015593}
 --- !u!1 &1688859630
 GameObject:

@@ -20,7 +20,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	public int currentTurns; // The number of turns which as past in the current battle
 	public bool currentTurnHolder; // Keeps track on how turn it is True equals Player and False equals Monster
 	public int currentStage; // Which stage your in 0 effect and draw 1 Play cards 2 end turn 
-	public List<int> currentMosnterStat = new List<int>(); // Keeps track of the monsters Life, defence and damage 
+	public List<int> currentmonsterStat = new List<int>(); // Keeps track of the monsters Life, defence and damage 
 	public int currentApUsed; // how much has been used
 	public int currentApMax; // What is the max ap for this turn  
 	public static List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
@@ -31,20 +31,18 @@ public class Sc_BattleManager : MonoBehaviour {
 	private int currentNormalAttack;
 	private int currentBluntAttack;
 	private int currentPiercingAttack;
-	
 	private int currentPoisonttack;
 	public int currentSpiked;
 	public int currentRage;
 	public Text defenceText;
 	public Text SpikedText;
-	public int currentMonster; // The id of the monster the player is figtig at the moment
 	public int maxHandSize; // The current max hand size the player has. 
 
 	public GameObject card; // getting the prefab of the card 
 	public GameObject armor;
 	public GameObject weapon;
 
-	public Sc_Monster monster;
+	public MonsterClass monster;
 
 	public Text discardPile;
 	public Text DeckPile;
@@ -52,7 +50,7 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	void Awake(){
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
-		monster = GameObject.FindObjectOfType<Sc_Monster>();
+		
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
         SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
@@ -60,6 +58,7 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+		monster = GameObject.FindObjectOfType<MonsterClass>();
 		// set op some basic variables 
 		maxHandSize = 5;
 		currentStage = 0;
@@ -388,6 +387,43 @@ public class Sc_BattleManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public void Debuff(int debuff) {
+		monster.debuffed += debuff;
+	}
+
+	public void DrawCards(int draw, int discard, bool isRandom, bool afterOrBefore ){
+		if (afterOrBefore == true){
+			for (int i = 0; i < draw; i++){
+				Draw();
+			}
+		}
+		if (0 < discard){
+			DiscardCards(discard,isRandom);
+		}
+		if (afterOrBefore == false){
+			for (int i = 0; i < draw; i++){
+				Draw();
+			}
+		}	
+	}
+	public void DiscardCards (int discard, bool isRandom){
+		if (isRandom == true){
+			for(int i = 0; i < discard; i++){
+				// get random card in hand 
+				int random = Random.Range(0, currentHandObjects.Count);
+				GameObject card = currentHandObjects[random];
+				Sc_Card cardScript =  card.GetComponent<Sc_Card>();
+				currentDiscard.Add(cardScript.cardID);
+				cardScript.DestroyCard();
+			}
+		}
+	}
+
+	public void BonusAP (int apBonus){
+		currentApUsed -=1; 
+	}
+
 	public void EndTurn () {
 		currentStage = 2;
 		currentApUsed = 0;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: GarbegeBin
   m_EditorClassIdentifier: 
   eventID: 1
-  numberOfEvents: 3
+  numberOfEvents: 2
   eventName: Garbege Bin
   eventDecription: You find a Garbage Bin filled with stuff other adventures has cast
     away

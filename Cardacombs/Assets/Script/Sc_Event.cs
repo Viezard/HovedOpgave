@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Sc_Event : MonoBehaviour {
 	private Sc_EventDataBase eventDataBase;
-	private Sc_GameManager gameManger;
+	public Sc_GameManager gameManger;
+	public Sc_NavigationManager navigationManager;
 	public int Eventid;
 	public int OptionNumber;
 	public GameObject title;
@@ -14,6 +15,7 @@ public class Sc_Event : MonoBehaviour {
 	void Start () {
 		eventDataBase = GameObject.FindObjectOfType<Sc_EventDataBase>();
 		gameManger = GameObject.FindObjectOfType<Sc_GameManager>();  
+		navigationManager = GameObject.FindObjectOfType<Sc_NavigationManager>();  
 		currentEvent = eventDataBase.FindEventByID(Eventid);
 		title = this.gameObject.transform.GetChild(0).gameObject;
 		numberOfCards = this.gameObject.transform.GetChild(1).gameObject;
@@ -42,7 +44,9 @@ public class Sc_Event : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (!gameManger){
+			gameManger = GameObject.FindObjectOfType<Sc_GameManager>();
+		}
 	}
 
 	void OnMouseDown(){
@@ -65,5 +69,10 @@ public class Sc_Event : MonoBehaviour {
 			}
 			currentEvent.ThirdEventFunction();
 		}
+		navigationManager.EventPressed();
+	}
+
+	public void EventPressed(){
+
 	}
 }

@@ -4,30 +4,30 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class Sc_Monster : MonoBehaviour {
-	public int health;
-	public int maxHealth;
-	public Text healthText;
-	public int defence;
-	public Text defenceText;
-	private Sc_BattleManager battleManager;
-
+	public GameObject[] monsterdatabase;
+	public Sc_GameManager gameManager;
+	public int monsterID;
 	// Use this for initialization
-	void Start () {
-		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>();
-		health = 8;
-		maxHealth = 8;
-		defence = 1;
-		healthText.text = "" + health;
-		defenceText.text = "" + defence;
+	void Awake () {
+		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
+		GameObject newCard = (GameObject)Instantiate (gameManager.currentMonster, transform.position, transform.rotation);
 	}
 
-	public void MonsterTurn () {
-		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
-		battleManager.DamageCalc(target: 0, damage: 2, poison: 0);
-		battleManager.currentStage = 0;
+	public GameObject FindMonsterByID(int id){
+		for (int i = 0; i < monsterdatabase.Length;i++){
+			GameObject newmonster = monsterdatabase[i];
+			MonsterClass newmonsterScript =  newmonster.GetComponent<MonsterClass>();
+			print("combaring " + newmonsterScript.monsterID + " to the current id " + id + "Which is named" + newmonsterScript.name);
+			if (newmonsterScript.monsterID == id){
+				return newmonster;
+			}
+		}
+		return monsterdatabase[1];
 	}
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	
 }
