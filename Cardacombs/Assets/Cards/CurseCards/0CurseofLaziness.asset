@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3000
   name: Curse of Laziness
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: a0562e75f0d0fe743ac42e4e476a756a, type: 3}
   apCost: 1

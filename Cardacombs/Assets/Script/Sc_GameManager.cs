@@ -14,7 +14,7 @@ public class Sc_GameManager : MonoBehaviour {
 	public GameObject currentMonster;
 	public int startingDefence = 0;
 	public int utilityAP = 0;
-	public int slayCount; // The number of monsters slay 
+	public int slayCount = 0; // The number of monsters slay 
 	public static int isCreated = 0;
 	public int currentEvent; // The ID of the current event 
 	public List<int> lostCards = new List<int>(); // A list of all the cards which the player has lost

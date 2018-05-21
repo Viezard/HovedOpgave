@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: 0Buckler
   m_EditorClassIdentifier: 
   id: 1000
-  name: 
+  name: Buckler
   image: {fileID: 21300000, guid: 5f73f0ec9b535b54bb7fafc314365f3e, type: 3}
   apCost: 1
   armorBonus: 1

@@ -14,11 +14,13 @@ public class Sc_NavigationManager : MonoBehaviour {
 	public Text lostCards;
 	public Text fullCards;
 	public GameObject fab_Event;
+	public bool firstEvent;
 
 	public Text eventDiscription;
 
 	// Use this for initialization
 	void Start () {
+		firstEvent = true;
 		eventDataBase = GameObject.FindObjectOfType<Sc_EventDataBase>();
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
@@ -27,7 +29,12 @@ public class Sc_NavigationManager : MonoBehaviour {
 		EventPressed();
 	}
 	public void EventPressed (){
+		
 		int isNextMonster = Random.Range(0,MonsterChance);
+		if (firstEvent){
+			firstEvent = false;
+			isNextMonster = 1;
+		}
 		if (isNextMonster == 0){
 			NextMonster();
 		} else {
@@ -43,8 +50,20 @@ public class Sc_NavigationManager : MonoBehaviour {
 		}
 	}
 	public void NextMonster(){
-		gameManager.currentMonster = monsterManager.TierOneMonster[0];
-		levelManager.ChangeSceneTo("Battle");
+		if(gameManager.slayCount == 0){
+			gameManager.currentMonster = monsterManager.IntroMonster[0];
+			levelManager.ChangeSceneTo("Battle");
+		} else if (gameManager.slayCount == 1) {
+			gameManager.currentMonster = monsterManager.TierOneMonster[0];
+			levelManager.ChangeSceneTo("Battle");
+		} else if (gameManager.slayCount == 2){
+			gameManager.currentMonster = monsterManager.TierTwoMonster[0];
+			levelManager.ChangeSceneTo("Battle");
+		} else {
+			levelManager.ChangeSceneTo("MainMenu");
+		}
+		
+		
 	}
 	public void NextEvent(int tier){
 		// Remove all events in scene 

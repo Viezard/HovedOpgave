@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: 0Sword
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  name: Sword
   image: {fileID: 21300000, guid: a7702b26d2389c94095c19c63def3d89, type: 3}
   apCost: 1
   normalDamage: 2

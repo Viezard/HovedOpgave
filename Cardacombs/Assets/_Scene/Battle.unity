@@ -349,14 +349,17 @@ MonoBehaviour:
   currentDeck: 
   currentDiscard: 
   currentBanished: 
-  currentEffects: 
+  currentEffects: []
   currentStage: 0
   currentApUsed: 0
   currentUtilityAP: 0
   currentApMax: 0
+  currentEquipmentArmor: []
+  currentEquipmentMelee: []
   currentEquimentDamage: 
   currentEquimentBrawl: 
   currentToughness: 0
+  currentNumberOfAttacks: 0
   currentPermenentSpiked: 0
   currentSpiked: 0
   currentBrawl: 0
@@ -364,6 +367,10 @@ MonoBehaviour:
   defenceText: {fileID: 2005087287}
   SpikedText: {fileID: 1251044469}
   maxHandSize: 0
+  mayPlayUtility: 0
+  mayPlayMelee: 0
+  mayPlayArmor: 0
+  HasLostTurn: 0
   card: {fileID: 1723813888653226, guid: 8a51e6e94739df04c8f63321d76bf352, type: 2}
   armor: {fileID: 1938618560324232, guid: dc67190f6afa5804284123bbe53a2c39, type: 2}
   weapon: {fileID: 1938618560324232, guid: 9e40d56ffb9164a489ce6bf609b7444d, type: 2}
@@ -1068,6 +1075,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 592403176}
+--- !u!1 &621285858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 621285860}
+  - component: {fileID: 621285859}
+  m_Layer: 0
+  m_Name: EffectDataBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &621285859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 621285858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a521323104b82f44b536f334057da92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - {fileID: 114467638607459624, guid: 7e3f67b72d6912d4593f7508d65acecf, type: 2}
+--- !u!4 &621285860
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 621285858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 489.03528, y: 312.91235, z: -8.125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &706035483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1228,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4802562230025526, guid: e25b57d141087fa489ae84234d4c178e, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1727320030044868, guid: e25b57d141087fa489ae84234d4c178e, type: 2}
       propertyPath: m_Name
@@ -1200,7 +1249,7 @@ Prefab:
     - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
         type: 2}
       propertyPath: fullDeck.Array.size
-      value: 18
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1243,17 +1292,17 @@ Prefab:
     - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
         type: 2}
       propertyPath: fullDeck.Array.data[15]
-      value: 3001
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
         type: 2}
       propertyPath: fullDeck.Array.data[16]
-      value: 3001
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
         type: 2}
       propertyPath: fullDeck.Array.data[17]
-      value: 3001
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
         type: 2}
@@ -1598,7 +1647,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547036570
 GameObject:

@@ -16,18 +16,18 @@ public class Sc_BattleManager : MonoBehaviour {
 	public static List<GameObject> currentHandObjects = new List<GameObject>(); // holdes the cards in your hand 
 	public List<int> currentDiscard = new List<int>(); // The cards you have in your discard
 	public List<int> currentBanished = new List<int>(); // The cards lost in this battle
-	public List<int> currentEffects = new List<int>(); // The effects currently in effect and how many turns they have left
+	public List<GameObject> currentEffects = new List<GameObject>(); // The effects currently in effect and how many turns they have left
 	public int currentStage; // Which stage your in 0 effect and draw 1 Play cards 2 end turn 
 	public int currentApUsed; // how much has been used
 	public int currentUtilityAP;
 	public int currentApMax; // What is the max ap for this turn  
-	public static List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
-	public static List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
+	public List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
+	public List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<int> currentEquimentDamage = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
 	public List<int> currentEquimentBrawl = new List<int>(); //  their brawl bonus
 	public int currentToughness;
 	private int currentTotalDefence; // how much defece the player as at this point 
-	private int currentNumberOfAttacks;
+	public int currentNumberOfAttacks;
 	private int currentNormalAttack;	// how much normal damage the players weapon are dealing totally this turn
 	private int currentBluntAttack; // Same just with blunt damage
 	private int currentPiercingAttack; // with piercing damage
@@ -39,6 +39,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	public Text defenceText;
 	public Text SpikedText;
 	public int maxHandSize; // The current max hand size the player has. 
+	// Effect realted varibles 
+
+	public bool mayPlayUtility;
+	public bool mayPlayMelee;
+	public bool mayPlayArmor;
+	public bool HasLostTurn;
 
 	public GameObject card; // getting the prefab of the card 
 	public GameObject armor;
@@ -49,6 +55,8 @@ public class Sc_BattleManager : MonoBehaviour {
 	public Text discardPile;
 	public Text DeckPile;
 	public Text BanishPile;
+
+
 
 	void Awake(){
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
@@ -82,6 +90,12 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentEquipmentMelee.Clear();
 		currentEquimentDamage.Clear();
 
+		// effect realted varibles
+		mayPlayUtility = true;
+		mayPlayMelee = true;
+		mayPlayArmor = true;
+		HasLostTurn = false;
+
 		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
@@ -105,9 +119,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	void StageManager () {
 		if (currentStage == 0){
-			
 			TurnStart();
-			
 		}
 		if (currentStage == 2){
 			monster.MonsterTurn();
@@ -117,19 +129,49 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 	}
 	public void TurnStart(){
+		// Resetting Varibles
+		currentApUsed = 0;
+		currentUtilityAP = gameManager.utilityAP;
+		currentNormalAttack = 0;
+		currentBluntAttack = 0;
+		currentPiercingAttack = 0;
+		currentNumberOfAttacks = 1;
+		for (int i = 0; i < currentEquipmentMelee.Count; i++){
+			Destroy(currentEquipmentMelee[i]);
+		}
+		currentEquipmentMelee.Clear();
+		mayPlayUtility = true;
+		mayPlayMelee = true;
+		mayPlayArmor = true;
+		HasLostTurn = false;
+
+		// Reset monster varibles
+		monster.chanceToHitSelf = 0;
+		monster.chanceToMiss = 0;
+		// Run all effects 
+		for (int i = 0; i < currentEffects.Count; i++){
+			Effect effect =  currentEffects[i].GetComponent<Effect>();
+			bool wasDestroyed = effect.StartEffect();
+			if (wasDestroyed){
+				i -=1;
+			}
+		}
+
+
+		// Draw a hand 
 		DrawHand();
 		if (currentToughness != 0){
 			HasToughness();
 		}	
-		monster.chanceToHitSelf = 0;
-		monster.chanceToMiss = 0;
-		if (currentStage != 10){
+		if (currentStage != 10 && HasLostTurn == false){
 			currentStage = 1;
+		} else if (HasLostTurn == true){
+			currentStage = 2;
 		}
-		
 	}
 	public void DrawHand() { // Used to draw a full hand 
 		for (int i = currentHandObjects.Count; i < maxHandSize ; i++){
+			print(i + "nået text" + currentHandObjects.Count);
 			Draw ();
 		}
 	}
@@ -172,20 +214,24 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 	}
 	public void PlayCard(int id){ // Play a card
-		print ("you just played " + id);
+		
 		currentDiscard.Add(id);
 		//currentHand.RemoveAt(randomCard);
-		print("The number of cards left in hand is " + currentHandObjects.Count);
 		if (id < 1000){ // If the card is a melee card 
 			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
 			Melee (id, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
+			print ("you just played " + card.name);
 		} else if (id < 2000){
 			SO_CardArmor card = cardDataBase.FindArmorCardByID(id);
 			Defence (id, card.armorBonus, card.spickedBonus);
+			print ("you just played " + card.name);
 		} else if (id < 3000){
+			CardUtility card = cardDataBase.FindUtilityCardByID(id);
+			print ("you just played " + card.name);
 			Utility(id);
 		} else if (id < 4000){
 			CardCurse card = cardDataBase.FindCurseCardByID(id);
+			print ("You got cursed by" + card.name);
 			card.PlayedFunction();
 		}
 	}
@@ -225,7 +271,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 
 	public void DamageCalc (int target,int lifeDrain = 0, int poison = 0, int blunt = 0, int damage = 0, int piercing = 0 ){ // Target player = 0  enemy = 1 
-		print(target + "Is being attacked");
+		if (target == 0){
+			print(" You are being attacked");
+		} else {
+			print("Monster Is being attacked");
+		}
+		
 		if (target == 0){ // if the target is the player 
 			if (currentTotalDefence <= 0){ // if the player has 0 defence 
 				if (lifeDrain > 0){ // If there is any life drain damage dealt 
@@ -420,12 +471,14 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void DiscardCards (int discard, bool isRandom){
 		if (isRandom == true){
 			for(int i = 0; i < discard; i++){
-				// get random card in hand 
-				int random = Random.Range(0, currentHandObjects.Count);
-				GameObject card = currentHandObjects[random];
-				Sc_Card cardScript =  card.GetComponent<Sc_Card>();
-				currentDiscard.Add(cardScript.cardID);
-				cardScript.DestroyCard();
+				if (currentHandObjects.Count > 0){
+					// get random card in hand 
+					int random = Random.Range(0, currentHandObjects.Count);
+					GameObject card = currentHandObjects[random];
+					Sc_Card cardScript =  card.GetComponent<Sc_Card>();
+					currentDiscard.Add(cardScript.cardID);
+					cardScript.DestroyCard();
+				}
 			}
 		}
 	}
@@ -475,8 +528,6 @@ public class Sc_BattleManager : MonoBehaviour {
 		if (currentStage != 10){
 			currentStage = 2;
 		}
-		currentApUsed = 0;
-		currentUtilityAP = gameManager.utilityAP;
 		for (int i = 0; i < currentNumberOfAttacks; i++){
 			if (currentNormalAttack + currentBluntAttack + currentPiercingAttack + currentPoisonttack > 0 ){
 				DamageCalc(target: 1, damage: currentNormalAttack, blunt: currentBluntAttack, piercing: currentPiercingAttack, poison: currentPoisonttack);
@@ -484,15 +535,6 @@ public class Sc_BattleManager : MonoBehaviour {
 				DamageCalc(target: 1, damage: currentBrawl);
 			}	
 		}
-		
-		currentNormalAttack = 0;
-		currentBluntAttack = 0;
-		currentPiercingAttack = 0;
-		currentNumberOfAttacks = 1;
-		for (int i = 0; i < currentEquipmentMelee.Count; i++){
-			Destroy(currentEquipmentMelee[i]);
-		}
-		currentEquipmentMelee.Clear();
         SaveDataManager.saveData.date = System.DateTime.Now.ToShortDateString();
         SaveDataManager.saveData.time = System.DateTime.Now.ToShortTimeString();
         SaveDataManager.SaveGameData();

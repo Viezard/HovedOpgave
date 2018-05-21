@@ -21,6 +21,7 @@ public class Sc_Card : MonoBehaviour {
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
 
 
+
 		yPosition = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
@@ -46,7 +47,6 @@ public class Sc_Card : MonoBehaviour {
 			CardCurse card = cardDataBase.FindCurseCardByID(cardID);
 			apCost = card.apCost;
 			backgroundSR.sprite = card.image;
-			OnMouseDown();
 		}
 
 		
@@ -56,6 +56,10 @@ public class Sc_Card : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		PositionCard();
+		if ( cardID < 4000 && cardID >= 3000){
+			OnMouseDown();
+			battleManager.Draw();
+		}
 	}
 
 	void PositionCard() {
@@ -91,18 +95,17 @@ public class Sc_Card : MonoBehaviour {
 		}
 	}
 	void OnMouseDown(){
-		print(battleManager.currentApUsed + " og max er " + battleManager.currentApMax);
-		print("apcost =" + apCost + "utilityAp =" + battleManager.currentUtilityAP );
-		if (cardID > 1999 && cardID < 3000 && battleManager.currentUtilityAP - apCost >= 0){ // Utility AP only 
-			battleManager.PlayCard(cardID);
-			battleManager.currentUtilityAP -= apCost;
-			DestroyCard();
-		} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
-			battleManager.PlayCard(cardID);
-			battleManager.currentApUsed += apCost;
-			DestroyCard();
+		if ((cardID < 1000 && battleManager.mayPlayMelee) || (cardID < 2000 && cardID >= 1000 && battleManager.mayPlayArmor)||(cardID < 3000 && cardID >= 2000 && battleManager.mayPlayUtility)|| cardID > 1999 ){
+			if (cardID > 1999 && cardID < 3000 && battleManager.currentUtilityAP - apCost >= 0){ // Utility AP only 
+				battleManager.PlayCard(cardID);
+				battleManager.currentUtilityAP -= apCost;
+				DestroyCard();
+			} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
+				battleManager.PlayCard(cardID);
+				battleManager.currentApUsed += apCost;
+				DestroyCard();
+			}
 		}
-		
 	}
 
 	public bool IsEven (float number){ // checks if a float is even or odd 

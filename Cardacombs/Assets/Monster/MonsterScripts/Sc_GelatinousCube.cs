@@ -4,38 +4,25 @@ using UnityEngine;
 
 public class Sc_GelatinousCube : MonsterClass {
 	public override void MonsterTurn (){
-		Bite();
-		int random = Random.Range(0,2);
-		if (random == 0){
-			RatDefence();
-		} else {
-			RatStorm();
-		}
+		Consume();
+		Slam();
 
 		battleManager.currentStage = 0;
 	}
 
-	public void Bite() {
-		damage = 2;
-		poison = 1;
-		for (int i = 0; i < debuffed; i++){
-			if(damage > 0){
-				damage -=1;
-			} else if (0 < poison){
-				poison -= 1;
-			}
-		}
-		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
-		battleManager.DamageCalc(target: 0, damage: damage, poison: poison);
+	public void Consume() {
+		defence += battleManager.currentEquipmentArmor.Count;
+		damage += battleManager.currentEquipmentMelee.Count;
+		print("Gelatinous Cube used Consume and it's attack became " + damage);
 	}
-	public void RatStorm(){
-		damage = 1;
-		battleManager.DamageCalc(target: 0, damage: damage);
+	public void Slam(){
+		print("Gelatinous Cube used Slam");
+		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
+		int target = FindTarget ();
+		battleManager.DamageCalc(target: target, damage: damage);
 	}
 
-	public void RatDefence(){
-		defence += 1;
-	}
+
 	public override void MonsterStart (){
 
 	}

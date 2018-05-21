@@ -735,6 +735,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
+        type: 2}
+      propertyPath: fullDeck.Array.size
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
       propertyPath: m_LocalPosition.x
       value: 601.124
@@ -776,6 +781,21 @@ Prefab:
         type: 2}
       propertyPath: utilityAP
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
+        type: 2}
+      propertyPath: fullDeck.Array.data[15]
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
+        type: 2}
+      propertyPath: fullDeck.Array.data[16]
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
+        type: 2}
+      propertyPath: fullDeck.Array.data[17]
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
@@ -1093,6 +1113,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114458179660720366, guid: 676bd3af348315a45b413da60da59edc,
+        type: 2}
+      propertyPath: TierTwoMonster.Array.data[0]
+      value: 
+      objectReference: {fileID: 1727320030044868, guid: bbd1ddea50719a14391e76c2da0a9ff2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 676bd3af348315a45b413da60da59edc, type: 2}
   m_IsPrefabParent: 0
@@ -1324,4 +1350,5 @@ MonoBehaviour:
   lostCards: {fileID: 1337488639}
   fullCards: {fileID: 1455363476}
   fab_Event: {fileID: 1984370542820502, guid: 7772de317a6e3af4facb796132a43973, type: 2}
+  firstEvent: 0
   eventDiscription: {fileID: 2099064491}

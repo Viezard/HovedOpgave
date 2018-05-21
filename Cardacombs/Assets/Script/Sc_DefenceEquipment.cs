@@ -39,8 +39,8 @@ public class Sc_DefenceEquipment : MonoBehaviour {
 		battleManager.currentSpiked += card.spickedBonus;
 		battleManager.currentBrawl += card.brawl;
 
-		Sc_BattleManager.currentEquipmentArmor.Add(this.gameObject); // Add it to the array which holds all card objects 
-		placementInEquipent = Sc_BattleManager.currentEquipmentArmor.Count; // Saves is place in the array 
+		battleManager.currentEquipmentArmor.Add(this.gameObject); // Add it to the array which holds all card objects 
+		placementInEquipent = battleManager.currentEquipmentArmor.Count; // Saves is place in the array 
 		Vector3 newPosition = new Vector3 (7.9f + 1.3f * placementInEquipent, 2.8f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 	}
