@@ -9,6 +9,8 @@ public abstract class MonsterClass : MonoBehaviour {
 	public int tier;
 	public int health = 0;
 	public int maxHealth = 0;
+	[HideInInspector] public int chanceToMiss = 0;
+	[HideInInspector] public int chanceToHitSelf = 0;
 	[HideInInspector] public Text healthText;
 	public int defence = 0;
 	[HideInInspector] public Text defenceText;
@@ -38,6 +40,23 @@ public abstract class MonsterClass : MonoBehaviour {
 	void Update () {
 		
 	}
-
+	public int FindTarget () {
+		// Does it attack 
+		int random = Random.Range(0, 100);
+		if (random > chanceToMiss){
+			random = Random.Range(0, 100);
+			if (random > chanceToHitSelf){
+				return 0;
+			} else {
+				return 1;
+			}
+		} else {
+			return -2;
+		}
+	}
+	public void UpdateText(){
+		healthText.text = "" + health;
+		defenceText.text = "" + defence;
+	}
 	
 }

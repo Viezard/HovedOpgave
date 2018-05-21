@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfde8e597f9090e4daf63b1d8adc7aed, type: 3}
+  m_Name: 4FishingPond
+  m_EditorClassIdentifier: 
+  eventID: 4
+  numberOfEvents: 3
+  eventName: Fishing Pond
+  eventDecription: As you come aross a small river, you chosse to sit down tak a break
+    and fish i little. What did you catch?
+  decriptionFirstEvent: Sword Fish
+  cardsFirstEvent: 0a000000
+  decriptionSecondEvent: StarFish
+  cardsSecondEvent: de070000
+  decriptionThirdEvent: BlowFish
+  cardsThirdEvent: df070000

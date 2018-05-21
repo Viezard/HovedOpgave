@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620126d8842441c40a3252f8ea8d537e, type: 3}
+  m_Name: 1BlessingFromTheGods
+  m_EditorClassIdentifier: 
+  eventID: 101
+  numberOfEvents: 2
+  eventName: Blessing From The Gods
+  eventDecription: You enter an alter to a forgotten god, you hear a voice "what do
+    you seek"
+  decriptionFirstEvent: Power
+  cardsFirstEvent: 
+  decriptionSecondEvent: Protection
+  cardsSecondEvent: 
+  decriptionThirdEvent: 
+  cardsThirdEvent: 
+  firstBonus: 1
+  firstBonusToo: UtilityAP
+  secondBonus: 3
+  secondBonusToo: Defence
+  thirdBonus: 0
+  thirdBonusToo: 

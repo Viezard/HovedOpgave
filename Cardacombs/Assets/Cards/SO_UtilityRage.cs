@@ -11,6 +11,8 @@ public class SO_UtilityRage : CardUtility {
 	public override void PlayedFunction (){
 		Sc_BattleManager battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
 		battleManager.currentRage += rage;
+		if (selfDamage != 0){
+			battleManager.DamageCalc(target: 0, damage:selfDamage);
+		}
 	}
-
 }

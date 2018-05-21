@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfde8e597f9090e4daf63b1d8adc7aed, type: 3}
+  m_Name: 0TheKnight
+  m_EditorClassIdentifier: 
+  eventID: 0
+  numberOfEvents: 3
+  eventName: The Dead Knight
+  eventDecription: You find a murded knight, laying dead in an empty room
+  decriptionFirstEvent: Take his Helmet
+  cardsFirstEvent: ed030000
+  decriptionSecondEvent: Take is Sword
+  cardsSecondEvent: 04000000
+  decriptionThirdEvent: Take the rest
+  cardsThirdEvent: ee03000005000000

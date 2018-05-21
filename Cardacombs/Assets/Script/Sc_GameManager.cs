@@ -12,15 +12,15 @@ public class Sc_GameManager : MonoBehaviour {
 	public List<int> eventsDone = new List<int>(); // A list of all the events which the player allready have done
 	public List<int> monsterDone = new List<int>(); // A list of all the monsters the player has defeated 
 	public GameObject currentMonster;
+	public int startingDefence = 0;
+	public int utilityAP = 0;
 	public int slayCount; // The number of monsters slay 
 	public static int isCreated = 0;
 	public int currentEvent; // The ID of the current event 
 	public List<int> lostCards = new List<int>(); // A list of all the cards which the player has lost
 
 	void Awake()
-	{
-		monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
-		
+	{		
 		if (isCreated == 0){
 			GameObject.DontDestroyOnLoad(gameObject);
 			isCreated = 1;
@@ -31,12 +31,15 @@ public class Sc_GameManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		
+		monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
 		currentMonster = monsterDataBase.IntroMonster[0]; 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (monsterDataBase == null){
+			monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
+		}
 	}
 
     void SaveGame()

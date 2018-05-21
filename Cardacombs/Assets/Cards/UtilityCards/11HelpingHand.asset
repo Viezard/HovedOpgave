@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9823fa06ff38e484b947cc0c9232579a, type: 3}
+  m_Name: 11HelpingHand
+  m_EditorClassIdentifier: 
+  id: 2011
+  name: HelpingHand
+  image: {fileID: 21300000, guid: f883a79641021634ea7defedf7170cd4, type: 3}
+  apCost: 0
+  apBonus: 1

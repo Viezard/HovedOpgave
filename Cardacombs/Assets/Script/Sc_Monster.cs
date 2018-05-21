@@ -28,6 +28,4 @@ public class Sc_Monster : MonoBehaviour {
 	void Update () {
 		
 	}
-
-	
 }

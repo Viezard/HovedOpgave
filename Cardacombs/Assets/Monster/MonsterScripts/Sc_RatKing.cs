@@ -11,8 +11,10 @@ public class Sc_RatKing : MonsterClass {
 		} else {
 			RatStorm();
 		}
-
-		battleManager.currentStage = 0;
+		if(battleManager.currentStage != 10){
+			battleManager.currentStage = 0;
+		}
+		
 	}
 
 	public void Bite() {
@@ -25,16 +27,19 @@ public class Sc_RatKing : MonsterClass {
 				poison -= 1;
 			}
 		}
+		int target = FindTarget ();
 		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
-		battleManager.DamageCalc(target: 0, damage: damage, poison: poison);
+		battleManager.DamageCalc(target: target, damage: damage, poison: poison);
 	}
 	public void RatStorm(){
 		damage = 1;
-		battleManager.DamageCalc(target: 0, damage: damage);
+		int target = FindTarget ();
+		battleManager.DamageCalc(target: target, damage: damage);
 	}
 
 	public void RatDefence(){
 		defence += 1;
+		UpdateText();
 	}
 	public override void MonsterStart (){
 

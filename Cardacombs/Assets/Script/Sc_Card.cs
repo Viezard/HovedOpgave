@@ -17,9 +17,16 @@ public class Sc_Card : MonoBehaviour {
 	
 
 	void Start(){
-
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
+
+
+		yPosition = 0.5f;
+		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
+		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
+		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
+		this.transform.position = newPosition;
+
 		// Set the background of the card
 		background = this.gameObject.transform.GetChild(0).gameObject;
 		SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
@@ -35,13 +42,14 @@ public class Sc_Card : MonoBehaviour {
 			CardUtility card = cardDataBase.FindUtilityCardByID(cardID);
 			apCost = card.apCost;
 			backgroundSR.sprite = card.image;
+		} else if (cardID < 4000){
+			CardCurse card = cardDataBase.FindCurseCardByID(cardID);
+			apCost = card.apCost;
+			backgroundSR.sprite = card.image;
+			OnMouseDown();
 		}
 
-		yPosition = 0.5f;
-		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
-		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
-		this.transform.position = newPosition;
+		
 		// Get other components 
 	}
 	
@@ -83,11 +91,16 @@ public class Sc_Card : MonoBehaviour {
 		}
 	}
 	void OnMouseDown(){
-
-		if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
-		battleManager.PlayCard(cardID);
-		battleManager.currentApUsed += apCost;
-		DestroyCard();
+		print(battleManager.currentApUsed + " og max er " + battleManager.currentApMax);
+		print("apcost =" + apCost + "utilityAp =" + battleManager.currentUtilityAP );
+		if (cardID > 1999 && cardID < 3000 && battleManager.currentUtilityAP - apCost >= 0){ // Utility AP only 
+			battleManager.PlayCard(cardID);
+			battleManager.currentUtilityAP -= apCost;
+			DestroyCard();
+		} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
+			battleManager.PlayCard(cardID);
+			battleManager.currentApUsed += apCost;
+			DestroyCard();
 		}
 		
 	}
@@ -115,5 +128,4 @@ public class Sc_Card : MonoBehaviour {
 		}
 		Destroy(this.gameObject);
 	}
-
 }

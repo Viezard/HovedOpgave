@@ -9,5 +9,6 @@ public class SO_CardArmor : ScriptableObject {
 	public int apCost;
 	public int armorBonus;
 	public int spickedBonus;
+	public int brawl;
 
 }

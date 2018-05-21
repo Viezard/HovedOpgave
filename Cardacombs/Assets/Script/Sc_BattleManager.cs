@@ -17,23 +17,25 @@ public class Sc_BattleManager : MonoBehaviour {
 	public List<int> currentDiscard = new List<int>(); // The cards you have in your discard
 	public List<int> currentBanished = new List<int>(); // The cards lost in this battle
 	public List<int> currentEffects = new List<int>(); // The effects currently in effect and how many turns they have left
-	public int currentTurns; // The number of turns which as past in the current battle
-	public bool currentTurnHolder; // Keeps track on how turn it is True equals Player and False equals Monster
 	public int currentStage; // Which stage your in 0 effect and draw 1 Play cards 2 end turn 
-	public List<int> currentmonsterStat = new List<int>(); // Keeps track of the monsters Life, defence and damage 
 	public int currentApUsed; // how much has been used
+	public int currentUtilityAP;
 	public int currentApMax; // What is the max ap for this turn  
 	public static List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
 	public static List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<int> currentEquimentDamage = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
-	public List<int> currentEquimentspiked = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
-	private int currentTotalDefence; 
-	private int currentNormalAttack;
-	private int currentBluntAttack;
-	private int currentPiercingAttack;
-	private int currentPoisonttack;
-	public int currentSpiked;
-	public int currentRage;
+	public List<int> currentEquimentBrawl = new List<int>(); //  their brawl bonus
+	public int currentToughness;
+	private int currentTotalDefence; // how much defece the player as at this point 
+	private int currentNumberOfAttacks;
+	private int currentNormalAttack;	// how much normal damage the players weapon are dealing totally this turn
+	private int currentBluntAttack; // Same just with blunt damage
+	private int currentPiercingAttack; // with piercing damage
+	private int currentPoisonttack; // With Poision damage 
+	public int currentPermenentSpiked;
+	public int currentSpiked; // What is total spike damage is right now
+	public int currentBrawl;  // How much damage he deal if he does not have a weapon 
+	public int currentRage; // How much extre damage every weapon deals 
 	public Text defenceText;
 	public Text SpikedText;
 	public int maxHandSize; // The current max hand size the player has. 
@@ -64,18 +66,21 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentStage = 0;
 		currentApMax = 2; 
 		currentApUsed = 0; 
-		currentTotalDefence = 0; 
+		currentUtilityAP = gameManager.utilityAP;
+		currentTotalDefence = gameManager.startingDefence; 
+		currentToughness = 0;
 		currentNormalAttack = 0;
 		currentBluntAttack = 0;
 		currentPiercingAttack = 0;
 		currentPoisonttack = 0;
 		currentSpiked = 0;
+		currentNumberOfAttacks = 1;
+		currentPermenentSpiked = 0;
 		currentRage = 0;
 		currentHandObjects.Clear();
 		currentEquipmentArmor.Clear();
 		currentEquipmentMelee.Clear();
 		currentEquimentDamage.Clear();
-		currentEquimentspiked.Clear();
 
 		
 		// Setting player related text
@@ -83,9 +88,6 @@ public class Sc_BattleManager : MonoBehaviour {
 		// Add some random cards to deck 
 		for (int i = 0; i < gameManager.fullDeck.Count; i++){
 			currentDeck.Add(gameManager.fullDeck[i]);
-		}
-		for (int i = 0; i < currentDeck.Count; i++){
-			print ("number " + i + "In Deck is " + currentDeck[i]);
 		}
 		// Shuffle the deck 
 		ShuffleDeck();
@@ -95,7 +97,6 @@ public class Sc_BattleManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CalcSpiked();
 		SpikedText.text = "" + currentSpiked;
 		discardPile.text = currentDiscard.Count + " in the discard pile";
 		DeckPile.text = currentDeck.Count + " in the deck pile";
@@ -104,8 +105,9 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	void StageManager () {
 		if (currentStage == 0){
-			DrawHand();
-			currentStage = 1;
+			
+			TurnStart();
+			
 		}
 		if (currentStage == 2){
 			monster.MonsterTurn();
@@ -114,12 +116,21 @@ public class Sc_BattleManager : MonoBehaviour {
 			BattleWon();
 		}
 	}
+	public void TurnStart(){
+		DrawHand();
+		if (currentToughness != 0){
+			HasToughness();
+		}	
+		monster.chanceToHitSelf = 0;
+		monster.chanceToMiss = 0;
+		if (currentStage != 10){
+			currentStage = 1;
+		}
+		
+	}
 	public void DrawHand() { // Used to draw a full hand 
 		for (int i = currentHandObjects.Count; i < maxHandSize ; i++){
 			Draw ();
-		}
-		for (int i = 0; i < currentDeck.Count ; i++){
-			print ( i + "In Deck is " + currentDeck[i]);
 		}
 	}
 	public void DrawSomeCards(int toDraw){ // draws a set number of cards from the deck 
@@ -130,13 +141,11 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
-			print("added " + currentDeck[0] + " To hand");
 			GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
 			Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 			newCardScript.cardID = currentDeck[0];
 			currentDeck.RemoveAt(0);
 			} else if (currentDiscard.Count > 0) { // If there are no more cards in the deck, but there are cards in the dicards pile, the discard pile will become the deck and the deck will be shuffled 
-				print("Dicard pile is being shuffled into deck");
 				for (int i = 0; i < currentDiscard.Count; i++){
 					currentDeck.Add(currentDiscard[i]);
 				}
@@ -174,8 +183,10 @@ public class Sc_BattleManager : MonoBehaviour {
 			SO_CardArmor card = cardDataBase.FindArmorCardByID(id);
 			Defence (id, card.armorBonus, card.spickedBonus);
 		} else if (id < 3000){
-			
 			Utility(id);
+		} else if (id < 4000){
+			CardCurse card = cardDataBase.FindCurseCardByID(id);
+			card.PlayedFunction();
 		}
 	}
 
@@ -185,8 +196,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	currentBluntAttack += blunt;
 	currentPiercingAttack += piercing;
 	currentPoisonttack += poison;
-	print("helloooooo");
-	
+
 	GameObject newEquipment = (GameObject)Instantiate (weapon, transform.position, transform.rotation);
 	Sc_MeleeEquipment newCardScript =  newEquipment.GetComponent<Sc_MeleeEquipment>();
 	newCardScript.id = id;
@@ -197,14 +207,12 @@ public class Sc_BattleManager : MonoBehaviour {
 		card.PlayedFunction();
 	}
 	public void Defence(int id, int defence, int spiked) {
-		print("" + spiked);
 		currentTotalDefence += defence; 
 		GameObject newEquipment = (GameObject)Instantiate (armor, transform.position, transform.rotation);
 		Sc_DefenceEquipment newCardScript =  newEquipment.GetComponent<Sc_DefenceEquipment>();
 		newCardScript.id = id;
 		defenceText.text = "" + currentTotalDefence;
 		currentEquimentDamage.Add(defence);
-		currentEquimentspiked.Add(spiked);
 	}
 
 	public void ShuffleDeck(){ // Shuffleling the deck useing the Fisher Yates Shuffle
@@ -214,12 +222,9 @@ public class Sc_BattleManager : MonoBehaviour {
 			currentDeck[i] = currentDeck[j];
 			currentDeck[j] = temp;
 		}
-		for (int i = 0; i < currentDeck.Count ; i++){
-			print ( i + "In Deck is " + currentDeck[i]);
-		}
 	}
 
-	public void DamageCalc (int target,int lifeDrain = 0, int poison = 0, int blunt = 0, int damage = 0, int piercing = 0 ){ // Target 0 = player 1 = enemy
+	public void DamageCalc (int target,int lifeDrain = 0, int poison = 0, int blunt = 0, int damage = 0, int piercing = 0 ){ // Target player = 0  enemy = 1 
 		print(target + "Is being attacked");
 		if (target == 0){ // if the target is the player 
 			if (currentTotalDefence <= 0){ // if the player has 0 defence 
@@ -283,16 +288,18 @@ public class Sc_BattleManager : MonoBehaviour {
 					currentTotalDefence -= 1;
 					damageDealt = 1;
 					defenceText.text = "" + currentTotalDefence;
-					currentEquimentDamage[0] -=1;
-					if (currentEquimentDamage[0] <= 0){
-						Destroy(currentEquipmentArmor[0]);
-						currentEquipmentArmor.RemoveAt(0);
-						currentEquimentDamage.RemoveAt(0);
-						currentEquimentspiked.RemoveAt(0);
-						GameObject[] _armor = GameObject.FindGameObjectsWithTag("Armor");
-						for (int j = 0; j < _armor.Length; j++){
-							Sc_DefenceEquipment otherScript = _armor[j].GetComponent<Sc_DefenceEquipment>();
-							otherScript.placementInEquipent -= 1;
+					if (currentEquipmentArmor.Count > 0){
+						Sc_DefenceEquipment ArmorScript =  currentEquipmentArmor[0].GetComponent<Sc_DefenceEquipment>();
+						ArmorScript.defence -=1;
+						ArmorScript.UpdateText();
+						if (ArmorScript.defence <= 0){
+							Destroy(currentEquipmentArmor[0]);
+							currentEquipmentArmor.RemoveAt(0);
+							GameObject[] _armor = GameObject.FindGameObjectsWithTag("Armor");
+							for (int j = 0; j < _armor.Length; j++){
+								Sc_DefenceEquipment otherScript = _armor[j].GetComponent<Sc_DefenceEquipment>();
+								otherScript.placementInEquipent -= 1;
+							}
 						}
 					}
 				}
@@ -328,28 +335,27 @@ public class Sc_BattleManager : MonoBehaviour {
 			}
 		}
 	}
-	public void Healing(int healing) {
-		print("number of cards in banish pile " + currentBanished.Count);
-		print("number of cards in Discard pile " + currentDiscard.Count);
+	public void Healing(int maxHealth, int minHealth, int chance) {
+		int healing = 0;
+		int random = Random.Range(0, 100);
+		if (chance > random){
+			healing = maxHealth;
+		} else {
+			healing = minHealth;
+		}
 		for (int i = 0; i < healing; i++){
 			if (currentBanished.Count > 0){
-				int random = Random.Range(0, currentBanished.Count - 1);
+				random = Random.Range(0, currentBanished.Count - 1);
 				currentDiscard.Add(currentBanished[random]);
 				currentBanished.RemoveAt(random);
 			}
 		}
-		print("number of cards in banish pile " + currentBanished.Count);
-		print("number of cards in Discard pile " + currentDiscard.Count);
-	}
-	public void CalcSpiked () {
-		currentSpiked = 0;
-		for (int i = 0; i < currentEquimentspiked.Count; i++){
-			currentSpiked += currentEquimentspiked[i];
-		}
+
 	}
 
 	public void BattleWon () {
 		if (Input.GetMouseButtonDown(0)){
+			gameManager.slayCount += 1;
 			ExitBattle();
 			levelManager.ChangeSceneTo("Navigation");
 		}
@@ -357,15 +363,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void ExitBattle() {
 		gameManager.fullDeck.Clear();
 		for (int i = 0; i < currentDeck.Count; i++){
-			print("Card added from deck");
 			gameManager.fullDeck.Add(currentDeck[i]);
 		}
 		for (int i = 0; i < currentDiscard.Count; i++){
-			print("Card added from Discard");
 			gameManager.fullDeck.Add(currentDiscard[i]);
 		}
 		for (int i = 0; i < currentHandObjects.Count; i++){
-			print("Card added from Hand");
 			GameObject card = currentHandObjects[i];
 			Sc_Card cardScript = card.GetComponent<Sc_Card>();
 			gameManager.fullDeck.Add(cardScript.cardID);
@@ -388,8 +391,15 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 	}
 
-	public void Debuff(int debuff) {
+	public void Debuff(int debuff, int chanceDecreaseDamage, bool cantHit, int chanceCantHit, bool hitSelf, int chanceHitself) {
+
 		monster.debuffed += debuff;
+		if (cantHit == true) {
+			monster.chanceToMiss = chanceCantHit;
+		}
+		if (hitSelf == true){
+			monster.chanceToHitSelf = chanceHitself;
+		}
 	}
 
 	public void DrawCards(int draw, int discard, bool isRandom, bool afterOrBefore ){
@@ -423,14 +433,62 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void BonusAP (int apBonus){
 		currentApUsed -=1; 
 	}
-
+	public void Buffing (int toughness, int spiked){
+		if (toughness != 0){
+			currentToughness += toughness;
+			HasToughness();
+		}
+		if (spiked != 0){
+			currentSpiked += spiked;
+		}
+	}
+	public void HasToughness(){ // is runned if you have toughnees and checks if it as a toughness card to update, or if it has to make one. 
+		bool toughnessIsInPlay = false;
+		int toughnessPlace = 0;
+		for (int i = 0; i < currentEquipmentArmor.Count; i++){
+			GameObject card = currentEquipmentArmor[i];
+			Sc_DefenceEquipment cardScript =  card.GetComponent<Sc_DefenceEquipment>();
+			if (cardScript.id == -10){
+				toughnessIsInPlay = true;
+				toughnessPlace = i;
+			}
+		}
+		if (toughnessIsInPlay == true){
+			GameObject card = currentEquipmentArmor[toughnessPlace];
+			Sc_DefenceEquipment cardScript =  card.GetComponent<Sc_DefenceEquipment>();
+			currentTotalDefence += currentToughness - cardScript.defence;
+			cardScript.UpdateToughness();
+			
+		} else {
+			GameObject newEquipment = (GameObject)Instantiate (armor, transform.position, transform.rotation);
+			Sc_DefenceEquipment CardScript =  newEquipment.GetComponent<Sc_DefenceEquipment>();
+			CardScript.id = -10;
+			currentTotalDefence += currentToughness;
+			CardScript.UpdateToughness();
+		}
+		defenceText.text = "" + currentTotalDefence;
+	}
+	public void ExtraAttacks(int extraAttacks) {
+		currentNumberOfAttacks += extraAttacks;
+	}
 	public void EndTurn () {
-		currentStage = 2;
+		if (currentStage != 10){
+			currentStage = 2;
+		}
 		currentApUsed = 0;
-		DamageCalc(target: 1, damage: currentNormalAttack, blunt: currentBluntAttack, piercing: currentPiercingAttack, poison: currentPoisonttack);
+		currentUtilityAP = gameManager.utilityAP;
+		for (int i = 0; i < currentNumberOfAttacks; i++){
+			if (currentNormalAttack + currentBluntAttack + currentPiercingAttack + currentPoisonttack > 0 ){
+				DamageCalc(target: 1, damage: currentNormalAttack, blunt: currentBluntAttack, piercing: currentPiercingAttack, poison: currentPoisonttack);
+			} else {
+				DamageCalc(target: 1, damage: currentBrawl);
+			}	
+		}
+		
 		currentNormalAttack = 0;
 		currentBluntAttack = 0;
 		currentPiercingAttack = 0;
+		currentNumberOfAttacks = 1;
 		for (int i = 0; i < currentEquipmentMelee.Count; i++){
 			Destroy(currentEquipmentMelee[i]);
 		}

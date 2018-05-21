@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfde8e597f9090e4daf63b1d8adc7aed, type: 3}
+  m_Name: 3GambelingDeen
+  m_EditorClassIdentifier: 
+  eventID: 103
+  numberOfEvents: 3
+  eventName: Gambeling Deen
+  eventDecription: You enter a large dark dome like room in the dungeon. It seems
+    filt with life. Monsters and heroes gambeling and having fun every where.
+  decriptionFirstEvent: Win over a Alkymist
+  cardsFirstEvent: e3070000
+  decriptionSecondEvent: Win over a Tinker
+  cardsSecondEvent: e4070000
+  decriptionThirdEvent: Win over a Smuggler
+  cardsThirdEvent: e5070000

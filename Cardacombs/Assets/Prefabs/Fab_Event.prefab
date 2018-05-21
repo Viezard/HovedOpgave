@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114742413766309118}
   m_Layer: 0
   m_Name: Fab_Event
-  m_TagString: Untagged
+  m_TagString: Event
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,6 +117,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -151,6 +152,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -250,6 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7cbd20326b5584aa9edfefe43c0621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManger: {fileID: 0}
+  navigationManager: {fileID: 0}
   Eventid: 0
   OptionNumber: 0
   title: {fileID: 0}
@@ -267,6 +271,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
