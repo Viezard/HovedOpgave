@@ -141,14 +141,14 @@ public class Sc_NavigationManager : MonoBehaviour {
 
 		for (int i = 0; i < aEvent.numberOfEvents; i++){
 			if (aEvent.numberOfEvents != 2){
-				Vector3 newPostion = new Vector3 (transform.position.x - 5 + (i * 5), transform.position.y - 1, transform.position.z);
+				Vector3 newPostion = new Vector3 (transform.position.x - 2 + (i * 2), transform.position.y - 1, transform.position.z);
 				GameObject newOption = (GameObject)Instantiate (fab_Event, newPostion, transform.rotation);
 				Sc_Event newOptionScript =  newOption.GetComponent<Sc_Event>();
 				newOptionScript.Eventid = id;
 				newOptionScript.OptionNumber = i;
 				print("hollooo " + i);
 			} else {
-				Vector3 newPostion = new Vector3 (transform.position.x - 2.5f + (i * 5f), transform.position.y - 1, transform.position.z);
+				Vector3 newPostion = new Vector3 (transform.position.x - 1f + (i * 2f), transform.position.y - 1, transform.position.z);
 				GameObject newOption = (GameObject)Instantiate (fab_Event, newPostion, transform.rotation);
 				Sc_Event newOptionScript =  newOption.GetComponent<Sc_Event>();
 				newOptionScript.Eventid = id;

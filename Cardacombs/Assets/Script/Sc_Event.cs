@@ -19,26 +19,25 @@ public class Sc_Event : MonoBehaviour {
 		currentEvent = eventDataBase.FindEventByID(Eventid);
 		title = this.gameObject.transform.GetChild(0).gameObject;
 		numberOfCards = this.gameObject.transform.GetChild(1).gameObject;
-
+		TextMesh titleText = title.GetComponent<TextMesh>();
 		if (OptionNumber == 0){
-			TextMesh titleText = title.GetComponent<TextMesh>();
+			
 			titleText.text = currentEvent.decriptionFirstEvent;
 
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsFirstEvent.Count + "";
 		} else if (OptionNumber == 1){
-			TextMesh titleText = title.GetComponent<TextMesh>();
 			titleText.text = currentEvent.decriptionSecondEvent;
 
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsSecondEvent.Count + "";
 		} else if (OptionNumber == 2){
-			TextMesh titleText = title.GetComponent<TextMesh>();
 			titleText.text = currentEvent.decriptionThirdEvent;
 
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsThirdEvent.Count + "";
 		}
+		titleText.text.Replace("\\n","\n");
 		
 	}
 	

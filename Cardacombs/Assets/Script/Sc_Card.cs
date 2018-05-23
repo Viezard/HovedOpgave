@@ -25,7 +25,7 @@ public class Sc_Card : MonoBehaviour {
 		yPosition = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
+		Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 
 		// Set the background of the card
@@ -67,29 +67,29 @@ public class Sc_Card : MonoBehaviour {
 		if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
 			if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
 				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
-				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
+				float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 0.6f;
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
 				this.transform.position = newPosition;
 			} else { // if it was to the right 
 				float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
-				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
+				float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 0.6f;
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
 				this.transform.position = newPosition;
 			}
 		} else { // If the number of cards or odd 
 			if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
 				float newXPosition = 7.5f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
 				this.transform.position = newPosition;
 			} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
 				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
-				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
+				float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 1.1f;
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
 				this.transform.position = newPosition;
 			} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
 				float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
-				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
+				float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 1.1f;
+				Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
 				this.transform.position = newPosition;
 			}
 		}

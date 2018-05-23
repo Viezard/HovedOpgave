@@ -16,11 +16,17 @@ MonoBehaviour:
   eventName: Garbege Bin
   eventDecription: You find a Garbage Bin filled with stuff other adventures has cast
     away
-  decriptionFirstEvent: Take a small healing pouche
+  decriptionFirstEvent: 'Take a small
+
+    healing pouche'
   cardsFirstEvent: d5070000d5070000
-  decriptionSecondEvent: Take a Recycle Bottle
+  decriptionSecondEvent: 'Take a
+
+    Recycle Bottle'
   cardsSecondEvent: d6070000
-  decriptionThirdEvent: 'Ov is that not my ... '
+  decriptionThirdEvent: 'Ov
+
+    is that not my ... '
   cardsThirdEvent: 
   firstNumberRestore: 0
   secondNumberRestore: 0

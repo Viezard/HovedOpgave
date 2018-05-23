@@ -15,9 +15,15 @@ MonoBehaviour:
   numberOfEvents: 3
   eventName: A Body of Someone unLucky
   eventDecription: You find the body of some one with a rake handle though his face
-  decriptionFirstEvent: You take some of his scrolls
+  decriptionFirstEvent: 'You take
+
+    some of his scrolls'
   cardsFirstEvent: dd070000b80b0000
-  decriptionSecondEvent: 'You take his dagger '
+  decriptionSecondEvent: 'You take
+
+    his dagger '
   cardsSecondEvent: 09000000
-  decriptionThirdEvent: You take some of his utilities
+  decriptionThirdEvent: 'You take
+
+    some of his utilities'
   cardsThirdEvent: b90b0000
