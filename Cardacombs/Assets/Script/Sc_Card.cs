@@ -11,6 +11,8 @@ public class Sc_Card : MonoBehaviour {
 	private float infoPositionY = 5;
 	public bool showingInfo = false;
 	public static bool aCardIsShowingInfo = false;
+	public float endPointX = 0;
+	public float endPointY = 0;
 
 	public GameObject background;
 	private GameObject[] _cards;
@@ -28,7 +30,7 @@ public class Sc_Card : MonoBehaviour {
 		
 
 
-		yPosition = 0.5f;
+		endPointY = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
 		Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
@@ -61,9 +63,8 @@ public class Sc_Card : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(0) && Sc_GameManager.buttonPress == 0 && aCardIsShowingInfo == true){
+		if(Input.GetMouseButtonDown(0)&& aCardIsShowingInfo == true){
 			Sc_GameManager.click();
-			print("hallo");
 			if (showingInfo == true){
 				CloseInfo();
 			}
@@ -77,7 +78,28 @@ public class Sc_Card : MonoBehaviour {
 	}
 	float timer = 0.0f;
 	void PositionCard() {
-		print (showingInfo);
+		/// Moving the card 
+	if (this.transform.position.x != endPointX || this.transform.position.y != endPointY){
+		
+		if (timer < 1){
+			timer +=  0.05f;
+			float newCurrentX = Mathf.Lerp(this.transform.position.x, endPointX, timer);
+			float newCurrentY = Mathf.Lerp(this.transform.position.y, endPointY, timer);
+			Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand);
+			transform.position = newVector;
+			
+		} else {
+			Vector3 newVector = new Vector3(endPointX, endPointY, placementInHand);
+			transform.position = newVector;
+			
+		}
+	} 
+	else {
+		timer = 0;
+	}
+		
+	
+
 		if (showingInfo == true){
 			if (timer < 1){
 				
@@ -98,30 +120,22 @@ public class Sc_Card : MonoBehaviour {
 			if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
 				if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
 					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
-					float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 0.6f;
-					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
-					this.transform.position = newPosition;
+					endPointX = 7.5f - 1.1f * PositionFromMiddle - 0.6f;
+
 				} else { // if it was to the right 
 					float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
-					float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 0.6f;
-					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
-					this.transform.position = newPosition;
+					endPointX = 7.5f + 1.1f * PositionFromMiddle + 0.6f;
+
 				}
 			} else { // If the number of cards or odd 
 				if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
-					float newXPosition = 7.5f;
-					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
-					this.transform.position = newPosition;
+					endPointX = 7.5f;
 				} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
 					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
-					float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 1.1f;
-					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
-					this.transform.position = newPosition;
+					endPointX = 7.5f - 1.1f * PositionFromMiddle - 1.1f;
 				} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
 					float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
-					float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 1.1f;
-					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
-					this.transform.position = newPosition;
+					endPointX = 7.5f + 1.1f * PositionFromMiddle + 1.1f;
 				}
 			}
 		}
@@ -130,10 +144,11 @@ public class Sc_Card : MonoBehaviour {
 	public void OnMouseOver()
 	{
 		if(Input.GetMouseButtonDown(1)&& Sc_GameManager.buttonPress == 0){
-			Sc_GameManager.click();
-			if (aCardIsShowingInfo == false){
-				Info();
-			}
+			//Sc_GameManager.click();
+			//if (aCardIsShowingInfo == false){
+			//	Info();
+			//}
+			print(endPointX);
 		}
 	}
 	void OnMouseDown(){		
