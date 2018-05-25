@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1907081854949220}
+  m_IsPrefabParent: 1
+--- !u!1 &1907081854949220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4420606522086956}
+  - component: {fileID: 114028788426430378}
+  m_Layer: 0
+  m_Name: CardDataBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4420606522086956
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1907081854949220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.8432474, y: 5.011169, z: 8.368964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114028788426430378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1907081854949220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4d2d8e6c52e42458917746a353f6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeCards:
+  - {fileID: 11400000, guid: ffdfab055f3570640859c274e912cde8, type: 2}
+  - {fileID: 11400000, guid: bfd8cece790cb3e45b314368985735ad, type: 2}
+  - {fileID: 11400000, guid: 8c580e800963a0a4b829f73a0f7c3c4e, type: 2}
+  - {fileID: 11400000, guid: 221807b8a2c6d1a4ab5542fce6e418b4, type: 2}
+  - {fileID: 11400000, guid: 0bf184e6d8771004880d51fd5a6a9997, type: 2}
+  - {fileID: 11400000, guid: 5a0ce7d57a5d148448e355bbb9eee188, type: 2}
+  - {fileID: 11400000, guid: 40a1b90390fe22846ad03e6479e0a552, type: 2}
+  - {fileID: 11400000, guid: 73548d1ba63d3cc428bca35470fbc2e5, type: 2}
+  - {fileID: 11400000, guid: 44d11a67a32359f43834afc40b8afa4e, type: 2}
+  - {fileID: 11400000, guid: 8bfef13bf61d0ec4d9e1bae64b9984a1, type: 2}
+  - {fileID: 11400000, guid: 77a9a855f8405014b8ffa619bbb84bc1, type: 2}
+  armorCards:
+  - {fileID: 11400000, guid: d92091a17e4e950438352d761450ad9f, type: 2}
+  - {fileID: 11400000, guid: 7eaa63d4b0d383840a14b2d2f07321fe, type: 2}
+  - {fileID: 11400000, guid: 45c64bd643993ed4bbdff370eb94eb23, type: 2}
+  - {fileID: 11400000, guid: 0a48f177d23042040a14199bb7a0da30, type: 2}
+  - {fileID: 11400000, guid: e5528700c6b011d49bac887f0fd7baeb, type: 2}
+  - {fileID: 11400000, guid: 776030a536fafee4ca233ca75cb4a51c, type: 2}
+  - {fileID: 11400000, guid: bfe89e5abc6200a4c82934b7aa9b26c8, type: 2}
+  - {fileID: 11400000, guid: 9f2177dca708f25458c467743a26e50f, type: 2}
+  - {fileID: 11400000, guid: f752cf816e7bd1549b86e2bfa062452c, type: 2}
+  - {fileID: 11400000, guid: 0330730fd1d63b34ca55f6e5383db55b, type: 2}
+  - {fileID: 11400000, guid: a6b45c68166b3b049a5746b386452536, type: 2}
+  utilityCards:
+  - {fileID: 11400000, guid: b1986691feb329849ade8bae6da21fca, type: 2}
+  - {fileID: 11400000, guid: d9f14de1ce95dc5469e1d6944b30f7f6, type: 2}
+  - {fileID: 11400000, guid: ed0007294ea9ae14b8232f8f7c3c8db1, type: 2}
+  - {fileID: 11400000, guid: fc61c109193dc4f48b03f0f76bc86cf9, type: 2}
+  - {fileID: 11400000, guid: 2a850a498af0f1d47b7f190ddddeb31c, type: 2}
+  - {fileID: 11400000, guid: 380b600205f992e4ba2d319a7b603958, type: 2}
+  - {fileID: 11400000, guid: ae79b5a9ea69e5b4d9173539bf7c2948, type: 2}
+  - {fileID: 11400000, guid: a9b8b9f8f8daea04eb485e0d10c97602, type: 2}
+  - {fileID: 11400000, guid: 046bbd7e1efaaf84493038c4d5237ee0, type: 2}
+  - {fileID: 11400000, guid: b87da90431615e44e96f22fb8f04eee6, type: 2}
+  - {fileID: 11400000, guid: 3f949193ca21b1c4c9dc753cd522e9d2, type: 2}
+  - {fileID: 11400000, guid: 994089ea4958a7c42bd69c7755f405eb, type: 2}
+  - {fileID: 11400000, guid: 7ac198418fd582f438b3db5ce71ab533, type: 2}
+  - {fileID: 11400000, guid: e409320d07c37e6448164fd6e3687643, type: 2}
+  - {fileID: 11400000, guid: 4bd693c7895dfc24aa3d521369cd3c2d, type: 2}
+  - {fileID: 11400000, guid: 8a081983cacadab458fa93946ab3ae37, type: 2}
+  - {fileID: 11400000, guid: d8ee123662065f048a8ca4edd975c0c5, type: 2}
+  - {fileID: 11400000, guid: 6c84086a2491274488c05a7a645ac7b4, type: 2}
+  - {fileID: 11400000, guid: a2f63b9b34cd0ea4ba7638ec1451df85, type: 2}
+  - {fileID: 11400000, guid: 6d60454c3f8039949be38d84e5c5eabe, type: 2}
+  - {fileID: 11400000, guid: ebd30b51f443db845993459bf456cf06, type: 2}
+  - {fileID: 11400000, guid: 4bcbb368d63f2cd4ab14c0d2cb44f314, type: 2}
+  curseCards:
+  - {fileID: 11400000, guid: 8190cd54c17c08d4d8ce8ce4530f04ac, type: 2}
+  - {fileID: 11400000, guid: 04ef6e4ff03ef0e4480ae1d74dc081c7, type: 2}

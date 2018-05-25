@@ -18,7 +18,7 @@ public class Sc_RatKing : MonsterClass {
 	}
 
 	public void Bite() {
-		print("Rat King used Bite");
+		battleManager.PrintLog("Rat King used Bite","red");
 		damage = 2;
 		poison = 1;
 		for (int i = 0; i < debuffed; i++){
@@ -33,14 +33,14 @@ public class Sc_RatKing : MonsterClass {
 		battleManager.DamageCalc(target: target, damage: damage, poison: poison);
 	}
 	public void RatStorm(){
-		print("Rat King used RatStorm");
+		battleManager.PrintLog("Rat King used RatStorm","red");
 		damage = 1;
 		int target = FindTarget ();
 		battleManager.DamageCalc(target: target, damage: damage);
 	}
 
 	public void RatDefence(){
-		print("Rat King used RatDefence");
+		battleManager.PrintLog("Rat King used RatDefence","red");
 		defence += 1;
 		UpdateText();
 	}

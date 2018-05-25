@@ -38,35 +38,35 @@ public class Sc_Placeholder : MonsterClass {
 		}
 	}
 	public void NullMagic (){
-		print("Placeholder used NullMagic");
+		battleManager.PrintLog("Placeholder used NullMagic","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
 		neweffectScript.type = "Utility";
 		neweffectScript.duration = 2;
 	}
 	public void ParalyzingGaze() {
-		print("Placeholder used ParalyzingGaze");
+		battleManager.PrintLog("Placeholder used ParalyzingGaze","red");
 		GameObject newEffect = (GameObject)Instantiate (loseAP, transform.position, transform.rotation);
 		Sc_EffectLoseAP neweffectScript =  newEffect.GetComponent<Sc_EffectLoseAP>();
 		neweffectScript.APloss = 2;
 		neweffectScript.duration = 1;
 	}
 	public void PiercingMissile(){
-		print("Placeholder used PiercingMissile");
+		battleManager.PrintLog("Placeholder used PiercingMissile","red");
 		piercing = 2;
 		battleManager.DamageCalc(target: 0, piercing: piercing);
 	}
 	public void MindNumbingRay(){
-		print("Placeholder used MindNumbingRay");
+		battleManager.PrintLog("Placeholder used MindNumbingRay","red");
 		battleManager.DrawCards(discard: 2, isRandom: true, draw: 0, afterOrBefore: false);
 	}
 	public void DisintegrationRay(){
-		print("Placeholder used DisintegrationRay");
+		battleManager.PrintLog("Placeholder used DisintegrationRay","red");
 		damage = 4;
 		battleManager.DamageCalc(target: 0, damage: damage);
 	}
 	public void CharmingGaze(){
-		print("Placeholder used CharmingGaze");
+		battleManager.PrintLog("Placeholder used CharmingGaze","red");
 		if (battleManager.currentDeck.Count <= 0){
 			if (battleManager.currentDiscard.Count <= 0){
 				return;
@@ -82,7 +82,7 @@ public class Sc_Placeholder : MonsterClass {
 		Sc_CardDataBase cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 		if (id < 1000){ // If the card is a melee card 
 			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
-			print("Melee with the name " + card.name);
+			battleManager.PrintLog("Melee with the name " + card.name, "black");
 			damage = card.normalDamage;
 			poison = card.poisonDamage;
 			blunt = card.bluntDamage;
@@ -90,36 +90,36 @@ public class Sc_Placeholder : MonsterClass {
 			battleManager.DamageCalc(target: 0, damage: damage, poison: poison, blunt: blunt, piercing: piercing);
 		} else if (id < 2000){
 			SO_CardArmor card = cardDataBase.FindArmorCardByID(id);
-			print("Armor with the name " + card.name);
+			battleManager.PrintLog("Armor with the name " + card.name, "black");
 			defence += card.armorBonus;
 			UpdateText();
 		} else if (id < 3000){
-			print("A Utility");
+			battleManager.PrintLog("A Utility", "black");
 		} else if (id < 4000){
 		}
 	}
 	public void SleepRay(){
-		print("Placeholder used SleepRay");
+		battleManager.PrintLog("Placeholder used SleepRay","red");
 		GameObject newEffect = (GameObject)Instantiate (loseTurn, transform.position, transform.rotation);
 		Sc_EffectLoseTurn neweffectScript =  newEffect.GetComponent<Sc_EffectLoseTurn>();
 		neweffectScript.duration = 1;
 	}
 	public void IntimidatingGaze(){
-		print("Placeholder used IntimidatingGaze");
+		battleManager.PrintLog("Placeholder used IntimidatingGaze","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
 		neweffectScript.type = "Melee";
 		neweffectScript.duration = 1;
 	}
 	public void CorrosionRay() {
-		print("Placeholder used CorrosionRay");
+		battleManager.PrintLog("Placeholder used CorrosionRay","red");
 		blunt = 6;
 		poison = 1;
 		battleManager.DamageCalc(target: 0, blunt: blunt);
 		battleManager.DamageCalc(target: 0, poison: poison);
 	}
 	public void FrenzyRay(){
-		print("Placeholder used FrenzyRay");
+		battleManager.PrintLog("Placeholder used FrenzyRay","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
 		neweffectScript.type = "Armor";

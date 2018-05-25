@@ -7,11 +7,17 @@ public class Sc_Card : MonoBehaviour {
 	public int cardID;
 	private int apCost; 
 	private float yPosition;
+	private float infoPositionX = 7.5f;
+	private float infoPositionY = 5;
+	public bool showingInfo = false;
+	public static bool aCardIsShowingInfo = false;
 
 	public GameObject background;
 	private GameObject[] _cards;
 	private Sc_CardDataBase cardDataBase;
 	private Sc_BattleManager battleManager; 
+
+	public GameObject CardInfo;
 
 
 	
@@ -19,13 +25,13 @@ public class Sc_Card : MonoBehaviour {
 	void Start(){
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
-
+		
 
 
 		yPosition = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (2.2f * placementInHand, 2.2f, 0); // Just places it the right place
+		Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 
 		// Set the background of the card
@@ -55,55 +61,93 @@ public class Sc_Card : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetMouseButtonDown(0) && Sc_GameManager.buttonPress == 0 && aCardIsShowingInfo == true){
+			Sc_GameManager.click();
+			print("hallo");
+			if (showingInfo == true){
+				CloseInfo();
+			}
+		}
 		PositionCard();
 		if ( cardID < 4000 && cardID >= 3000){
 			OnMouseDown();
 			battleManager.Draw();
 		}
-	}
-
-	void PositionCard() {
 		
-		if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
-			if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
-				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
-				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
-				this.transform.position = newPosition;
-			} else { // if it was to the right 
-				float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
-				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 1.1f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
-				this.transform.position = newPosition;
+	}
+	float timer = 0.0f;
+	void PositionCard() {
+		print (showingInfo);
+		if (showingInfo == true){
+			if (timer < 1){
+				
+				timer +=  0.05f;
+				float newScale = Mathf.Lerp(8, 6, timer);
+				Vector3 newVector = new Vector3(newScale, newScale, 1);
+				transform.localScale = newVector;
+
+				float newPostionX = Mathf.Lerp(this.gameObject.transform.position.x, infoPositionX, timer);
+				float newPostionY = Mathf.Lerp(this.gameObject.transform.position.y, infoPositionY, timer);
+				this.gameObject.transform.position = new Vector3(newPostionX, newPostionY, -5);
 			}
-		} else { // If the number of cards or odd 
-			if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
-				float newXPosition = 7.5f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
-				this.transform.position = newPosition;
-			} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
-				float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
-				float newXPosition = 7.5f - 2.2f * PositionFromMiddle - 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
-				this.transform.position = newPosition;
-			} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
-				float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
-				float newXPosition = 7.5f + 2.2f * PositionFromMiddle + 2.2f;
-				Vector3 newPosition = new Vector3 (newXPosition, yPosition, 0);
-				this.transform.position = newPosition;
+		} else {
+			if (this.transform.localScale.x !=6){
+				timer +=  0.05f;
+				float newScale = Mathf.Lerp(6, 8, timer);
+			}
+			if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
+				if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
+					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
+					float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 0.6f;
+					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
+					this.transform.position = newPosition;
+				} else { // if it was to the right 
+					float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
+					float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 0.6f;
+					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
+					this.transform.position = newPosition;
+				}
+			} else { // If the number of cards or odd 
+				if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
+					float newXPosition = 7.5f;
+					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
+					this.transform.position = newPosition;
+				} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
+					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
+					float newXPosition = 7.5f - 1.1f * PositionFromMiddle - 1.1f;
+					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
+					this.transform.position = newPosition;
+				} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
+					float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
+					float newXPosition = 7.5f + 1.1f * PositionFromMiddle + 1.1f;
+					Vector3 newPosition = new Vector3 (newXPosition, yPosition, placementInHand);
+					this.transform.position = newPosition;
+				}
+			}
+		}
+		
+	}
+	public void OnMouseOver()
+	{
+		if(Input.GetMouseButtonDown(1)&& Sc_GameManager.buttonPress == 0){
+			Sc_GameManager.click();
+			if (aCardIsShowingInfo == false){
+				Info();
 			}
 		}
 	}
-	void OnMouseDown(){
-		if ((cardID < 1000 && battleManager.mayPlayMelee) || (cardID < 2000 && cardID >= 1000 && battleManager.mayPlayArmor)||(cardID < 3000 && cardID >= 2000 && battleManager.mayPlayUtility)|| cardID > 1999 ){
-			if (cardID > 1999 && cardID < 3000 && battleManager.currentUtilityAP - apCost >= 0){ // Utility AP only 
-				battleManager.PlayCard(cardID);
-				battleManager.currentUtilityAP -= apCost;
-				DestroyCard();
-			} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
-				battleManager.PlayCard(cardID);
-				battleManager.currentApUsed += apCost;
-				DestroyCard();
+	void OnMouseDown(){		
+		if (aCardIsShowingInfo == false){
+			if ((cardID < 1000 && battleManager.mayPlayMelee) || (cardID < 2000 && cardID >= 1000 && battleManager.mayPlayArmor)||(cardID < 3000 && cardID >= 2000 && battleManager.mayPlayUtility)|| cardID > 1999 ){
+				if (cardID > 1999 && cardID < 3000 && battleManager.currentUtilityAP - apCost >= 0){ // Utility AP only 
+					battleManager.PlayCard(cardID);
+					battleManager.currentUtilityAP -= apCost;
+					DestroyCard();
+				} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
+					battleManager.PlayCard(cardID);
+					battleManager.currentApUsed += apCost;
+					DestroyCard();
+				}
 			}
 		}
 	}
@@ -119,7 +163,22 @@ public class Sc_Card : MonoBehaviour {
 		}
 		return false;
 	}
-
+	public void Info () {
+		timer = 0;
+		showingInfo = true;
+		aCardIsShowingInfo = true;
+		GameObject Info = (GameObject)Instantiate (CardInfo, transform.position, transform.rotation);
+		Sc_CardInfo InfoScript =  Info.GetComponent<Sc_CardInfo>();
+		Info.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
+		InfoScript.id = cardID;
+		
+	}
+	public void CloseInfo(){
+		timer = 0;
+		showingInfo = false;
+		aCardIsShowingInfo = false;
+		Destroy(GameObject.FindGameObjectWithTag("CardInfo"));
+	}
 	public void DestroyCard() {
 		Sc_BattleManager.currentHandObjects.RemoveAt(placementInHand - 1);
 		_cards = GameObject.FindGameObjectsWithTag("Card");

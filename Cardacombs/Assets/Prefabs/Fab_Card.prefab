@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1832886155453928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0007, y: 0.00054, z: -0.005}
-  m_LocalScale: {x: 0.06942553, y: 0.08052988, z: 1}
+  m_LocalScale: {x: 0.13, y: 0.145, z: 1}
   m_Children: []
   m_Father: {fileID: 4822775592180228}
   m_RootOrder: 0
@@ -66,8 +66,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723813888653226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1441631, y: 3.9216821, z: -0.84}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 5.4, y: 1.02, z: -0.84}
+  m_LocalScale: {x: 6, y: 6, z: 10}
   m_Children:
   - {fileID: 4474092635252222}
   m_Father: {fileID: 0}
@@ -86,6 +86,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2240ffdbca9df0c4ba93a2977f4e353a, type: 3}
   m_StaticBatchInfo:
@@ -152,12 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placementInHand: 0
   cardID: 0
-  card: {fileID: 11400000, guid: bfd8cece790cb3e45b314368985735ad, type: 2}
+  showingInfo: 0
   background: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 751b6a238609cc943a46977cf2916645, type: 2}
-  - {fileID: 2100000, guid: 3fe682f08dea86640a7eab18c1563721, type: 2}
-  - {fileID: 2100000, guid: 747071f3f6532b540a9b1ec839b9f6d4, type: 2}
+  CardInfo: {fileID: 1327342702932916, guid: 629dceaf7f75f414d98457fb29d36afb, type: 2}
 --- !u!212 &212958391263230378
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -171,6 +169,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

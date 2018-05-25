@@ -16,9 +16,15 @@ MonoBehaviour:
   eventName: Abandoned Wizard Sleeping Quarter
   eventDecription: You stumble across on old room, from the look of it, it must have
     been some wizards sleeping quarter
-  decriptionFirstEvent: Take his book
+  decriptionFirstEvent: 'Take
+
+    his book'
   cardsFirstEvent: d7070000
-  decriptionSecondEvent: Take his Hat
+  decriptionSecondEvent: 'Take
+
+    his Hat'
   cardsSecondEvent: d8070000
-  decriptionThirdEvent: Take one of his boots
+  decriptionThirdEvent: 'Take one
+
+    of his boots'
   cardsThirdEvent: d9070000

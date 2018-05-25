@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1938618560324232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.37, y: 2.82, z: 0}
+  m_LocalPosition: {x: 6.8085346, y: 6.274953, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4968560241330160}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609770435505380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.809, y: 1.642, z: -0.78}
+  m_LocalPosition: {x: 0.65, y: 1.1, z: -0.78}
   m_LocalScale: {x: 2.5439472, y: 2.5439472, z: 2.5439472}
   m_Children: []
   m_Father: {fileID: 4355600530327070}
@@ -116,12 +116,12 @@ TextMesh:
   m_GameObject: {fileID: 1609770435505380}
   m_Text: 2
   m_OffsetZ: 0
-  m_CharacterSize: 0.1
+  m_CharacterSize: 0.067
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
   m_TabSize: 4.34
-  m_FontSize: 69
+  m_FontSize: 65
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -142,7 +142,8 @@ MonoBehaviour:
   placementInEquipent: 0
   id: 0
   defence: 0
-  lifeText: {fileID: 0}
+  defenceTextObject: {fileID: 0}
+  defenceText: {fileID: 0}
   card: {fileID: 0}
 --- !u!212 &212686579937091196
 SpriteRenderer:

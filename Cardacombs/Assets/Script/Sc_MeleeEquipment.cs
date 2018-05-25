@@ -20,7 +20,7 @@ public class Sc_MeleeEquipment : MonoBehaviour {
 		render.sprite = card.image;
 		battleManager.currentEquipmentMelee.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInEquipent = battleManager.currentEquipmentMelee.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (7.1f - 1.3f * placementInEquipent, 2.8f, 0); // Just places it the right place
+		Vector3 newPosition = new Vector3 (7.1f - 0.8f * placementInEquipent, 2.8f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 	}
 	

@@ -38,6 +38,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	public int currentRage; // How much extre damage every weapon deals 
 	public Text defenceText;
 	public Text SpikedText;
+    public Text ApText;
 	public int maxHandSize; // The current max hand size the player has. 
 	// Effect realted varibles 
 
@@ -55,7 +56,26 @@ public class Sc_BattleManager : MonoBehaviour {
 	public Text discardPile;
 	public Text DeckPile;
 	public Text BanishPile;
+	// log book 
+	public List<Text> logBook = new List<Text>();
+	public Text aLog;
 
+	public void PrintLog(string text, string color){
+		Text newLog = (Text)Instantiate (aLog, transform.position, transform.rotation);
+		newLog.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
+		newLog.text = text;
+		if (color == "blue"){
+			newLog.color = Color.blue;
+		} else if (color == "red"){
+			newLog.color = Color.red;
+		} else if (color == "green"){
+			newLog.color = Color.green;
+		} else if (color == "black"){
+			newLog.color = Color.black;
+		} else if (color == "yellow"){
+			newLog.color = Color.yellow;
+		}
+	}
 
 
 	void Awake(){
@@ -68,6 +88,9 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+		
+		
+		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
 		// set op some basic variables 
 		maxHandSize = 5;
@@ -115,6 +138,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		discardPile.text = currentDiscard.Count + " in the discard pile";
 		DeckPile.text = currentDeck.Count + " in the deck pile";
 		BanishPile.text = currentBanished.Count + " in the banish pile";
+        ApText.text = currentApMax - currentApUsed + " / " + currentApMax;
 		StageManager ();
 	}
 	void StageManager () {
@@ -171,7 +195,6 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	public void DrawHand() { // Used to draw a full hand 
 		for (int i = currentHandObjects.Count; i < maxHandSize ; i++){
-			print(i + "nået text" + currentHandObjects.Count);
 			Draw ();
 		}
 	}
@@ -183,8 +206,12 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
-			GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
-			Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
+            GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
+            //GameObject newCard = (GameObject)Instantiate(card, new Vector3(12.5f, 1.1f, 0), Quaternion.identity);
+            // instantiate at deck pile
+            // transform 180 from back to show front 
+            // Transform to hand position
+            Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 			newCardScript.cardID = currentDeck[0];
 			currentDeck.RemoveAt(0);
 			} else if (currentDiscard.Count > 0) { // If there are no more cards in the deck, but there are cards in the dicards pile, the discard pile will become the deck and the deck will be shuffled 
@@ -193,45 +220,48 @@ public class Sc_BattleManager : MonoBehaviour {
 				}
 				ShuffleDeck();
 				currentDiscard.Clear();
+                // Make discard pile invisable
 				GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
 				Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 				newCardScript.cardID = currentDeck[0];
 				currentDeck.RemoveAt(0);
 				
 			} else {
-				print("No Cards in deck or discard pile");
+				PrintLog("No Cards in deck or discard pile", "black");
 			}
 	}
 	public void PrintDeck(){
 		for(int i = 0; i < currentDeck.Count; i++){
-			print("added " + currentDeck[i] + " To hand");
+			PrintLog("added " + currentDeck[i] + " To hand", "black");
 		}
 	}
 
 	public void PrintDiscard(){
 		for(int i = 0; i < currentDiscard.Count; i++){
-			print( currentDiscard[i] + " Is in the discard Pile");
+			PrintLog( currentDiscard[i] + " Is in the discard Pile", "black");
 		}
 	}
 	public void PlayCard(int id){ // Play a card
 		
 		currentDiscard.Add(id);
-		//currentHand.RemoveAt(randomCard);
-		if (id < 1000){ // If the card is a melee card 
+        // if( discard > 0 ) make discard pile visable
+        // make discard pile sprite be last discarded card
+        //currentHand.RemoveAt(randomCard);
+        if (id < 1000){ // If the card is a melee card 
 			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
 			Melee (id, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
-			print ("you just played " + card.name);
+			PrintLog ("you just played " + card.name, "green");
 		} else if (id < 2000){
 			SO_CardArmor card = cardDataBase.FindArmorCardByID(id);
 			Defence (id, card.armorBonus, card.spickedBonus);
-			print ("you just played " + card.name);
+			PrintLog ("you just played " + card.name, "green");
 		} else if (id < 3000){
 			CardUtility card = cardDataBase.FindUtilityCardByID(id);
-			print ("you just played " + card.name);
+			PrintLog ("you just played " + card.name, "green");
 			Utility(id);
 		} else if (id < 4000){
 			CardCurse card = cardDataBase.FindCurseCardByID(id);
-			print ("You got cursed by" + card.name);
+			PrintLog ("You got cursed by" + card.name, "red");
 			card.PlayedFunction();
 		}
 	}
@@ -272,9 +302,9 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public void DamageCalc (int target,int lifeDrain = 0, int poison = 0, int blunt = 0, int damage = 0, int piercing = 0 ){ // Target player = 0  enemy = 1 
 		if (target == 0){
-			print(" You are being attacked");
+			PrintLog(" You are being attacked","red");
 		} else {
-			print("Monster Is being attacked");
+			PrintLog("Monster Is being attacked","yellow");
 		}
 		
 		if (target == 0){ // if the target is the player 
@@ -286,24 +316,24 @@ public class Sc_BattleManager : MonoBehaviour {
 					} else {
 						monster.health = monster.maxHealth; // set the monsters health to it's max
 					}
-					print ("You took "+ lifeDrain + " lifedrain damage");
+					PrintLog ("You took "+ lifeDrain + " lifedrain damage", "black");
 				}
 				if (poison > 0){ // Check is there is being dealt some poison damage 
 					TakeDamage(poison, 1); 
-					print ("You took "+ poison + " poison damage");
+					PrintLog ("You took "+ poison + " poison damage", "black");
 				}
 			}
 			if (blunt > 0){// Check is there is being dealt some blunt damage 
 				TakeDamage(blunt, 0);
-				print ("You took "+ blunt + " blunt damage");
+				PrintLog ("You took "+ blunt + " blunt damage", "black");
 			}
 			if (damage > 0){// Check is there is being dealt some normal damage 
 				TakeDamage(damage, 1);
-				print ("You took "+ damage + " damage damage");
+				PrintLog ("You took "+ damage + " damage damage", "black");
 			}
 			if (piercing > 0){// Check is there is being dealt some piercing damage 
 				TakeDamage(piercing, 2);
-				print ("You took "+ piercing + " piercing damage");
+				PrintLog ("You took "+ piercing + " piercing damage", "black");
 			}
 		}
 		else if (target == 1){
@@ -358,16 +388,20 @@ public class Sc_BattleManager : MonoBehaviour {
 			if (type == 1 && damageDealt == 0 || type == 2){
 				if (currentDeck.Count > 0){ // check if there are still cards in the deck
 					currentBanished.Add(currentDeck[0]);
-					currentDeck.RemoveAt(0);
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    currentDeck.RemoveAt(0);
 				} else if (currentDiscard.Count > 0){ // Check if there are cards in discard pile. 
-					print("Dicard pile is being shuffled into deck");
+					PrintLog("Dicard pile is being shuffled into deck","black");
 					for (int j = 0; j < currentDiscard.Count; j++){
 						currentDeck.Add(currentDiscard[j]);
 					}
 					ShuffleDeck();
 					currentDiscard.Clear();
 					currentBanished.Add(currentDeck[0]);
-					currentDeck.RemoveAt(0);
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    currentDeck.RemoveAt(0);
 				} else if (currentHandObjects.Count > 0) {
 					int targetCard = Random.Range(0, currentHandObjects.Count);
 					Destroy(currentHandObjects[targetCard]);
@@ -378,10 +412,12 @@ public class Sc_BattleManager : MonoBehaviour {
 						if (otherScript.placementInHand > targetCard + 1){
 							otherScript.placementInHand -= 1;
 						}
-					}
-					
-				} else {
-					print ("you lost");
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    }
+
+                } else {
+					PrintLog ("you lost","red");
 				}
 			}
 		}

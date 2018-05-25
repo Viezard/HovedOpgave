@@ -15,9 +15,15 @@ MonoBehaviour:
   numberOfEvents: 3
   eventName: The Dead Knight
   eventDecription: You find a murded knight, laying dead in an empty room
-  decriptionFirstEvent: Take his Helmet
+  decriptionFirstEvent: 'Take
+
+    his Helmet'
   cardsFirstEvent: ed030000
-  decriptionSecondEvent: Take is Sword
+  decriptionSecondEvent: 'Take
+
+    his Sword'
   cardsSecondEvent: 04000000
-  decriptionThirdEvent: Take the rest
+  decriptionThirdEvent: 'Take
+
+    the rest'
   cardsThirdEvent: ee03000005000000
