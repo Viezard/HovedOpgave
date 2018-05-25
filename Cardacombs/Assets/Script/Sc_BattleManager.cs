@@ -38,6 +38,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	public int currentRage; // How much extre damage every weapon deals 
 	public Text defenceText;
 	public Text SpikedText;
+    public Text ApText;
 	public int maxHandSize; // The current max hand size the player has. 
 	// Effect realted varibles 
 
@@ -137,6 +138,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		discardPile.text = currentDiscard.Count + " in the discard pile";
 		DeckPile.text = currentDeck.Count + " in the deck pile";
 		BanishPile.text = currentBanished.Count + " in the banish pile";
+        ApText.text = currentApMax - currentApUsed + " / " + currentApMax;
 		StageManager ();
 	}
 	void StageManager () {
@@ -204,8 +206,12 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
-			GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
-			Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
+            GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
+            //GameObject newCard = (GameObject)Instantiate(card, new Vector3(12.5f, 1.1f, 0), Quaternion.identity);
+            // instantiate at deck pile
+            // transform 180 from back to show front 
+            // Transform to hand position
+            Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 			newCardScript.cardID = currentDeck[0];
 			currentDeck.RemoveAt(0);
 			} else if (currentDiscard.Count > 0) { // If there are no more cards in the deck, but there are cards in the dicards pile, the discard pile will become the deck and the deck will be shuffled 
@@ -214,6 +220,7 @@ public class Sc_BattleManager : MonoBehaviour {
 				}
 				ShuffleDeck();
 				currentDiscard.Clear();
+                // Make discard pile invisable
 				GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
 				Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 				newCardScript.cardID = currentDeck[0];
@@ -237,8 +244,10 @@ public class Sc_BattleManager : MonoBehaviour {
 	public void PlayCard(int id){ // Play a card
 		
 		currentDiscard.Add(id);
-		//currentHand.RemoveAt(randomCard);
-		if (id < 1000){ // If the card is a melee card 
+        // if( discard > 0 ) make discard pile visable
+        // make discard pile sprite be last discarded card
+        //currentHand.RemoveAt(randomCard);
+        if (id < 1000){ // If the card is a melee card 
 			SO_CardMelee card = cardDataBase.FindMeleeCardByID(id);
 			Melee (id, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
 			PrintLog ("you just played " + card.name, "green");
@@ -379,7 +388,9 @@ public class Sc_BattleManager : MonoBehaviour {
 			if (type == 1 && damageDealt == 0 || type == 2){
 				if (currentDeck.Count > 0){ // check if there are still cards in the deck
 					currentBanished.Add(currentDeck[0]);
-					currentDeck.RemoveAt(0);
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    currentDeck.RemoveAt(0);
 				} else if (currentDiscard.Count > 0){ // Check if there are cards in discard pile. 
 					PrintLog("Dicard pile is being shuffled into deck","black");
 					for (int j = 0; j < currentDiscard.Count; j++){
@@ -388,7 +399,9 @@ public class Sc_BattleManager : MonoBehaviour {
 					ShuffleDeck();
 					currentDiscard.Clear();
 					currentBanished.Add(currentDeck[0]);
-					currentDeck.RemoveAt(0);
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    currentDeck.RemoveAt(0);
 				} else if (currentHandObjects.Count > 0) {
 					int targetCard = Random.Range(0, currentHandObjects.Count);
 					Destroy(currentHandObjects[targetCard]);
@@ -399,9 +412,11 @@ public class Sc_BattleManager : MonoBehaviour {
 						if (otherScript.placementInHand > targetCard + 1){
 							otherScript.placementInHand -= 1;
 						}
-					}
-					
-				} else {
+                    // if banished pile is > 0 then make banishpile visable 
+                    // make discard pile sprite be last discarded card
+                    }
+
+                } else {
 					PrintLog ("you lost","red");
 				}
 			}

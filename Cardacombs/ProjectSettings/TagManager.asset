@@ -8,6 +8,7 @@ TagManager:
   - Armor
   - Event
   - Canvas
+  - CardInfo
   layers:
   - Default
   - TransparentFX

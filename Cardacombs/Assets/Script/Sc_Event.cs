@@ -6,6 +6,7 @@ public class Sc_Event : MonoBehaviour {
 	private Sc_EventDataBase eventDataBase;
 	public Sc_GameManager gameManger;
 	public Sc_NavigationManager navigationManager;
+	public Sc_CardDataBase cardDataBase;
 	public int Eventid;
 	public int OptionNumber;
 	public GameObject title;
@@ -16,6 +17,8 @@ public class Sc_Event : MonoBehaviour {
 		eventDataBase = GameObject.FindObjectOfType<Sc_EventDataBase>();
 		gameManger = GameObject.FindObjectOfType<Sc_GameManager>();  
 		navigationManager = GameObject.FindObjectOfType<Sc_NavigationManager>();  
+		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>();  
+		SpriteRenderer backgroundSR = this.GetComponent<SpriteRenderer>();
 		currentEvent = eventDataBase.FindEventByID(Eventid);
 		title = this.gameObject.transform.GetChild(0).gameObject;
 		numberOfCards = this.gameObject.transform.GetChild(1).gameObject;
@@ -23,22 +26,22 @@ public class Sc_Event : MonoBehaviour {
 		if (OptionNumber == 0){
 			
 			titleText.text = currentEvent.decriptionFirstEvent;
+			backgroundSR.sprite = currentEvent.FirstEventImage;
 
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsFirstEvent.Count + "";
 		} else if (OptionNumber == 1){
 			titleText.text = currentEvent.decriptionSecondEvent;
-
+			backgroundSR.sprite = currentEvent.TwoEventImage;
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsSecondEvent.Count + "";
 		} else if (OptionNumber == 2){
 			titleText.text = currentEvent.decriptionThirdEvent;
-
+			backgroundSR.sprite = currentEvent.ThreeEventImage;
 			TextMesh numberOfCardsText = numberOfCards.GetComponent<TextMesh>();
 			numberOfCardsText.text = currentEvent.cardsThirdEvent.Count + "";
 		}
-		titleText.text.Replace("\\n","\n");
-		
+		// set the image
 	}
 	
 	// Update is called once per frame

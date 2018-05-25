@@ -17,6 +17,7 @@ public class Sc_GameManager : MonoBehaviour {
 	public int slayCount = 0; // The number of monsters slay 
 	public static int isCreated = 0;
 	public int currentEvent; // The ID of the current event 
+	public static int buttonPress = 60;
 	public List<int> lostCards = new List<int>(); // A list of all the cards which the player has lost
 
 	void Awake()
@@ -40,8 +41,13 @@ public class Sc_GameManager : MonoBehaviour {
 		if (monsterDataBase == null){
 			monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
 		}
+		if (buttonPress > 0){
+			buttonPress -=1;
+		}
 	}
-
+	public static void click(){
+		buttonPress = 0;
+	}
     void SaveGame()
     {
         // saves all information that is need to recreate the current point of the game 
