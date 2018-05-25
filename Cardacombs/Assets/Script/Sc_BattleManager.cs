@@ -206,7 +206,7 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
-            GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
+            GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
             //GameObject newCard = (GameObject)Instantiate(card, new Vector3(12.5f, 1.1f, 0), Quaternion.identity);
             // instantiate at deck pile
             // transform 180 from back to show front 
@@ -220,9 +220,9 @@ public class Sc_BattleManager : MonoBehaviour {
 				}
 				ShuffleDeck();
 				currentDiscard.Clear();
-                // Make discard pile invisable
-				GameObject newCard = (GameObject)Instantiate (card, transform.position, transform.rotation);
-				Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
+            // Make discard pile invisable
+            GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.FromToRotation(new Vector3(0, 180, 90), new Vector3(0, 0, 0)));
+            Sc_Card newCardScript =  newCard.GetComponent<Sc_Card>();
 				newCardScript.cardID = currentDeck[0];
 				currentDeck.RemoveAt(0);
 				

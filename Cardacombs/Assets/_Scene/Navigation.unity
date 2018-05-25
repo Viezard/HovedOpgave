@@ -802,6 +802,11 @@ Prefab:
       propertyPath: fullDeck.Array.data[17]
       value: 3000
       objectReference: {fileID: 0}
+    - target: {fileID: 114377464855868026, guid: bf9ab26c4e9933948bae4800ea928847,
+        type: 2}
+      propertyPath: monsterDataBase
+      value: 
+      objectReference: {fileID: 1907641217}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
   m_IsPrefabParent: 0
@@ -1231,6 +1236,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1907641217 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114458179660720366, guid: 676bd3af348315a45b413da60da59edc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1566407222}
+  m_Script: {fileID: 11500000, guid: 65aaf4ca2a950654ebcbefa6e40afe78, type: 3}
 --- !u!1 &2099064489
 GameObject:
   m_ObjectHideFlags: 0

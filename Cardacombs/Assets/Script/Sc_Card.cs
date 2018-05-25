@@ -13,11 +13,16 @@ public class Sc_Card : MonoBehaviour {
 	public static bool aCardIsShowingInfo = false;
 	public float endPointX = 0;
 	public float endPointY = 0;
+    public float endPointDiscardX = 0;
+    public float endPointDiscardY = 0;
+    public float endPointBanishX = 0;
+    public float endPointBanishY = 0;
 
-	public GameObject background;
+    public GameObject background;
 	private GameObject[] _cards;
 	private Sc_CardDataBase cardDataBase;
-	private Sc_BattleManager battleManager; 
+	private Sc_BattleManager battleManager;
+    
 
 	public GameObject CardInfo;
 
@@ -26,18 +31,21 @@ public class Sc_Card : MonoBehaviour {
 
 	void Start(){
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
-		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
-		
+		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>();
+        endPointDiscardX = GameObject.Find("DiscardPile").transform.position.x;
+        endPointDiscardY = GameObject.Find("DiscardPile").transform.position.y;
+        Debug.Log(endPointDiscardX);
+        Debug.Log(endPointDiscardY);
 
-
-		endPointY = 0.5f;
+        endPointY = 0.5f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
-		this.transform.position = newPosition;
+        // Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
+        // this.transform.position = newPosition;
 
-		// Set the background of the card
-		background = this.gameObject.transform.GetChild(0).gameObject;
+
+        // Set the background of the card
+        background = this.gameObject.transform.GetChild(0).gameObject;
 		SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
 		if (cardID < 1000){
 			 SO_CardMelee card = cardDataBase.FindMeleeCardByID(cardID);
@@ -85,10 +93,12 @@ public class Sc_Card : MonoBehaviour {
 			timer +=  0.05f;
 			float newCurrentX = Mathf.Lerp(this.transform.position.x, endPointX, timer);
 			float newCurrentY = Mathf.Lerp(this.transform.position.y, endPointY, timer);
-			Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand);
+
+            Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand);
 			transform.position = newVector;
-			
-		} else {
+            transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0f,0f,0f), timer);
+
+            } else {
 			Vector3 newVector = new Vector3(endPointX, endPointY, placementInHand);
 			transform.position = newVector;
 			
@@ -161,7 +171,8 @@ public class Sc_Card : MonoBehaviour {
 				} else	if (battleManager.currentStage == 1 && apCost + battleManager.currentApUsed <= battleManager.currentApMax){
 					battleManager.PlayCard(cardID);
 					battleManager.currentApUsed += apCost;
-					DestroyCard();
+                    DestroyCard();
+                    
 				}
 			}
 		}
@@ -203,6 +214,50 @@ public class Sc_Card : MonoBehaviour {
 				otherScript.placementInHand -= 1;
 			}
 		}
-		Destroy(this.gameObject);
-	}
+        Destroy(this.gameObject);
+    }
+
+
+    public void DiscardCardTransform()
+    {
+        Sc_BattleManager.currentHandObjects.RemoveAt(placementInHand - 1);
+        _cards = GameObject.FindGameObjectsWithTag("Card");
+        for (int i = 0; i < _cards.Length; i++)
+        {
+            Sc_Card otherScript = _cards[i].GetComponent<Sc_Card>();
+            if (otherScript.placementInHand > placementInHand)
+            {
+                otherScript.placementInHand -= 1;
+            }
+        }
+        if (this.transform.position.x != endPointDiscardX || this.transform.position.y != endPointDiscardY)
+        {
+
+            if (timer < 1)
+            {
+                timer += 0.5f;
+                float newCurrentX = Mathf.Lerp(this.transform.position.x, endPointDiscardX, timer);
+                float newCurrentY = Mathf.Lerp(this.transform.position.y, endPointDiscardY, timer);
+                Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand);
+                transform.position = newVector;
+                transform.localScale = new Vector3(4f, 4f, 0f);
+
+            }
+            else
+            {
+                Vector3 newVector = new Vector3(endPointDiscardX, endPointDiscardY, placementInHand);
+                transform.position = newVector;
+                transform.localScale = new Vector3(4f, 4f, 0f);
+
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
+        if (this.transform.position.x == endPointDiscardX && this.transform.position.y != endPointDiscardY)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
