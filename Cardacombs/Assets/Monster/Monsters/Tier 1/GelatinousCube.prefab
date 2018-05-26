@@ -57,6 +57,9 @@ MonoBehaviour:
   tier: 1
   health: 10
   maxHealth: 10
+  monsterStage: 0
+  chanceToMiss: 0
+  chanceToHitSelf: 0
   healthText: {fileID: 0}
   defence: 0
   defenceText: {fileID: 0}
@@ -67,6 +70,11 @@ MonoBehaviour:
   blunt: 0
   piercing: 0
   battleManager: {fileID: 0}
+  monsterCards:
+  - {fileID: 21300000, guid: 5d52981b40999a74bbab8b058b5e5335, type: 3}
+  - {fileID: 21300000, guid: d1ac35b50da459340a61972f540f8d9b, type: 3}
+  card: {fileID: 1643847685085044, guid: ee56741e82e33d442863f9dfdc3a196a, type: 2}
+  doStuff: 1
 --- !u!212 &212099115707559168
 SpriteRenderer:
   m_ObjectHideFlags: 1

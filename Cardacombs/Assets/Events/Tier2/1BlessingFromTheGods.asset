@@ -17,10 +17,13 @@ MonoBehaviour:
   eventDecription: You enter an alter to a forgotten god, you hear a voice "what do
     you seek"
   decriptionFirstEvent: Power
+  FirstEventImage: {fileID: 21300000, guid: 21d534ba2939fff4c96bae0b9fbd13e6, type: 3}
   cardsFirstEvent: 
   decriptionSecondEvent: Protection
+  TwoEventImage: {fileID: 21300000, guid: 7883012d78bd5a345b2f92a827c871ca, type: 3}
   cardsSecondEvent: 
   decriptionThirdEvent: 
+  ThreeEventImage: {fileID: 0}
   cardsThirdEvent: 
   firstBonus: 1
   firstBonusToo: UtilityAP
