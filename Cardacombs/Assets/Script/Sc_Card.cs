@@ -22,7 +22,7 @@ public class Sc_Card : MonoBehaviour {
 	private GameObject[] _cards;
 	private Sc_CardDataBase cardDataBase;
 	private Sc_BattleManager battleManager;
-    
+    private int curseTimer = 70;
 
 	public GameObject CardInfo;
 
@@ -79,8 +79,13 @@ public class Sc_Card : MonoBehaviour {
 		}
 		PositionCard();
 		if ( cardID < 4000 && cardID >= 3000){
-			OnMouseDown();
-			battleManager.Draw();
+			if (curseTimer < 0){
+				OnMouseDown();
+				battleManager.Draw();
+			} else {
+				curseTimer -= 1;
+			}
+			
 		}
 		
 	}

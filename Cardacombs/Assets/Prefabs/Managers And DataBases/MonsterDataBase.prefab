@@ -56,5 +56,5 @@ MonoBehaviour:
   TierOneMonster:
   - {fileID: 1727320030044868, guid: fecff11a7786613448ff10fed7027e7e, type: 2}
   TierTwoMonster:
-  - {fileID: 1727320030044868, guid: fecff11a7786613448ff10fed7027e7e, type: 2}
+  - {fileID: 1727320030044868, guid: bbd1ddea50719a14391e76c2da0a9ff2, type: 2}
   TierThreeMonster: []

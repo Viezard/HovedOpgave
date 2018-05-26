@@ -8,8 +8,22 @@ public class Sc_Placeholder : MonsterClass {
 	public GameObject loseTurn;
 	public GameObject doubleDamage;
 	public override void MonsterTurn (){
-		for (int i = 0; i < 2; i++){
-			int random = Random.Range(0,10);
+		
+		if (monsterStage == 0 && doStuff == true){
+			PickRay();
+			doStuff = false;
+		} else if (monsterStage == 1 && doStuff == true){
+			PickRay();
+			doStuff = false;
+		} else if (monsterStage == 2 && doStuff == true){
+			if (battleManager.currentStage != 10){
+				battleManager.currentStage = 0;
+				monsterStage = 0;
+			}
+		}
+	}
+	public void PickRay() {
+		int random = Random.Range(0,10);
 			if(random == 0){
 				NullMagic ();
 			} else if (random == 1){
@@ -31,13 +45,9 @@ public class Sc_Placeholder : MonsterClass {
 			}else if (random == 9){
 				FrenzyRay();
 			}
-		}
-		
-		if(battleManager.currentStage != 10){
-			battleManager.currentStage = 0;
-		}
 	}
 	public void NullMagic (){
+		PlayingCard(0);
 		battleManager.PrintLog("Placeholder used NullMagic","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
@@ -45,6 +55,7 @@ public class Sc_Placeholder : MonsterClass {
 		neweffectScript.duration = 2;
 	}
 	public void ParalyzingGaze() {
+		PlayingCard(1);
 		battleManager.PrintLog("Placeholder used ParalyzingGaze","red");
 		GameObject newEffect = (GameObject)Instantiate (loseAP, transform.position, transform.rotation);
 		Sc_EffectLoseAP neweffectScript =  newEffect.GetComponent<Sc_EffectLoseAP>();
@@ -52,20 +63,24 @@ public class Sc_Placeholder : MonsterClass {
 		neweffectScript.duration = 1;
 	}
 	public void PiercingMissile(){
+		PlayingCard(2);
 		battleManager.PrintLog("Placeholder used PiercingMissile","red");
 		piercing = 2;
 		battleManager.DamageCalc(target: 0, piercing: piercing);
 	}
 	public void MindNumbingRay(){
+		PlayingCard(3);
 		battleManager.PrintLog("Placeholder used MindNumbingRay","red");
 		battleManager.DrawCards(discard: 2, isRandom: true, draw: 0, afterOrBefore: false);
 	}
 	public void DisintegrationRay(){
+		PlayingCard(4);
 		battleManager.PrintLog("Placeholder used DisintegrationRay","red");
 		damage = 4;
 		battleManager.DamageCalc(target: 0, damage: damage);
 	}
 	public void CharmingGaze(){
+		PlayingCard(5);
 		battleManager.PrintLog("Placeholder used CharmingGaze","red");
 		if (battleManager.currentDeck.Count <= 0){
 			if (battleManager.currentDiscard.Count <= 0){
@@ -99,12 +114,14 @@ public class Sc_Placeholder : MonsterClass {
 		}
 	}
 	public void SleepRay(){
+		PlayingCard(6);
 		battleManager.PrintLog("Placeholder used SleepRay","red");
 		GameObject newEffect = (GameObject)Instantiate (loseTurn, transform.position, transform.rotation);
 		Sc_EffectLoseTurn neweffectScript =  newEffect.GetComponent<Sc_EffectLoseTurn>();
 		neweffectScript.duration = 1;
 	}
 	public void IntimidatingGaze(){
+		PlayingCard(7);
 		battleManager.PrintLog("Placeholder used IntimidatingGaze","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
@@ -112,6 +129,7 @@ public class Sc_Placeholder : MonsterClass {
 		neweffectScript.duration = 1;
 	}
 	public void CorrosionRay() {
+		PlayingCard(8);
 		battleManager.PrintLog("Placeholder used CorrosionRay","red");
 		blunt = 6;
 		poison = 1;
@@ -119,6 +137,7 @@ public class Sc_Placeholder : MonsterClass {
 		battleManager.DamageCalc(target: 0, poison: poison);
 	}
 	public void FrenzyRay(){
+		PlayingCard(9);
 		battleManager.PrintLog("Placeholder used FrenzyRay","red");
 		GameObject newEffect = (GameObject)Instantiate (preventType, transform.position, transform.rotation);
 		Sc_EffectPreventType neweffectScript =  newEffect.GetComponent<Sc_EffectPreventType>();
