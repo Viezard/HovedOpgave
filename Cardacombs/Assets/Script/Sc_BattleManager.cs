@@ -9,8 +9,9 @@ public class Sc_BattleManager : MonoBehaviour {
     public SaveDataManager SaveDataManager;
     public Sc_GameManager gameManager;
 	private Sc_CardDataBase cardDataBase;
+   
 
-	private Sc_LevelManager levelManager;
+    private Sc_LevelManager levelManager;
 // Varibels used in the Battle section
 	public List<int> currentDeck = new List<int>(); // The cards you have in your Deck
 	public static List<GameObject> currentHandObjects = new List<GameObject>(); // holdes the cards in your hand 
@@ -50,7 +51,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	public GameObject card; // getting the prefab of the card 
 	public GameObject armor;
 	public GameObject weapon;
-
+    
 	public MonsterClass monster;
 
 	public Text discardPile;
@@ -80,11 +81,12 @@ public class Sc_BattleManager : MonoBehaviour {
 
 	void Awake(){
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
-		
-		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
+      
+        cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
         SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
         
+
     }
 	// Use this for initialization
 	void Start () {
@@ -161,8 +163,11 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentPiercingAttack = 0;
 		currentNumberOfAttacks = 1;
 		for (int i = 0; i < currentEquipmentMelee.Count; i++){
-			Destroy(currentEquipmentMelee[i]);
-		}
+           //  MeleeCardObject.moveToDiscard = true;
+            Sc_MeleeEquipment meleeScript = currentEquipmentMelee[i].GetComponent<Sc_MeleeEquipment>();
+            meleeScript.moveToDiscard = true;
+            // Destroy(currentEquipmentMelee[i]);
+        }
 		currentEquipmentMelee.Clear();
 		mayPlayUtility = true;
 		mayPlayMelee = true;
@@ -374,7 +379,9 @@ public class Sc_BattleManager : MonoBehaviour {
 						ArmorScript.defence -=1;
 						ArmorScript.UpdateText();
 						if (ArmorScript.defence <= 0){
-							Destroy(currentEquipmentArmor[0]);
+                            // Sc_DefenceEquipment defenceScript = currentEquipmentArmor[i].GetComponent<Sc_DefenceEquipment>();
+                            ArmorScript.moveToDiscard = true;
+                            // Destroy(currentEquipmentArmor[0]);
 							currentEquipmentArmor.RemoveAt(0);
 							GameObject[] _armor = GameObject.FindGameObjectsWithTag("Armor");
 							for (int j = 0; j < _armor.Length; j++){
