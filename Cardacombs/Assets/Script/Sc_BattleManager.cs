@@ -162,13 +162,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentBluntAttack = 0;
 		currentPiercingAttack = 0;
 		currentNumberOfAttacks = 1;
-		for (int i = 0; i < currentEquipmentMelee.Count; i++){
-           //  MeleeCardObject.moveToDiscard = true;
-            Sc_MeleeEquipment meleeScript = currentEquipmentMelee[i].GetComponent<Sc_MeleeEquipment>();
-            meleeScript.moveToDiscard = true;
-            // Destroy(currentEquipmentMelee[i]);
-        }
-		currentEquipmentMelee.Clear();
+		
 		mayPlayUtility = true;
 		mayPlayMelee = true;
 		mayPlayArmor = true;
@@ -568,7 +562,15 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks += extraAttacks;
 	}
 	public void EndTurn () {
-		if (currentStage != 10){
+        for (int i = 0; i < currentEquipmentMelee.Count; i++)
+        {
+            
+            Sc_MeleeEquipment meleeScript = currentEquipmentMelee[i].GetComponent<Sc_MeleeEquipment>();
+            meleeScript.moveToDiscard = true;
+            // Destroy(currentEquipmentMelee[i]);
+        }
+        currentEquipmentMelee.Clear();
+        if (currentStage != 10){
 			currentStage = 2;
 		}
 		for (int i = 0; i < currentNumberOfAttacks; i++){

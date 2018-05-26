@@ -125,7 +125,7 @@ public class Sc_Card : MonoBehaviour {
 		} else {
 			if (this.transform.localScale.x !=6){
 				timer +=  0.05f;
-				float newScale = Mathf.Lerp(6, 8, timer);
+				// float newScale = Mathf.Lerp(6, 8, timer);
 			}
 			if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
 				if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
