@@ -580,8 +580,7 @@ public class Sc_BattleManager : MonoBehaviour {
 				DamageCalc(target: 1, damage: currentBrawl);
 			}	
 		}
-        SaveDataManager.saveData.date = System.DateTime.Now.ToShortDateString();
-        SaveDataManager.saveData.time = System.DateTime.Now.ToShortTimeString();
+        
         SaveDataManager.SaveGameData();
     }
 }

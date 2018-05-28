@@ -8,22 +8,30 @@ public class SaveDataManager : MonoBehaviour
     string filename = "SaveData.json";
     string path;
 
+    public Sc_BattleManager battleManager;
+    public Sc_GameManager gameManager;
+    public Sc_NavigationManager navManager;
+
     public SaveData saveData = new SaveData();
 
     // Use this for initialization
     void Start()
     {
-
+        battleManager = GameObject.FindObjectOfType<Sc_BattleManager>();
+        gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
+        navManager = GameObject.FindObjectOfType<Sc_NavigationManager>();
         path = Application.persistentDataPath + "/" + filename;
         Debug.Log(path);
     }
 
     private void Update()
     {
+
+
         if (Input.GetKeyDown(KeyCode.S) == true)
         {
-            saveData.date = System.DateTime.Now.ToShortDateString();
-            saveData.time = System.DateTime.Now.ToShortTimeString();
+            saveData.currentDeckSave = battleManager.currentDeck;
+            
             SaveGameData();
         }
 
@@ -48,10 +56,10 @@ public class SaveDataManager : MonoBehaviour
         {
             if (System.IO.File.Exists(path) == true)
             {
-                string contents = System.IO.File.ReadAllText(path);
+                /*string contents = System.IO.File.ReadAllText(path);
                 SaveDataWrapper wrapper = JsonUtility.FromJson<SaveDataWrapper>(contents);
-                saveData = wrapper.saveData;
-                Debug.Log(saveData.date + ", " + saveData.time);
+                saveData = wrapper.saveData;*/
+                
             }
             else
             {
