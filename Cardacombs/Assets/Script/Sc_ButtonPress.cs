@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
 	public string nyScene; 
 	private Sc_SoundManager soundManager; 
-	private Sc_LevelManager levelManager; 
-	public Button thisButton;
+	private Sc_LevelManager levelManager;
+   
+    public Button thisButton;
+ 
 	
 	// Use this for initialization
 	void Start () {
@@ -16,6 +19,7 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
         btn.onClick.AddListener(TaskOnClick);
 		soundManager = GameObject.FindObjectOfType<Sc_SoundManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
+     
 	}
 	
 	// Update is called once per frame
@@ -34,6 +38,9 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
 	 IEnumerator ExecuteAfterTime(float time)
  	{
     	 yield return new WaitForSeconds(time);
-		levelManager.ChangeSceneTo(nyScene);
- 	}
+        
+        levelManager.ChangeSceneTo(nyScene);
+    
+    }
+    
 }

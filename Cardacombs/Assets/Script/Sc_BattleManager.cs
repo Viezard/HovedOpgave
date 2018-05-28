@@ -60,6 +60,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	// log book 
 	public List<Text> logBook = new List<Text>();
 	public Text aLog;
+    private bool changeFirstTurn = false;
 
 	public void PrintLog(string text, string color){
 		Text newLog = (Text)Instantiate (aLog, transform.position, transform.rotation);
@@ -90,16 +91,21 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-		
+        changeFirstTurn = gameManager.saveGameFound;
 		
 		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
 		// set op some basic variables 
 		maxHandSize = 5;
-		currentStage = 0;
-		currentApMax = 2; 
-		currentApUsed = 0; 
-		currentUtilityAP = gameManager.utilityAP;
+        if (changeFirstTurn == false)
+        {
+            currentStage = 0;
+            currentApMax = 2;
+            currentApUsed = 0;
+            currentUtilityAP = gameManager.utilityAP;
+        }
+	
+		
 		currentTotalDefence = gameManager.startingDefence; 
 		currentToughness = 0;
 		currentNormalAttack = 0;
@@ -110,10 +116,88 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks = 1;
 		currentPermenentSpiked = 0;
 		currentRage = 0;
-		currentHandObjects.Clear();
-		currentEquipmentArmor.Clear();
-		currentEquipmentMelee.Clear();
-		currentEquimentDamage.Clear();
+        if(changeFirstTurn == false)
+        {
+            currentHandObjects.Clear();
+        }
+        else
+        {
+            Debug.Log(SaveDataManager.saveData.currentHandObjectsSave.Count);
+            
+            for (int i = 0; i < SaveDataManager.saveData.currentHandObjectsSave.Count; i++)
+            {
+                Debug.Log(SaveDataManager.saveData.currentHandObjectsSave[i]);
+                GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
+                Sc_Card newCardScript = newCard.GetComponent<Sc_Card>();
+                newCardScript.cardID = SaveDataManager.saveData.currentHandObjectsSave[i];
+               
+
+
+            }
+
+        }
+
+        if (changeFirstTurn == false)
+        {
+            currentEquipmentArmor.Clear();
+        }
+        else
+        {
+            Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave.Count);
+
+            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentArmorSave.Count; i++)
+            {
+                Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave[i]);
+                int idArmor = SaveDataManager.saveData.currentEquipmentArmorSave[i];
+                Debug.Log(idArmor);
+               if (idArmor < 2000)
+                {
+                    SO_CardArmor card = cardDataBase.FindArmorCardByID(idArmor);
+                    Defence(idArmor, card.armorBonus, card.spickedBonus);
+                    PrintLog("you just played " + card.name, "green");
+                }
+                
+
+
+            }
+            
+        }
+        
+
+        if (changeFirstTurn == false)
+        {
+            currentEquipmentMelee.Clear();
+        }
+        else
+        {
+            Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave.Count);
+
+            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentMeleeSave.Count; i++)
+            {
+                Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave[i]);
+                int idMelee = SaveDataManager.saveData.currentEquipmentMeleeSave[i];
+                Debug.Log(idMelee);
+                if (idMelee < 1000)
+                { // If the card is a melee card 
+                    SO_CardMelee card = cardDataBase.FindMeleeCardByID(idMelee);
+                    Melee(idMelee, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
+                    PrintLog("you just played " + card.name, "green");
+                }
+
+
+
+            }
+            
+        }
+
+        if (changeFirstTurn == false)
+        {
+            currentEquimentDamage.Clear();
+        }
+        
+
+        
+		
 
 		// effect realted varibles
 		mayPlayUtility = true;
@@ -124,14 +208,21 @@ public class Sc_BattleManager : MonoBehaviour {
 		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
-		// Add some random cards to deck 
-		for (int i = 0; i < gameManager.fullDeck.Count; i++){
-			currentDeck.Add(gameManager.fullDeck[i]);
-		}
+        // Add some random cards to deck 
+
+        if (changeFirstTurn == false)
+        {
+            for (int i = 0; i < gameManager.fullDeck.Count; i++)
+            {
+                currentDeck.Add(gameManager.fullDeck[i]);
+            }
+        }
+        
 		// Shuffle the deck 
 		ShuffleDeck();
 		// Draw Hand
-		DrawHand();
+        
+		// DrawHand();
 	}
 	
 	// Update is called once per frame
@@ -156,14 +247,21 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	public void TurnStart(){
 		// Resetting Varibles
-		currentApUsed = 0;
-		currentUtilityAP = gameManager.utilityAP;
-		currentNormalAttack = 0;
-		currentBluntAttack = 0;
-		currentPiercingAttack = 0;
-		currentNumberOfAttacks = 1;
-		
-		mayPlayUtility = true;
+        if(changeFirstTurn == false)
+        {
+            currentApUsed = 0;
+            currentUtilityAP = gameManager.utilityAP;
+            currentNormalAttack = 0;
+            currentBluntAttack = 0;
+            currentPiercingAttack = 0;
+            currentNumberOfAttacks = 1;
+            // Draw a hand 
+            DrawHand();
+            
+        }
+        changeFirstTurn = false;
+
+        mayPlayUtility = true;
 		mayPlayMelee = true;
 		mayPlayArmor = true;
 		HasLostTurn = false;
@@ -181,8 +279,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 
 
-		// Draw a hand 
-		DrawHand();
+		
 		if (currentToughness != 0){
 			HasToughness();
 		}	

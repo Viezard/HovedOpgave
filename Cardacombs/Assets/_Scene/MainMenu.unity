@@ -348,6 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: LoadMenu
   thisButton: {fileID: 517668208}
+  newGame: {fileID: 0}
 --- !u!1 &709514885
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: OptionMenu
   thisButton: {fileID: 1250270741}
+  newGame: {fileID: 0}
 --- !u!1 &1587015589
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Battle
   thisButton: {fileID: 1587015593}
+  newGame: {fileID: 1587015589}
 --- !u!1 &1688859630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,3 +1236,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Navigation
   thisButton: {fileID: 2039610841}
+  newGame: {fileID: 0}
