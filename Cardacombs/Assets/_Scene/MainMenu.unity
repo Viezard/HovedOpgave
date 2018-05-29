@@ -348,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: LoadMenu
   thisButton: {fileID: 517668208}
-  newGame: {fileID: 0}
+  continueButton: {fileID: 0}
 --- !u!1 &709514885
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +607,7 @@ GameObject:
   - component: {fileID: 851620175}
   - component: {fileID: 851620174}
   - component: {fileID: 851620173}
+  - component: {fileID: 851620177}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -677,6 +678,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &851620177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851620172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87496e00fab84746ac89f68547a3fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: 
+  battleManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  navManager: {fileID: 0}
+  cardInHand: {fileID: 0}
+  cardInSave: {fileID: 0}
+  meleeEquipmentSave: {fileID: 0}
+  armorEquipmentSave: {fileID: 0}
+  effectSave: {fileID: 0}
+  card: {fileID: 0}
+  saveData:
+    isNewGame: 1
+    currentDeckSave: 
+    currentHandObjectsSave: 
+    currentDiscardSave: 
+    currentBanishedSave: 
+    currentEffectsSave: []
+    currentEquipmentArmorSave: 
+    currentEquipmentMeleeSave: 
+    currentStageSave: 0
+    currentApUsedSave: 0
+    currentUtilityAPSave: 0
+    currentApMaxSave: 0
+    eventsDoneSave: 
+    monsterDoneSave: 
+    fullDeckSave: 
+    currentMonsterSave: {fileID: 0}
+    currentEventSave: 0
+    slayCountSave: 0
+    lostCardsSave: 
+    firstEventSave: 0
+    currentScene: 
 --- !u!1 &1250270737
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: OptionMenu
   thisButton: {fileID: 1250270741}
-  newGame: {fileID: 0}
+  continueButton: {fileID: 0}
 --- !u!1 &1587015589
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Battle
   thisButton: {fileID: 1587015593}
-  newGame: {fileID: 1587015589}
+  continueButton: {fileID: 0}
 --- !u!1 &1688859630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,4 +1280,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Navigation
   thisButton: {fileID: 2039610841}
-  newGame: {fileID: 0}
+  continueButton: {fileID: 0}

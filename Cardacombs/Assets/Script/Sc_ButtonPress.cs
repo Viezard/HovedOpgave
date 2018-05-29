@@ -9,8 +9,9 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
 	public string nyScene; 
 	private Sc_SoundManager soundManager; 
 	private Sc_LevelManager levelManager;
-   
+    private SaveDataManager saveManager;
     public Button thisButton;
+    public GameObject continueButton;
  
 	
 	// Use this for initialization
@@ -19,8 +20,19 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
         btn.onClick.AddListener(TaskOnClick);
 		soundManager = GameObject.FindObjectOfType<Sc_SoundManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
-     
-	}
+        saveManager = GameObject.FindObjectOfType<SaveDataManager>();
+        saveManager.LoadGameData();
+        if (this.gameObject == GameObject.Find("Continue"))
+        {
+            if(saveManager.saveData.currentScene != null)
+            {
+                nyScene = saveManager.saveData.currentScene;
+            }
+            
+        }
+        
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,7 +50,16 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
 	 IEnumerator ExecuteAfterTime(float time)
  	{
     	 yield return new WaitForSeconds(time);
-        
+        if ( nyScene == "Battle")
+        {
+            FileUtil.DeleteFileOrDirectory(saveManager.path);
+            
+        }
+        else if (nyScene == "Navigation")
+        {
+            
+            saveManager.saveData.currentScene = "Navigation";
+        }
         levelManager.ChangeSceneTo(nyScene);
     
     }

@@ -93,6 +93,7 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        SaveDataManager.saveData.currentScene = "Battle";
         if (gameManager.saveGameFound == true)
         {
             isNewGame = false;

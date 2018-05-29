@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Sc_NavigationManager : MonoBehaviour {
 
-	private Sc_EventDataBase eventDataBase;
+    public SaveDataManager saveDataManager;
+    private Sc_EventDataBase eventDataBase;
 	public Sc_GameManager gameManager;
 	public Sc_LevelManager levelManager;
 	public Sc_MonsterDataBase monsterManager;
@@ -25,7 +26,9 @@ public class Sc_NavigationManager : MonoBehaviour {
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
 		monsterManager = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
-		MonsterChance = 6;
+        saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+        saveDataManager.saveData.currentScene = "Navigation";
+        MonsterChance = 6;
 		EventPressed();
 	}
 	public void EventPressed (){

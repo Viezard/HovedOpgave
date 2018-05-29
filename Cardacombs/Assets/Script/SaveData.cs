@@ -26,7 +26,8 @@ public class SaveData {
     public int currentEventSave; // The ID of the current event 
     public int slayCountSave; // The number of monsters slay 
     public List<int> lostCardsSave = new List<int>(); // A list of all the cards which the player has lost
-    public bool firstEventSave; 
+    public bool firstEventSave;
+    public string currentScene;
 
 
 
