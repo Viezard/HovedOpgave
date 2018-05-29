@@ -36,8 +36,12 @@ public class Sc_GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
-        // saveDataManager.LoadGameData();
-        Debug.Log(saveGameFound);
+        saveDataManager.LoadGameData();
+        if (saveDataManager.saveData.isNewGame == false)
+        {
+            saveGameFound = true;
+        } 
+       
         Debug.Log(saveDataManager.saveData.currentHandObjectsSave);
 		monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
         

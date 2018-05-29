@@ -61,6 +61,7 @@ public class SaveDataManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) == true)
         {
             // Debug.Log(battleManager.currentHandObjects);
+            saveData.isNewGame = false;
             if( battleManagerExist == true)
             {
                 saveData.currentDeckSave = battleManager.currentDeck;

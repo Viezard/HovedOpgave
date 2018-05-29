@@ -483,6 +483,7 @@ MonoBehaviour:
   currentApUsed: 0
   currentUtilityAP: 0
   currentApMax: 0
+  nyScene: MainMenu
   currentEquipmentArmor: []
   currentEquipmentMelee: []
   currentEquimentDamage: 
@@ -826,9 +827,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87496e00fab84746ac89f68547a3fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: 
+  battleManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  navManager: {fileID: 0}
+  cardInHand: {fileID: 0}
+  cardInSave: {fileID: 0}
+  meleeEquipmentSave: {fileID: 0}
+  armorEquipmentSave: {fileID: 0}
+  effectSave: {fileID: 0}
+  card: {fileID: 0}
   saveData:
-    date: 
-    time: 
+    currentDeckSave: 
+    currentHandObjectsSave: 
+    currentDiscardSave: 
+    currentBanishedSave: 
+    currentEffectsSave: []
+    currentEquipmentArmorSave: 
+    currentEquipmentMeleeSave: 
+    currentStageSave: 0
+    currentApUsedSave: 0
+    currentUtilityAPSave: 0
+    currentApMaxSave: 0
+    eventsDoneSave: 
+    monsterDoneSave: 
+    fullDeckSave: 
+    currentMonsterSave: {fileID: 0}
+    currentEventSave: 0
+    slayCountSave: 0
+    lostCardsSave: 
+    firstEventSave: 0
 --- !u!1 &341434578
 GameObject:
   m_ObjectHideFlags: 0

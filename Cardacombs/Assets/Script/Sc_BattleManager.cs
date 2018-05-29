@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEditor;
 
 public class Sc_BattleManager : MonoBehaviour {
 
@@ -21,8 +22,9 @@ public class Sc_BattleManager : MonoBehaviour {
 	public int currentStage; // Which stage your in 0 effect and draw 1 Play cards 2 end turn 
 	public int currentApUsed; // how much has been used
 	public int currentUtilityAP;
-	public int currentApMax; // What is the max ap for this turn  
-	public List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
+	public int currentApMax; // What is the max ap for this turn
+    public string nyScene;
+    public List<GameObject> currentEquipmentArmor = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<GameObject> currentEquipmentMelee = new List<GameObject>(); // The current equpment cards the player has in play
 	public List<int> currentEquimentDamage = new List<int>(); // The armor equipment cards the player currenly has aktive and their hp
 	public List<int> currentEquimentBrawl = new List<int>(); //  their brawl bonus
@@ -60,7 +62,7 @@ public class Sc_BattleManager : MonoBehaviour {
 	// log book 
 	public List<Text> logBook = new List<Text>();
 	public Text aLog;
-    private bool changeFirstTurn = false;
+    private bool isNewGame = true;
 
 	public void PrintLog(string text, string color){
 		Text newLog = (Text)Instantiate (aLog, transform.position, transform.rotation);
@@ -91,13 +93,17 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        changeFirstTurn = gameManager.saveGameFound;
+        if (gameManager.saveGameFound == true)
+        {
+            isNewGame = false;
+        }
+
 		
 		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
 		// set op some basic variables 
 		maxHandSize = 5;
-        if (changeFirstTurn == false)
+        if (isNewGame == true)
         {
             currentStage = 0;
             currentApMax = 2;
@@ -116,7 +122,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks = 1;
 		currentPermenentSpiked = 0;
 		currentRage = 0;
-        if(changeFirstTurn == false)
+        if(isNewGame == true)
         {
             currentHandObjects.Clear();
         }
@@ -137,7 +143,7 @@ public class Sc_BattleManager : MonoBehaviour {
 
         }
 
-        if (changeFirstTurn == false)
+        if (isNewGame == true)
         {
             currentEquipmentArmor.Clear();
         }
@@ -164,7 +170,7 @@ public class Sc_BattleManager : MonoBehaviour {
         }
         
 
-        if (changeFirstTurn == false)
+        if (isNewGame == true)
         {
             currentEquipmentMelee.Clear();
         }
@@ -190,7 +196,7 @@ public class Sc_BattleManager : MonoBehaviour {
             
         }
 
-        if (changeFirstTurn == false)
+        if (isNewGame == true)
         {
             currentEquimentDamage.Clear();
         }
@@ -210,7 +216,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		defenceText.text = "" + currentTotalDefence;
         // Add some random cards to deck 
 
-        if (changeFirstTurn == false)
+        if (isNewGame == true)
         {
             for (int i = 0; i < gameManager.fullDeck.Count; i++)
             {
@@ -246,8 +252,9 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
 	}
 	public void TurnStart(){
-		// Resetting Varibles
-        if(changeFirstTurn == false)
+        // Resetting Varibles
+        
+            if (isNewGame == true)
         {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
@@ -259,7 +266,7 @@ public class Sc_BattleManager : MonoBehaviour {
             DrawHand();
             
         }
-        changeFirstTurn = false;
+        isNewGame = true;
 
         mayPlayUtility = true;
 		mayPlayMelee = true;
@@ -516,6 +523,7 @@ public class Sc_BattleManager : MonoBehaviour {
 
                 } else {
 					PrintLog ("you lost","red");
+                    playerLost();
 				}
 			}
 		}
@@ -679,5 +687,14 @@ public class Sc_BattleManager : MonoBehaviour {
 		}
         
         SaveDataManager.SaveGameData();
+    }
+
+    public void playerLost ()
+    {
+            // SaveDataManager.saveData = new SaveData();
+            // SaveDataManager.SaveGameData();
+            FileUtil.DeleteFileOrDirectory(SaveDataManager.path);
+            levelManager.ChangeSceneTo(nyScene);
+        
     }
 }

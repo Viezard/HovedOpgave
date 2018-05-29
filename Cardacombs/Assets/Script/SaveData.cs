@@ -7,6 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData {
 
+    public bool isNewGame = true;
     public List<int> currentDeckSave = new List<int>(); // The cards you have in your Deck
     public List<int> currentHandObjectsSave = new List<int>(); // holdes the cards in your hand 
     public List<int> currentDiscardSave = new List<int>(); // The cards you have in your discard
