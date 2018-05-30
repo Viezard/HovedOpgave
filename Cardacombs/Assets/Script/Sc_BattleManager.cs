@@ -104,6 +104,9 @@ public class Sc_BattleManager : MonoBehaviour {
         
         if(isNewGame == false)
         {
+            currentDeck.Clear();
+            currentBanished.Clear();
+            currentDiscard.Clear();
             currentDeck = saveDataManager.saveData.currentDeckSave;
             currentDiscard = saveDataManager.saveData.currentDiscardSave;
             currentBanished = saveDataManager.saveData.currentBanishedSave;
@@ -117,19 +120,19 @@ public class Sc_BattleManager : MonoBehaviour {
 		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
         Debug.Log("Monster ID " + monster.monsterID);
-     
-		// set op some basic variables 
-		maxHandSize = 5;
+        currentStage = 0;
+        // set op some basic variables 
+        maxHandSize = 5;
         if (isNewGame == true)
         {
-            currentStage = 0;
+            
             currentApMax = 2;
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
         }
         else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
         {
-            currentStage = 0;
+            
             currentApMax = 2;
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
@@ -278,12 +281,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	void StageManager () {
 		if (currentStage == 0){
             TurnStart();
-            
+
 
         }
 		if (currentStage == 2){
 			monster.MonsterTurn();
-            
+            saveDataManager.SaveGameData();
         }
 		if (currentStage == 10){
 			BattleWon();
@@ -291,12 +294,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	public void TurnStart(){
         // Resetting Varibles
-        saveDataManager.SaveGameData();
+     
+
         currentStage = 1;
         
 
-        if (isNewGame == true)
-        {
+      
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
             currentNormalAttack = 0;
@@ -305,8 +308,8 @@ public class Sc_BattleManager : MonoBehaviour {
             currentNumberOfAttacks = 1;
             // Draw a hand 
             DrawHand();
-        }
-        else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+        
+        if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
         {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
@@ -743,8 +746,8 @@ public class Sc_BattleManager : MonoBehaviour {
 				DamageCalc(target: 1, damage: currentBrawl);
 			}	
 		}
-        
-        
+
+      
     }
 
     public void playerLost ()
