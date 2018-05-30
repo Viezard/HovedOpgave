@@ -13,6 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2001
   name: Fireball
-  image: {fileID: 21300000, guid: 9e0bf4f3e78d1ea4ebbb226288bbe3da, type: 3}
+  image: {fileID: 21300000, guid: 69957c11750ad5d42b67cceeb557f40e, type: 3}
   apCost: 1
   damage: 2
+  poison: 0
+  chanceHitSelf: 0

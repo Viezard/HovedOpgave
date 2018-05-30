@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2012
   name: StoneSkin
-  image: {fileID: 21300000, guid: d333daf6a7b854c40a426371e95d0f99, type: 3}
+  image: {fileID: 21300000, guid: 9ae636bcb27a89a4d881ed6202d38ba9, type: 3}
   apCost: 1
   toughness: 1
   spiked: 0

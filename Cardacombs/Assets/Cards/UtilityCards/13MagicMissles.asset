@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2013
   name: Magic Missles
-  image: {fileID: 21300000, guid: e1f3738f609c5cb4fa940605fbeb206c, type: 3}
+  image: {fileID: 21300000, guid: 0ad95f90a1b4c4b44bc2b64bef42ac70, type: 3}
   apCost: 1
   damage: 2
   poison: 0

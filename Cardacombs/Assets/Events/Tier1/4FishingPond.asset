@@ -17,7 +17,7 @@ MonoBehaviour:
   eventDecription: As you come aross a small river, you chosse to sit down tak a break
     and fish i little. What did you catch?
   decriptionFirstEvent: Sword Fish
-  FirstEventImage: {fileID: 21300000, guid: 7b9e8c42b36add844b78ee4e49370353, type: 3}
+  FirstEventImage: {fileID: 21300000, guid: a7b693adced5c784cbfb75d4d0c269f9, type: 3}
   cardsFirstEvent: 0a000000
   decriptionSecondEvent: StarFish
   TwoEventImage: {fileID: 21300000, guid: 5dcbd0660b367334d9b1dae69987309c, type: 3}

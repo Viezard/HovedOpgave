@@ -13,9 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   name: Knife
-  image: {fileID: 21300000, guid: b1fda8925b865774bb04556118c13354, type: 3}
+  image: {fileID: 21300000, guid: 5bb7783ee4714e642a82fb871efc1b11, type: 3}
   apCost: 0
   normalDamage: 1
   bluntDamage: 0
   poisonDamage: 0
   piercingDamage: 0
+  decription: This is a Knife

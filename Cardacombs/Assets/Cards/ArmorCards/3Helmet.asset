@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 3Helmet
   m_EditorClassIdentifier: 
   id: 1003
-  name: Helmet
-  image: {fileID: 21300000, guid: b166c679601a4e34b8a1e7c5e7f53d26, type: 3}
+  name: Bronze Helmet
+  image: {fileID: 21300000, guid: 28414fc9ab6926346b16861ae55c9aac, type: 3}
   apCost: 1
   armorBonus: 1
   spickedBonus: 0

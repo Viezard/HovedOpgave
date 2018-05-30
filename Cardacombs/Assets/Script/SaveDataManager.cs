@@ -149,7 +149,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void LoadGameData()
     {
-
+        print("haloo there load is being runeed");
         try
         {
             if (System.IO.File.Exists(path))

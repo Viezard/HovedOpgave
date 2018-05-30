@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2010
   name: Super Rage!
-  image: {fileID: 21300000, guid: 866124bc6862c3e4bb873304c9d12c25, type: 3}
+  image: {fileID: 21300000, guid: a222bb2e6c7359d4785358c40c87b87d, type: 3}
   apCost: 1
   rage: 2
   selfDamage: 2

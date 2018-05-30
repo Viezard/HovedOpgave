@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: 0Sword
   m_EditorClassIdentifier: 
   id: 0
-  name: Sword
-  image: {fileID: 21300000, guid: a7702b26d2389c94095c19c63def3d89, type: 3}
+  name: Arming Sword
+  image: {fileID: 21300000, guid: 58beae5c2ad45b2459e5aa19e6e1c02d, type: 3}
   apCost: 1
   normalDamage: 2
   bluntDamage: 0
   poisonDamage: 0
   piercingDamage: 0
+  decription: This is a Sword

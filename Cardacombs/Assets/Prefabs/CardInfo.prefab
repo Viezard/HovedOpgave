@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4105531297904428}
-  - component: {fileID: 114098781868250262}
+  - component: {fileID: 114529980640085792}
   m_Layer: 0
   m_Name: CardInfo
   m_TagString: CardInfo
@@ -589,18 +589,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: DAMAGE
---- !u!114 &114098781868250262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327342702932916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbe9ef9a81c10f439966d4c9bca2939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
 --- !u!114 &114104701622634986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -907,6 +895,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Damage is Dealt after you end the turn '
+--- !u!114 &114529980640085792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327342702932916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa10843957b9bf4ca62f0c8ef605edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!114 &114580772349765136
 MonoBehaviour:
   m_ObjectHideFlags: 1

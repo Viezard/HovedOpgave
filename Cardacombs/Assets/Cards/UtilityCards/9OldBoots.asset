@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: 9OldBoots
   m_EditorClassIdentifier: 
   id: 2009
-  name: Old Boots
-  image: {fileID: 21300000, guid: 26bed9d6de2cd8e4da636561b6980278, type: 3}
+  name: Wizards Shoe
+  image: {fileID: 21300000, guid: 20400fa0e77df4d4eb3671bd72be968e, type: 3}
   apCost: 0
   apBonus: 1

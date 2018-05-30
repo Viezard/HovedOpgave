@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 21ConfussineBomp
   m_EditorClassIdentifier: 
   id: 2021
-  name: Confussine
-  image: {fileID: 21300000, guid: 06b38d56a6d1cf9498dfbabc9a52cbee, type: 3}
+  name: Confussine Spell
+  image: {fileID: 21300000, guid: 2111236d4e5109a4d8f57a3e6e1fe485, type: 3}
   apCost: 1
   decreaseDamage: 0
   chanceDecreaseDamage: 100

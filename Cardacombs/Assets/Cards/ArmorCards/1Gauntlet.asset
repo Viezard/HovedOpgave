@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 1Gauntlet
   m_EditorClassIdentifier: 
   id: 1001
-  name: Gauntlet
-  image: {fileID: 21300000, guid: aabbe837448aa26448a8bda8abfd0b26, type: 3}
+  name: Heavy Gauntlet
+  image: {fileID: 21300000, guid: ff19257709ec21d4fb2acd2dbc4ec489, type: 3}
   apCost: 1
   armorBonus: 1
   spickedBonus: 0

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224307791414527348}
   - component: {fileID: 222485278032427734}
   - component: {fileID: 114420848603941202}
-  - component: {fileID: 114736801292814726}
+  - component: {fileID: 114433694535768842}
   m_Layer: 5
   m_Name: Alog
   m_TagString: Untagged
@@ -62,7 +62,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New asdgasdgasdgadgagadg
---- !u!114 &114736801292814726
+--- !u!114 &114433694535768842
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867290443491424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cbf22b80f1f82d4a8dc0d38faba05b9, type: 3}
+  m_Script: {fileID: 11500000, guid: a1bf80de44a874646acd225192cedf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   placement: 0

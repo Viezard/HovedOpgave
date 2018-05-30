@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2003
   name: Potion
-  image: {fileID: 21300000, guid: 73ff2fd5df5eb8f4f92896e5a3c73624, type: 3}
+  image: {fileID: 21300000, guid: a6f95f5ae2ea4ca48a710b8ba0c5d14d, type: 3}
   apCost: 1
   maxHealth: 2
   minHealth: 0

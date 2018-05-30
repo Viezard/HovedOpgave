@@ -10,5 +10,7 @@ public class SO_CardArmor : ScriptableObject {
 	public int armorBonus;
 	public int spickedBonus;
 	public int brawl;
+	[TextArea]
+	public string decription;
 
 }

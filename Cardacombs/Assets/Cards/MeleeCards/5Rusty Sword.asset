@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   name: Rusty Sword
-  image: {fileID: 21300000, guid: 3d0ca97c011712e4d96c93d5d9f4fd57, type: 3}
+  image: {fileID: 21300000, guid: 054189b7691978e4faeb8aacbb5ed628, type: 3}
   apCost: 1
   normalDamage: 1
   bluntDamage: 0

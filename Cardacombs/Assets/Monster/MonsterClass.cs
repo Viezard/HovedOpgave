@@ -70,5 +70,4 @@ public abstract class MonsterClass : MonoBehaviour {
 		Image backgroundSR = newCard.GetComponent<Image>();
 		backgroundSR.sprite = monsterCards[sprite];
 	}
-	
 }

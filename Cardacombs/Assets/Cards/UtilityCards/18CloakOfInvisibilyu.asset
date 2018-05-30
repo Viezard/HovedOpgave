@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2018
   name: Cloak Of Invisiblity
-  image: {fileID: 21300000, guid: ccfbfce33003c15468b67d2c1e0fbfa4, type: 3}
+  image: {fileID: 21300000, guid: 6c3728b28b05526428d533b9d50c263f, type: 3}
   apCost: 1
   decreaseDamage: 0
   chanceDecreaseDamage: 100

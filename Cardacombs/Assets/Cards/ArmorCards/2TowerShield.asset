@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1002
   name: TowerShield
-  image: {fileID: 21300000, guid: 356df16bbe8806c489e498ca22d6673c, type: 3}
+  image: {fileID: 21300000, guid: e263a8568ddc53242ad588fa57c78972, type: 3}
   apCost: 1
   armorBonus: 2
   spickedBonus: 0

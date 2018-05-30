@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Name: 0Bowshot
   m_EditorClassIdentifier: 
   id: 2000
-  name: Bowshot
-  image: {fileID: 21300000, guid: 94fae53bdf743ce46aefe34b0d9b2cf6, type: 3}
+  name: Quick Shot
+  image: {fileID: 21300000, guid: 60535b09fa72e134887e25c2d4702ae5, type: 3}
   apCost: 1
   damage: 1
+  poison: 0
+  chanceHitSelf: 0

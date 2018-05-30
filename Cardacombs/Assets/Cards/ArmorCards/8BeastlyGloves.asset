@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1008
   name: Beastly Gloves
-  image: {fileID: 21300000, guid: 22af0660ca6f91144aeac46aebaa3f39, type: 3}
+  image: {fileID: 21300000, guid: 9e894493cb692df4d87cc12688d5af48, type: 3}
   apCost: 1
   armorBonus: 1
   spickedBonus: 1

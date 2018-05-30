@@ -7,6 +7,8 @@ public abstract class CardCurse : ScriptableObject {
 	public new string name;
 	public Sprite image;
 	public int apCost;
+	[TextArea]
+	public string decription;
 	public abstract void PlayedFunction ();
 }
 

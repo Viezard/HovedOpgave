@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2016
   name: Boots of Haste
-  image: {fileID: 21300000, guid: f4687ca07b8ce6649b1aee8cdd7babd0, type: 3}
+  image: {fileID: 21300000, guid: 8149e87c6acf84f4f987993ddada8c08, type: 3}
   apCost: 1
   extraAttacks: 1

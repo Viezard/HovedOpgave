@@ -13,6 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2007
   name: Demonicon For Dummies
-  image: {fileID: 21300000, guid: 3f865e3ac480acf45a744c5023108f90, type: 3}
+  image: {fileID: 21300000, guid: d759580ecd30032448d54bb9a991e618, type: 3}
   apCost: 1
-  debuff: 1
+  decreaseDamage: 0
+  chanceDecreaseDamage: 100
+  cantHit: 0
+  chanceCantHit: 100
+  hitself: 0
+  chancehitself: 100

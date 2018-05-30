@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 4LeatherArmor
   m_EditorClassIdentifier: 
   id: 1004
-  name: Leather Armor
-  image: {fileID: 21300000, guid: c962b39c3be091b43b4901544b343248, type: 3}
+  name: Armor of Pecs
+  image: {fileID: 21300000, guid: b1d8473cebed67e4695e7df74c40f906, type: 3}
   apCost: 1
   armorBonus: 2
   spickedBonus: 0

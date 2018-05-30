@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   name: SwordFish
-  image: {fileID: 21300000, guid: a7b693adced5c784cbfb75d4d0c269f9, type: 3}
+  image: {fileID: 21300000, guid: 1e118170b1ee4ba48adcdd2f7359c137, type: 3}
   apCost: 2
   normalDamage: 4
   bluntDamage: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 6Broken Half Plate
   m_EditorClassIdentifier: 
   id: 1006
-  name: Broken Half Plate
-  image: {fileID: 21300000, guid: 896730a84117dd34bb69b0a98f8a5e6d, type: 3}
+  name: Half Plate
+  image: {fileID: 21300000, guid: 950d9bb6192b22342a46fd66732ed078, type: 3}
   apCost: 1
   armorBonus: 1
   spickedBonus: 1

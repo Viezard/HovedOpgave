@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 20RiskyRocket
   m_EditorClassIdentifier: 
   id: 2020
-  name: Risky Rocket
-  image: {fileID: 21300000, guid: ec889650e69e74640b3125c4571c55b1, type: 3}
+  name: Unstable Blast
+  image: {fileID: 21300000, guid: 8c5f2473e81035e429475dbab6431a2d, type: 3}
   apCost: 1
   damage: 3
   poison: 0

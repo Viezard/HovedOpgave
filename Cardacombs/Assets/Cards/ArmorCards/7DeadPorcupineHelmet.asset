@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 7DeadPorcupineHelmet
   m_EditorClassIdentifier: 
   id: 1007
-  name: Dead Porcupine Helmet
-  image: {fileID: 21300000, guid: 3d56860da6626844386dd29f2c850a87, type: 3}
+  name: Porcupine Helmet
+  image: {fileID: 21300000, guid: f8407d7a24bd73f4ea196e9c8108e726, type: 3}
   apCost: 1
   armorBonus: 2
   spickedBonus: 1

@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -348,7 +348,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: LoadMenu
   thisButton: {fileID: 517668208}
-  newGame: {fileID: 0}
 --- !u!1 &709514885
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +806,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: OptionMenu
   thisButton: {fileID: 1250270741}
-  newGame: {fileID: 0}
+--- !u!1001 &1272776753
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 601.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1117.2014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -135.56805
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048435838994212, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: bf9ab26c4e9933948bae4800ea928847, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1587015589
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +978,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Battle
   thisButton: {fileID: 1587015593}
-  newGame: {fileID: 1587015589}
 --- !u!1 &1688859630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,4 +1275,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nyScene: Navigation
   thisButton: {fileID: 2039610841}
-  newGame: {fileID: 0}

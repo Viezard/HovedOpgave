@@ -11,5 +11,7 @@ public class SO_CardMelee: ScriptableObject{
 	public int bluntDamage;
 	public int poisonDamage;
 	public int piercingDamage ;
+	[TextArea]
+	public string decription;
 	
 }

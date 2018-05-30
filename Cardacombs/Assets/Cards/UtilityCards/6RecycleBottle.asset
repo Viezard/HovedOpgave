@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2006
   name: Reycle Bottle
-  image: {fileID: 21300000, guid: fabe63e2cfa01184d95997cb0fc95272, type: 3}
+  image: {fileID: 21300000, guid: 926dcd6260bb5d845bc2ca2936632576, type: 3}
   apCost: 1
   cardsToTake: 1

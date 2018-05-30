@@ -93,16 +93,14 @@ public class Sc_BattleManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        if (gameManager.saveGameFound == true)
-        {
+        if (gameManager.saveGameFound == true)        {
             isNewGame = false;
-        }
-
-		
+        }	
 		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
 		// set op some basic variables 
 		maxHandSize = 5;
+		isNewGame = true;
         if (isNewGame == true)
         {
             currentStage = 0;
@@ -110,7 +108,6 @@ public class Sc_BattleManager : MonoBehaviour {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
         }
-	
 		
 		currentTotalDefence = gameManager.startingDefence; 
 		currentToughness = 0;
@@ -122,60 +119,37 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks = 1;
 		currentPermenentSpiked = 0;
 		currentRage = 0;
-        if(isNewGame == true)
-        {
+        if(isNewGame == true)        {
             currentHandObjects.Clear();
-        }
-        else
-        {
+        } else {
             Debug.Log(SaveDataManager.saveData.currentHandObjectsSave.Count);
             
-            for (int i = 0; i < SaveDataManager.saveData.currentHandObjectsSave.Count; i++)
-            {
+            for (int i = 0; i < SaveDataManager.saveData.currentHandObjectsSave.Count; i++) {
                 Debug.Log(SaveDataManager.saveData.currentHandObjectsSave[i]);
                 GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
                 Sc_Card newCardScript = newCard.GetComponent<Sc_Card>();
                 newCardScript.cardID = SaveDataManager.saveData.currentHandObjectsSave[i];
-               
-
-
             }
-
         }
-
-        if (isNewGame == true)
-        {
+        if (isNewGame == true) {
             currentEquipmentArmor.Clear();
-        }
-        else
-        {
+        } else {
             Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave.Count);
 
-            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentArmorSave.Count; i++)
-            {
+            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentArmorSave.Count; i++) {
                 Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave[i]);
                 int idArmor = SaveDataManager.saveData.currentEquipmentArmorSave[i];
                 Debug.Log(idArmor);
-               if (idArmor < 2000)
-                {
+               if (idArmor < 2000) {
                     SO_CardArmor card = cardDataBase.FindArmorCardByID(idArmor);
                     Defence(idArmor, card.armorBonus, card.spickedBonus);
                     PrintLog("you just played " + card.name, "green");
                 }
-                
-
-
             }
-            
         }
-        
-
-        if (isNewGame == true)
-        {
+        if (isNewGame == true) {
             currentEquipmentMelee.Clear();
-        }
-        else
-        {
+        } else {
             Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave.Count);
 
             for (int i = 0; i < SaveDataManager.saveData.currentEquipmentMeleeSave.Count; i++)
@@ -189,37 +163,24 @@ public class Sc_BattleManager : MonoBehaviour {
                     Melee(idMelee, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
                     PrintLog("you just played " + card.name, "green");
                 }
-
-
-
             }
-            
         }
-
         if (isNewGame == true)
         {
             currentEquimentDamage.Clear();
         }
-        
-
-        
-		
-
 		// effect realted varibles
 		mayPlayUtility = true;
 		mayPlayMelee = true;
 		mayPlayArmor = true;
 		HasLostTurn = false;
-
-		
 		// Setting player related text
 		defenceText.text = "" + currentTotalDefence;
         // Add some random cards to deck 
 
-        if (isNewGame == true)
-        {
-            for (int i = 0; i < gameManager.fullDeck.Count; i++)
-            {
+        if (isNewGame == true) {
+			print("hallo" + gameManager.fullDeck.Count);
+            for (int i = 0; i < gameManager.fullDeck.Count; i++) {
                 currentDeck.Add(gameManager.fullDeck[i]);
             }
         }

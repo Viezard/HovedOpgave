@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2015
   name: BlowFish
-  image: {fileID: 21300000, guid: fb54b234d945a3c4b95b2e34c63a1a24, type: 3}
+  image: {fileID: 21300000, guid: c74d7ad2a3a5f3a48b3718ee50e6311c, type: 3}
   apCost: 1
   damage: 1
   poison: 3

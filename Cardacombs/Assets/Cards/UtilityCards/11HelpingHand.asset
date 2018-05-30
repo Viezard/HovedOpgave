@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2011
   name: HelpingHand
-  image: {fileID: 21300000, guid: f883a79641021634ea7defedf7170cd4, type: 3}
+  image: {fileID: 21300000, guid: 65b4eb09d7e066f4ba0bcb6b9f89837f, type: 3}
   apCost: 0
   apBonus: 1

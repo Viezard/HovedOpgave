@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 9
   name: Dagger
-  image: {fileID: 21300000, guid: b62da9b7051ac974f9163c7b6fc8132b, type: 3}
+  image: {fileID: 21300000, guid: b44a30486497d5444909fe46520b78ef, type: 3}
   apCost: 0
   normalDamage: 1
   bluntDamage: 0

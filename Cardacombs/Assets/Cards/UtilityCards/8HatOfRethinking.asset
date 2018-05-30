@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2008
   name: Hat of Rethinking
-  image: {fileID: 21300000, guid: 9fa56aab9bad0b64680cebd4aac6f544, type: 3}
+  image: {fileID: 21300000, guid: 1c1995d7db89a994ca62626e882e1b72, type: 3}
   apCost: 1
   draw: 2
   discard: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2014
   name: StarFish
-  image: {fileID: 21300000, guid: 5dcbd0660b367334d9b1dae69987309c, type: 3}
+  image: {fileID: 21300000, guid: a0b0ed9022574004abeab2d7cac70090, type: 3}
   apCost: 1
   damage: 3
   poison: 0

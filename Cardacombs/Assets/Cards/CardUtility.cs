@@ -8,7 +8,8 @@ public abstract class CardUtility : ScriptableObject {
 	public new string name;
 	public Sprite image;
 	public int apCost;
-
+	[TextArea]
+	public string decription;
 	
 	public abstract void PlayedFunction ();
 

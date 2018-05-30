@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 9PointyBreastPlate
   m_EditorClassIdentifier: 
   id: 1009
-  name: Pointy Breast Plate
-  image: {fileID: 21300000, guid: 95b527d503e9d1e46b7c71ed2ff07cde, type: 3}
+  name: Spiked Boobplate
+  image: {fileID: 21300000, guid: 09c4ea4119a7b0340a66b9bad9ae9e64, type: 3}
   apCost: 1
   armorBonus: 3
   spickedBonus: 1
