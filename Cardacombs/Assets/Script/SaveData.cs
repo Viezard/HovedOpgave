@@ -22,12 +22,13 @@ public class SaveData {
     public List<int> eventsDoneSave = new List<int>(); // A list of all the events which the player allready have done
     public List<int> monsterDoneSave = new List<int>(); // A list of all the monsters the player has defeated 
     public List<int> fullDeckSave = new List<int>();
-    public GameObject currentMonsterSave;
+    public int currentMonsterSave = 0;
     public int currentEventSave; // The ID of the current event 
     public int slayCountSave; // The number of monsters slay 
     public List<int> lostCardsSave = new List<int>(); // A list of all the cards which the player has lost
     public bool firstEventSave;
     public string currentScene;
+    public bool readyfornewBattle = true;
 
 
 

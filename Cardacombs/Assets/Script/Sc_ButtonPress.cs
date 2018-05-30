@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEditor;
+
+using UnityEngine.SceneManagement;
+
+
 
 public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
 	public string nyScene; 
 	private Sc_SoundManager soundManager; 
 	private Sc_LevelManager levelManager;
     private SaveDataManager saveManager;
+
+
+    private Scene scene;
+
     public Button thisButton;
     public GameObject continueButton;
  
 	
 	// Use this for initialization
 	void Start () {
-		Button btn = thisButton.GetComponent<Button>();
+        scene = SceneManager.GetActiveScene();
+        Button btn = thisButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
 		soundManager = GameObject.FindObjectOfType<Sc_SoundManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
         saveManager = GameObject.FindObjectOfType<SaveDataManager>();
         saveManager.LoadGameData();
-        if (this.gameObject == GameObject.Find("Continue"))
-        {
-            if(saveManager.saveData.currentScene != null)
-            {
-                nyScene = saveManager.saveData.currentScene;
-            }
-            
-        }
+       
+        Debug.Log(saveManager.saveData.currentScene);
         
-        
+
     }
 	
 	// Update is called once per frame
@@ -47,21 +49,33 @@ public class Sc_ButtonPress : MonoBehaviour, IPointerDownHandler {
         soundManager.clicked();
     }
 
-	 IEnumerator ExecuteAfterTime(float time)
- 	{
-    	 yield return new WaitForSeconds(time);
-        if ( nyScene == "Battle")
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if(scene.name == "MainMenu")
         {
-            FileUtil.DeleteFileOrDirectory(saveManager.path);
-            
+            if (this.gameObject.name == "New Game")
+
+            {
+                System.IO.File.Delete(saveManager.path);
+                saveManager.LoadGameData();
+
+                levelManager.ChangeSceneTo(nyScene);
+            }
+            else if (this.gameObject.name == "Continue")
+            {
+
+                levelManager.ChangeSceneTo(saveManager.saveData.currentScene);
+            }
         }
-        else if (nyScene == "Navigation")
+        else
         {
-            
-            saveManager.saveData.currentScene = "Navigation";
+            levelManager.ChangeSceneTo("MainMenu");
         }
-        levelManager.ChangeSceneTo(nyScene);
-    
+
+
+
+
     }
-    
 }

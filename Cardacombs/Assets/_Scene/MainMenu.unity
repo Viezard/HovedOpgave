@@ -173,8 +173,86 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &95588900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 95588902}
+  - component: {fileID: 95588901}
+  m_Layer: 5
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &95588901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 95588900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87496e00fab84746ac89f68547a3fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: 
+  saveData:
+    isNewGame: 1
+    currentDeckSave: 
+    currentHandObjectsSave: 
+    currentDiscardSave: 
+    currentBanishedSave: 
+    currentEffectsSave: []
+    currentEquipmentArmorSave: 
+    currentEquipmentMeleeSave: 
+    currentStageSave: 0
+    currentApUsedSave: 0
+    currentUtilityAPSave: 0
+    currentApMaxSave: 0
+    eventsDoneSave: 
+    monsterDoneSave: 
+    fullDeckSave: 
+    currentMonsterSave: 0
+    currentEventSave: 0
+    slayCountSave: 0
+    lostCardsSave: 
+    firstEventSave: 0
+    currentScene: 
+    readyfornewBattle: 1
+  battleManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  navManager: {fileID: 0}
+  cardInHand: {fileID: 0}
+  cardInSave: {fileID: 0}
+  meleeEquipmentSave: {fileID: 0}
+  armorEquipmentSave: {fileID: 0}
+  effectSave: {fileID: 0}
+  card: {fileID: 0}
+--- !u!224 &95588902
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 95588900}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 400, y: 731}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &505583486
 Prefab:
   m_ObjectHideFlags: 0
@@ -212,7 +290,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4862776705697250, guid: 3917a3b0c150fa64ea726919f16503cd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114436633254368556, guid: 3917a3b0c150fa64ea726919f16503cd, type: 2}
@@ -589,7 +667,7 @@ RectTransform:
   - {fileID: 1250270738}
   - {fileID: 709514886}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -607,7 +685,6 @@ GameObject:
   - component: {fileID: 851620175}
   - component: {fileID: 851620174}
   - component: {fileID: 851620173}
-  - component: {fileID: 851620177}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -676,51 +753,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &851620177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 851620172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e87496e00fab84746ac89f68547a3fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: 
-  battleManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  navManager: {fileID: 0}
-  cardInHand: {fileID: 0}
-  cardInSave: {fileID: 0}
-  meleeEquipmentSave: {fileID: 0}
-  armorEquipmentSave: {fileID: 0}
-  effectSave: {fileID: 0}
-  card: {fileID: 0}
-  saveData:
-    isNewGame: 1
-    currentDeckSave: 
-    currentHandObjectsSave: 
-    currentDiscardSave: 
-    currentBanishedSave: 
-    currentEffectsSave: []
-    currentEquipmentArmorSave: 
-    currentEquipmentMeleeSave: 
-    currentStageSave: 0
-    currentApUsedSave: 0
-    currentUtilityAPSave: 0
-    currentApMaxSave: 0
-    eventsDoneSave: 
-    monsterDoneSave: 
-    fullDeckSave: 
-    currentMonsterSave: {fileID: 0}
-    currentEventSave: 0
-    slayCountSave: 0
-    lostCardsSave: 
-    firstEventSave: 0
-    currentScene: 
 --- !u!1 &1250270737
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +899,7 @@ GameObject:
   - component: {fileID: 1587015593}
   - component: {fileID: 1587015594}
   m_Layer: 5
-  m_Name: Ny Game
+  m_Name: New Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1022,7 +1056,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1952861278
 Prefab:
@@ -1069,7 +1103,7 @@ Prefab:
     - target: {fileID: 224102910573462226, guid: 02325b77c9eddb240a60ad2cb5b1d591,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224102910573462226, guid: 02325b77c9eddb240a60ad2cb5b1d591,
         type: 2}

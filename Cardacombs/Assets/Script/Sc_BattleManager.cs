@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor;
+
 
 public class Sc_BattleManager : MonoBehaviour {
 
    
-    public SaveDataManager SaveDataManager;
+    public SaveDataManager saveDataManager;
     public Sc_GameManager gameManager;
 	private Sc_CardDataBase cardDataBase;
    
@@ -86,22 +86,38 @@ public class Sc_BattleManager : MonoBehaviour {
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
       
         cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
-        SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+        saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
-        
+
+        saveDataManager.LoadGameData();
+       
 
     }
 	// Use this for initialization
 	void Start () {
-        SaveDataManager.saveData.currentScene = "Battle";
-        if (gameManager.saveGameFound == true)
+     
+        saveDataManager.saveData.currentScene = "Battle";
+        if (saveDataManager.saveData.isNewGame == false)
         {
             isNewGame = false;
+        }
+        
+        if(isNewGame == false)
+        {
+            currentDeck = saveDataManager.saveData.currentDeckSave;
+            currentDiscard = saveDataManager.saveData.currentDiscardSave;
+            currentBanished = saveDataManager.saveData.currentBanishedSave;
+            currentEffects = saveDataManager.saveData.currentEffectsSave;
+            currentApUsed = saveDataManager.saveData.currentApUsedSave;
+            currentUtilityAP = saveDataManager.saveData.currentUtilityAPSave;
+            currentApMax = saveDataManager.saveData.currentApMaxSave;
         }
 
 		
 		//
 		monster = GameObject.FindObjectOfType<MonsterClass>();
+        Debug.Log("Monster ID " + monster.monsterID);
+     
 		// set op some basic variables 
 		maxHandSize = 5;
         if (isNewGame == true)
@@ -111,9 +127,17 @@ public class Sc_BattleManager : MonoBehaviour {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
         }
-	
-		
-		currentTotalDefence = gameManager.startingDefence; 
+        else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+        {
+            currentStage = 0;
+            currentApMax = 2;
+            currentApUsed = 0;
+            currentUtilityAP = gameManager.utilityAP;
+        }
+
+        
+        currentUtilityAP = gameManager.utilityAP;
+        currentTotalDefence = gameManager.startingDefence; 
 		currentToughness = 0;
 		currentNormalAttack = 0;
 		currentBluntAttack = 0;
@@ -123,39 +147,38 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks = 1;
 		currentPermenentSpiked = 0;
 		currentRage = 0;
-        if(isNewGame == true)
+      
+        currentHandObjects.Clear();
+       
+
+        if (isNewGame == false)
         {
-            currentHandObjects.Clear();
-        }
-        else
-        {
-            Debug.Log(SaveDataManager.saveData.currentHandObjectsSave.Count);
+            Debug.Log(saveDataManager.saveData.currentHandObjectsSave.Count);
             
-            for (int i = 0; i < SaveDataManager.saveData.currentHandObjectsSave.Count; i++)
+            for (int i = 0; i < saveDataManager.saveData.currentHandObjectsSave.Count; i++)
             {
-                Debug.Log(SaveDataManager.saveData.currentHandObjectsSave[i]);
+                Debug.Log(saveDataManager.saveData.currentHandObjectsSave[i]);
                 GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
                 Sc_Card newCardScript = newCard.GetComponent<Sc_Card>();
-                newCardScript.cardID = SaveDataManager.saveData.currentHandObjectsSave[i];
-               
-
-
+                newCardScript.cardID = saveDataManager.saveData.currentHandObjectsSave[i];
+              
             }
 
         }
 
-        if (isNewGame == true)
-        {
+      
             currentEquipmentArmor.Clear();
-        }
-        else
+        
+           
+        
+        if (isNewGame == false)
         {
-            Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave.Count);
+            Debug.Log(saveDataManager.saveData.currentEquipmentArmorSave.Count);
 
-            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentArmorSave.Count; i++)
+            for (int i = 0; i < saveDataManager.saveData.currentEquipmentArmorSave.Count; i++)
             {
-                Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave[i]);
-                int idArmor = SaveDataManager.saveData.currentEquipmentArmorSave[i];
+                Debug.Log(saveDataManager.saveData.currentEquipmentArmorSave[i]);
+                int idArmor = saveDataManager.saveData.currentEquipmentArmorSave[i];
                 Debug.Log(idArmor);
                if (idArmor < 2000)
                 {
@@ -163,26 +186,25 @@ public class Sc_BattleManager : MonoBehaviour {
                     Defence(idArmor, card.armorBonus, card.spickedBonus);
                     PrintLog("you just played " + card.name, "green");
                 }
-                
-
-
+             
             }
             
         }
-        
 
-        if (isNewGame == true)
-        {
+
+       
             currentEquipmentMelee.Clear();
-        }
-        else
+        
+        
+        
+        if (isNewGame == false)
         {
-            Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave.Count);
+            Debug.Log(saveDataManager.saveData.currentEquipmentMeleeSave.Count);
 
-            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentMeleeSave.Count; i++)
+            for (int i = 0; i < saveDataManager.saveData.currentEquipmentMeleeSave.Count; i++)
             {
-                Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave[i]);
-                int idMelee = SaveDataManager.saveData.currentEquipmentMeleeSave[i];
+                Debug.Log(saveDataManager.saveData.currentEquipmentMeleeSave[i]);
+                int idMelee = saveDataManager.saveData.currentEquipmentMeleeSave[i];
                 Debug.Log(idMelee);
                 if (idMelee < 1000)
                 { // If the card is a melee card 
@@ -196,25 +218,29 @@ public class Sc_BattleManager : MonoBehaviour {
             }
             
         }
+        currentEquimentDamage.Clear();
+        /* if (isNewGame == true)
+         {
+             currentEquimentDamage.Clear();
+         }
+         else if (saveDataManager.saveData.readyfornewBattle == true)
+         {
+             currentEquimentDamage.Clear();
+         }*/
 
-        if (isNewGame == true)
-        {
-            currentEquimentDamage.Clear();
-        }
-        
 
-        
-		
 
-		// effect realted varibles
-		mayPlayUtility = true;
+
+
+        // effect realted varibles
+        mayPlayUtility = true;
 		mayPlayMelee = true;
 		mayPlayArmor = true;
 		HasLostTurn = false;
 
-		
-		// Setting player related text
-		defenceText.text = "" + currentTotalDefence;
+        
+        // Setting player related text
+        defenceText.text = "" + currentTotalDefence;
         // Add some random cards to deck 
 
         if (isNewGame == true)
@@ -224,9 +250,17 @@ public class Sc_BattleManager : MonoBehaviour {
                 currentDeck.Add(gameManager.fullDeck[i]);
             }
         }
+        else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+        {
+            for (int i = 0; i < gameManager.fullDeck.Count; i++)
+            {
+                currentDeck.Add(gameManager.fullDeck[i]);
+            }
+        }
+
         
-		// Shuffle the deck 
-		ShuffleDeck();
+        // Shuffle the deck 
+        ShuffleDeck();
 		// Draw Hand
         
 		// DrawHand();
@@ -243,19 +277,25 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 	void StageManager () {
 		if (currentStage == 0){
-			TurnStart();
-		}
+            TurnStart();
+            
+
+        }
 		if (currentStage == 2){
 			monster.MonsterTurn();
-		}
+            
+        }
 		if (currentStage == 10){
 			BattleWon();
 		}
 	}
 	public void TurnStart(){
         // Resetting Varibles
+        saveDataManager.SaveGameData();
+        currentStage = 1;
         
-            if (isNewGame == true)
+
+        if (isNewGame == true)
         {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
@@ -265,8 +305,19 @@ public class Sc_BattleManager : MonoBehaviour {
             currentNumberOfAttacks = 1;
             // Draw a hand 
             DrawHand();
-            
         }
+        else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+        {
+            currentApUsed = 0;
+            currentUtilityAP = gameManager.utilityAP;
+            currentNormalAttack = 0;
+            currentBluntAttack = 0;
+            currentPiercingAttack = 0;
+            currentNumberOfAttacks = 1;
+            // Draw a hand 
+            DrawHand();
+        }
+        saveDataManager.saveData.readyfornewBattle = false;
         isNewGame = true;
 
         mayPlayUtility = true;
@@ -296,7 +347,8 @@ public class Sc_BattleManager : MonoBehaviour {
 		} else if (HasLostTurn == true){
 			currentStage = 2;
 		}
-	}
+        
+    }
 	public void DrawHand() { // Used to draw a full hand 
 		for (int i = currentHandObjects.Count; i < maxHandSize ; i++){
 			Draw ();
@@ -306,7 +358,8 @@ public class Sc_BattleManager : MonoBehaviour {
 		for (int i = 0; i < toDraw; i++){
 			Draw ();
 		}
-	}
+        
+    }
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
@@ -551,7 +604,10 @@ public class Sc_BattleManager : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)){
 			gameManager.slayCount += 1;
 			ExitBattle();
-			levelManager.ChangeSceneTo("Navigation");
+            saveDataManager.saveData.readyfornewBattle = true;
+            // SaveDataManager.saveData.currentStageSave = 0;
+            saveDataManager.SaveGameData();
+            levelManager.ChangeSceneTo("Navigation");
 		}
 	}
 	public void ExitBattle() {
@@ -668,6 +724,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks += extraAttacks;
 	}
 	public void EndTurn () {
+        
         for (int i = 0; i < currentEquipmentMelee.Count; i++)
         {
             
@@ -687,14 +744,18 @@ public class Sc_BattleManager : MonoBehaviour {
 			}	
 		}
         
-        SaveDataManager.SaveGameData();
+        
     }
 
     public void playerLost ()
     {
-            // SaveDataManager.saveData = new SaveData();
-            // SaveDataManager.SaveGameData();
-            FileUtil.DeleteFileOrDirectory(SaveDataManager.path);
+        // SaveDataManager.saveData = new SaveData();
+        // SaveDataManager.SaveGameData();
+            System.IO.File.Delete(saveDataManager.path);
+            //FileUtil.DeleteFileOrDirectory(SaveDataManager.path);
+            // SaveDataManager.LoadGameData();
+            gameManager.saveGameFound = false;
+
             levelManager.ChangeSceneTo(nyScene);
         
     }

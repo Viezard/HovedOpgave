@@ -32,8 +32,8 @@ public class Sc_NavigationManager : MonoBehaviour {
 		EventPressed();
 	}
 	public void EventPressed (){
-		
-		int isNextMonster = Random.Range(0,MonsterChance);
+        
+        int isNextMonster = Random.Range(0,MonsterChance);
 		if (firstEvent){
 			firstEvent = false;
 			isNextMonster = 1;
@@ -51,7 +51,8 @@ public class Sc_NavigationManager : MonoBehaviour {
 				NextEvent(2);
 			}
 		}
-	}
+        
+    }
 	public void NextMonster(){
 		if(gameManager.slayCount == 0){
 			gameManager.currentMonster = monsterManager.IntroMonster[0];
@@ -77,14 +78,34 @@ public class Sc_NavigationManager : MonoBehaviour {
 		}
 
 		// Find and start new event 
-		int newEventID = 0;
-		if (tier == 1){
-			newEventID = FindTierOneEvent();
-		} else if (tier == 2){
-			newEventID = FindTierTwoEvent();
-		}
-		gameManager.eventsDone.Add(newEventID);
-		CallEvent(newEventID);
+     
+            int newEventID = 0;
+        if(saveDataManager.saveData.currentEventSave > newEventID )
+        {
+            newEventID = saveDataManager.saveData.currentEventSave;
+            CallEvent(saveDataManager.saveData.currentEventSave);
+        }
+        else
+        {
+            if (tier == 1)
+            {
+                newEventID = FindTierOneEvent();
+            }
+            else if (tier == 2)
+            {
+                newEventID = FindTierTwoEvent();
+            }
+
+            gameManager.eventsDone.Add(newEventID);
+            CallEvent(newEventID);
+        }
+            
+        
+        
+            
+
+        
+		
 	}
 	public int FindTierOneEvent () {
 		for (int i = 1; i > 0; i++){
@@ -160,6 +181,8 @@ public class Sc_NavigationManager : MonoBehaviour {
 			}
 			
 		}
+        saveDataManager.saveData.currentEventSave = id;
+        saveDataManager.SaveGameData();
 	}
 
 	public void Restore (int restore){ // Add lost cards to the deck 

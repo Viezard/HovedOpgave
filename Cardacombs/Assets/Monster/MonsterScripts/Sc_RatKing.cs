@@ -29,7 +29,8 @@ public class Sc_RatKing : MonsterClass {
 			monsterStage = 0;
 
 		}
-	}
+        
+    }
 
 	public void Bite() {
 		PlayingCard(0);

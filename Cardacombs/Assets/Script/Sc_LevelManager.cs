@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Sc_LevelManager : MonoBehaviour {
 	public AudioClip click;
-	// Make sure it does not get destroied on level load 
-	static int exists = 0; 
+   
+
+    // Make sure it does not get destroied on level load 
+    static int exists = 0; 
 	void Awake()	{
 		GameObject.DontDestroyOnLoad(gameObject);
-		
-		if (exists == 0){
+       
+
+        if (exists == 0){
 			exists = 1;
 		} else {
 			Destroy(gameObject);
@@ -20,6 +23,7 @@ public class Sc_LevelManager : MonoBehaviour {
 		GetComponent<AudioSource>().Play();
 	}
 	public void ChangeSceneTo (string name){
+        
 		SceneManager.LoadScene(name, LoadSceneMode.Single);
 	}
 
