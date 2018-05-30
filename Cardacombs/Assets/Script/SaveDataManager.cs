@@ -61,7 +61,7 @@ public class SaveDataManager : MonoBehaviour
         navManager = GameObject.FindObjectOfType<Sc_NavigationManager>();
         
         
-
+/*
         if (Input.GetKeyDown(KeyCode.T) == true)
         {
             
@@ -79,7 +79,7 @@ public class SaveDataManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) == true)
         {
             LoadGameData();
-        }
+        }*/
     }
 
     public void SaveGameData()
