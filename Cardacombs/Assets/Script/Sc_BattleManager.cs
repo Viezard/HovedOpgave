@@ -253,7 +253,7 @@ public class Sc_BattleManager : MonoBehaviour {
                 currentDeck.Add(gameManager.fullDeck[i]);
             }
         }
-        else if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+        else if (saveDataManager.saveData.readyfornewBattle == true)
         {
             for (int i = 0; i < gameManager.fullDeck.Count; i++)
             {
@@ -309,7 +309,7 @@ public class Sc_BattleManager : MonoBehaviour {
             // Draw a hand 
             DrawHand();
         
-        if (saveDataManager.saveData.readyfornewBattle == true && isNewGame == false)
+       /* if (saveDataManager.saveData.readyfornewBattle == true)
         {
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
@@ -319,7 +319,7 @@ public class Sc_BattleManager : MonoBehaviour {
             currentNumberOfAttacks = 1;
             // Draw a hand 
             DrawHand();
-        }
+        }*/
         saveDataManager.saveData.readyfornewBattle = false;
         isNewGame = true;
 
