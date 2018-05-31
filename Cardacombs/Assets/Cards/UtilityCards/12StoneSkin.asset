@@ -15,5 +15,6 @@ MonoBehaviour:
   name: StoneSkin
   image: {fileID: 21300000, guid: 9ae636bcb27a89a4d881ed6202d38ba9, type: 3}
   apCost: 1
+  decription: Toughness (1)
   toughness: 1
   spiked: 0

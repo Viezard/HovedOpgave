@@ -15,6 +15,9 @@ MonoBehaviour:
   name: BlowFish
   image: {fileID: 21300000, guid: c74d7ad2a3a5f3a48b3718ee50e6311c, type: 3}
   apCost: 1
+  decription: 'Deal 1 Damage
+
+    Poison(3)'
   damage: 1
   poison: 3
   chanceHitSelf: 0

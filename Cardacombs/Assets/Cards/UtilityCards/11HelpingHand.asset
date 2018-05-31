@@ -15,4 +15,5 @@ MonoBehaviour:
   name: HelpingHand
   image: {fileID: 21300000, guid: 65b4eb09d7e066f4ba0bcb6b9f89837f, type: 3}
   apCost: 0
+  decription: Gain 1 AP
   apBonus: 1

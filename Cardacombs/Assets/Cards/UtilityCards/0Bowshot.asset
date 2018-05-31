@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Quick Shot
   image: {fileID: 21300000, guid: 60535b09fa72e134887e25c2d4702ae5, type: 3}
   apCost: 1
+  decription: Deal 1 Damage
   damage: 1
   poison: 0
   chanceHitSelf: 0

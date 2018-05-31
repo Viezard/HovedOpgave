@@ -17,11 +17,11 @@ MonoBehaviour:
   eventDecription: Hmmm seems like this rouge was brutally murderd by his comrads
     ... wonder why?
   decriptionFirstEvent: Take his boots
-  FirstEventImage: {fileID: 21300000, guid: f4687ca07b8ce6649b1aee8cdd7babd0, type: 3}
+  FirstEventImage: {fileID: 21300000, guid: 8149e87c6acf84f4f987993ddada8c08, type: 3}
   cardsFirstEvent: e0070000
   decriptionSecondEvent: Take his bag
-  TwoEventImage: {fileID: 21300000, guid: a15711bf867efcf41a1f58427755bd16, type: 3}
+  TwoEventImage: {fileID: 21300000, guid: 43ff9dfe115b01c47b3a63a1c045e96e, type: 3}
   cardsSecondEvent: e1070000
   decriptionThirdEvent: Take his cloak
-  ThreeEventImage: {fileID: 21300000, guid: ccfbfce33003c15468b67d2c1e0fbfa4, type: 3}
+  ThreeEventImage: {fileID: 21300000, guid: 6c3728b28b05526428d533b9d50c263f, type: 3}
   cardsThirdEvent: e2070000

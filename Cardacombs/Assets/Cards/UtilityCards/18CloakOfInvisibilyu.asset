@@ -15,6 +15,11 @@ MonoBehaviour:
   name: Cloak Of Invisiblity
   image: {fileID: 21300000, guid: 6c3728b28b05526428d533b9d50c263f, type: 3}
   apCost: 1
+  decription: 'Monsters Main
+
+    attack misses
+
+    next turn'
   decreaseDamage: 0
   chanceDecreaseDamage: 100
   cantHit: 1

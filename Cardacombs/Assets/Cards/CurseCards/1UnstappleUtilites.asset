@@ -15,5 +15,10 @@ MonoBehaviour:
   name: 'Unstapple Utilites '
   image: {fileID: 21300000, guid: 36b8847693f426c4c90baffc32cbd492, type: 3}
   apCost: 0
+  decription: 'Deals 3 to Monster
+
+    And
+
+    Take 2 Damage'
   selfDamage: 2
   monsterDamage: 3

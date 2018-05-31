@@ -18,15 +18,15 @@ MonoBehaviour:
   decriptionFirstEvent: 'Take
 
     his Helmet'
-  FirstEventImage: {fileID: 21300000, guid: 19208d132dcfcf24585a63e3f5296785, type: 3}
+  FirstEventImage: {fileID: 21300000, guid: 4f4d8fb737de12c41b8728c5fabad1fd, type: 3}
   cardsFirstEvent: ed030000
   decriptionSecondEvent: 'Take
 
     his Sword'
-  TwoEventImage: {fileID: 21300000, guid: 9016c8888d51ecb4e80d7dae50c735c8, type: 3}
+  TwoEventImage: {fileID: 21300000, guid: dc8f90d0d3581224282a3e4807c86049, type: 3}
   cardsSecondEvent: 04000000
   decriptionThirdEvent: 'Take
 
     the rest'
-  ThreeEventImage: {fileID: 21300000, guid: 896730a84117dd34bb69b0a98f8a5e6d, type: 3}
+  ThreeEventImage: {fileID: 21300000, guid: 950d9bb6192b22342a46fd66732ed078, type: 3}
   cardsThirdEvent: ee03000005000000

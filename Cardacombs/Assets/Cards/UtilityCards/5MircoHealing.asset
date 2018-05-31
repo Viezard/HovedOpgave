@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Mirco Healing
   image: {fileID: 21300000, guid: 87d3a424720672f438c8e433ef96b679, type: 3}
   apCost: 1
+  decription: Heal 1
   maxHealth: 1
   minHealth: 0
   chance: 100

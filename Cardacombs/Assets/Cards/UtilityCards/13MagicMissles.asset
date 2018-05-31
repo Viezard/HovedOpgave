@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Magic Missles
   image: {fileID: 21300000, guid: 0ad95f90a1b4c4b44bc2b64bef42ac70, type: 3}
   apCost: 1
+  decription: Deal 2 Damage
   damage: 2
   poison: 0
   chanceHitSelf: 0

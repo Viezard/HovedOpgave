@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Sc_MonsterCard : MonoBehaviour {
@@ -10,10 +11,18 @@ public class Sc_MonsterCard : MonoBehaviour {
 	float timer = 0.0f;
 	private bool destroyOnDone = false;
 	public MonsterClass monster;
+	public string monsterName = "bite";
+	public string monsterDiscription = "Deals 2 Damage";
 	// Use this for initialization
 	void Start () {
 		monster.monsterStage +=1;
 		this.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
+		GameObject discription  = this.gameObject.transform.GetChild(3).gameObject;
+		Text discriptionText = discription.GetComponent<UnityEngine.UI.Text>();
+		discriptionText.text = monsterDiscription;
+		GameObject name  = this.gameObject.transform.GetChild(4).gameObject;
+		Text nameText = name.GetComponent<UnityEngine.UI.Text>();
+		nameText.text = monsterName;
 	}
 	
 	// Update is called once per frame

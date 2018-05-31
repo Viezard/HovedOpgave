@@ -24,7 +24,7 @@ public class Sc_DefenceEquipment : MonoBehaviour {
 		cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>(); 
 		render = this.gameObject.GetComponent<SpriteRenderer>();
-		defenceTextObject = this.gameObject.transform.GetChild(0).gameObject;
+		defenceTextObject = this.gameObject.transform.GetChild(0).GetChild(1).gameObject;
 		defenceText = defenceTextObject.GetComponent<TextMesh>();
        
     }
@@ -50,7 +50,7 @@ public class Sc_DefenceEquipment : MonoBehaviour {
 
 		battleManager.currentEquipmentArmor.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInEquipent = battleManager.currentEquipmentArmor.Count; // Saves is place in the array 
-		Vector3 newPosition = new Vector3 (7.9f + 0.8f * placementInEquipent, 2.8f, 0); // Just places it the right place
+		Vector3 newPosition = new Vector3 (0.8f + 0.8f * (placementInEquipent -1), -1.5f, 0); // Just places it the right place
 		this.transform.position = newPosition;
 	}
 	
@@ -67,7 +67,7 @@ public class Sc_DefenceEquipment : MonoBehaviour {
         }
         else
         {
-            Vector3 newPosition = new Vector3(7.9f + 0.8f * placementInEquipent, 2.8f, 0);
+            Vector3 newPosition = new Vector3(0.8f + 0.8f *  (placementInEquipent -1), -1.5f, 0);
             this.transform.position = newPosition;
         }
     }

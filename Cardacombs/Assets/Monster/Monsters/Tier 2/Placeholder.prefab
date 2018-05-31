@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1727320030044868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.49, y: 6.63, z: 0}
-  m_LocalScale: {x: 0.57115316, y: 0.57115316, z: 0.57115316}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 0.57115316}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,17 +71,17 @@ MonoBehaviour:
   piercing: 0
   battleManager: {fileID: 0}
   monsterCards:
-  - {fileID: 21300000, guid: 7475bfbc1be7cbb4d80771119e69ee6d, type: 3}
-  - {fileID: 21300000, guid: abf526aa6c14c5141babb80e16c5d384, type: 3}
-  - {fileID: 21300000, guid: 573b2817b23c51843a59d8c939c46cd6, type: 3}
-  - {fileID: 21300000, guid: 4d97a085b39b13245a8f1269bf685c5e, type: 3}
-  - {fileID: 21300000, guid: d8638ebff12f7be4881d21e2fd76a3ea, type: 3}
-  - {fileID: 21300000, guid: f86145a1ccbbe244eb4ca082fbe8c522, type: 3}
-  - {fileID: 21300000, guid: 94c36c79b5db7514a8bf0c95d103e2d9, type: 3}
-  - {fileID: 21300000, guid: e4c5632d82a9a364bb2d5a15f6b9dd27, type: 3}
-  - {fileID: 21300000, guid: 3fd6df44aa0791f4ea70c86c4bc2c2a6, type: 3}
-  - {fileID: 21300000, guid: 48d979dbf4c6be84fbcce5a669a21abb, type: 3}
-  card: {fileID: 1643847685085044, guid: ee56741e82e33d442863f9dfdc3a196a, type: 2}
+  - {fileID: 21300000, guid: cc38f5b0a6b6dca4397e36027b5c6a47, type: 3}
+  - {fileID: 21300000, guid: 72ed48a2085d5fd48b62fd8eb1c89b4c, type: 3}
+  - {fileID: 21300000, guid: dddf038081299494ea2446b82100fd8e, type: 3}
+  - {fileID: 21300000, guid: 1e9d2c0316d06904aa7e22931775505b, type: 3}
+  - {fileID: 21300000, guid: 9917a5fd0f0a07f4da67db391e208d57, type: 3}
+  - {fileID: 21300000, guid: 9b333868e18fcff468165b58d3d23199, type: 3}
+  - {fileID: 21300000, guid: 7648c0785af7b4949b375e7bf55a5e55, type: 3}
+  - {fileID: 21300000, guid: 8d84b2dcd3f67fa488e35085736d0627, type: 3}
+  - {fileID: 21300000, guid: 7ab91692cea3e73429f6a4e9aea1c76e, type: 3}
+  - {fileID: 21300000, guid: 9e634b24dca60494ea890393343c5d7d, type: 3}
+  card: {fileID: 1990799071656978, guid: a13c2ee690e6bce4697456655eca011e, type: 2}
   doStuff: 1
   preventType: {fileID: 1023704906066032, guid: 7e3f67b72d6912d4593f7508d65acecf,
     type: 2}
@@ -89,6 +89,38 @@ MonoBehaviour:
   loseTurn: {fileID: 1023704906066032, guid: 0607925b06e0f8a49acf92cbcad33fed, type: 2}
   doubleDamage: {fileID: 1023704906066032, guid: 8bcb3393ecc52534ea48888599c828aa,
     type: 2}
+  nullMagicDescription: 'You can''t play
+
+    utility cards for
+
+    the next 2 rounds'
+  nullMagicName: Null Magic
+  paralyzingGazeDescription: 'You lose 2 Ap
+
+    this round'
+  paralyzingGazeName: Paralysing Gaze
+  piercingMissileDescription: 'Deals 2 damage
+
+    which ignors Armor '
+  piercingMissileName: Piercing Missile
+  mindNumbingRayDescription: "Lose 2 cards \nin your hand"
+  mindNumbingRayName: Mins Numbing Ray
+  disintegrationRayDescription: Take 4 Damage
+  disintegrationRayName: Disintegration ray
+  charmingGazeDescription: "He plays one\nof your cards \nagainst you"
+  charmingGazeName: Charming Gaze
+  sleepRayDescription: 'You lose your
+
+    next turn '
+  sleepRayName: Sleep Ray
+  intimidatingGazeDescription: "You can't play\nMelee weapons \nfor the next round"
+  intimidatingGazeName: Intimidation Gaze
+  corrosionRayDescription: "Deals 6 blunt damage\nand 1 extre damage\nif you have
+    lost \nall your armor"
+  corrosionRayName: Corossion ray
+  frenzyRayDescription: "You can't play\nArmor card the next\n2 rounds. But your \nmelee
+    damage is\nDoubled"
+  frenzyRayName: Frenzy Ray
 --- !u!212 &212099115707559168
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -124,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 07b9641122493b1419e72b814c9e493a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96fa5714e91a47747a460ca5147423c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

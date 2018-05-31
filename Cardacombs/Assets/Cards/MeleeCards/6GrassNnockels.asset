@@ -19,3 +19,6 @@ MonoBehaviour:
   bluntDamage: 0
   poisonDamage: 1
   piercingDamage: 0
+  decription: 'Gain 2 Attack
+
+    Poison(1)'

@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Curse of Laziness
   image: {fileID: 21300000, guid: 4e3774b74a73eef44b6a5958bf21d141, type: 3}
   apCost: 1
+  decription: Lose 1 AP

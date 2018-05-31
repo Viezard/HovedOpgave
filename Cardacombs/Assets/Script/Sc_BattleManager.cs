@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor;
+
 
 public class Sc_BattleManager : MonoBehaviour {
 
    
-    public SaveDataManager SaveDataManager;
+    public SaveDataManager saveDataManager;
     public Sc_GameManager gameManager;
 	private Sc_CardDataBase cardDataBase;
    
@@ -39,9 +39,8 @@ public class Sc_BattleManager : MonoBehaviour {
 	public int currentSpiked; // What is total spike damage is right now
 	public int currentBrawl;  // How much damage he deal if he does not have a weapon 
 	public int currentRage; // How much extre damage every weapon deals 
-	public Text defenceText;
-	public Text SpikedText;
-    public Text ApText;
+	public TextMesh defenceText;
+	public TextMesh SpikedText;
 	public int maxHandSize; // The current max hand size the player has. 
 	// Effect realted varibles 
 
@@ -59,10 +58,13 @@ public class Sc_BattleManager : MonoBehaviour {
 	public Text discardPile;
 	public Text DeckPile;
 	public Text BanishPile;
-	// log book 
+
+	public List<GameObject> apObjects = new List<GameObject>(); // 
+	public GameObject standardApIcon;
+
+	// log book bliver ikke brugt 
 	public List<Text> logBook = new List<Text>();
 	public Text aLog;
-    private bool isNewGame = true;
 
 	public void PrintLog(string text, string color){
 		Text newLog = (Text)Instantiate (aLog, transform.position, transform.rotation);
@@ -83,33 +85,37 @@ public class Sc_BattleManager : MonoBehaviour {
 
 
 	void Awake(){
-		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
-      
         cardDataBase = GameObject.FindObjectOfType<Sc_CardDataBase>(); 
-        SaveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+        saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
-        
 
+        saveDataManager.LoadGameData();
     }
 	// Use this for initialization
-	void Start () {
-        if (gameManager.saveGameFound == true)        {
-            isNewGame = false;
-        }	
-		//
+	void Start () {	
+		print("make monster");
+		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
+		GameObject newMonster = (GameObject)Instantiate (gameManager.currentMonster, transform.position, transform.rotation);
+		Vector3 monsterPosition = new Vector3 (-0.57f, 1.96f, 0);
+		newMonster.transform.position = monsterPosition;
 		monster = GameObject.FindObjectOfType<MonsterClass>();
-		// set op some basic variables 
-		maxHandSize = 5;
-		isNewGame = true;
-        if (isNewGame == true)
-        {
-            currentStage = 0;
-            currentApMax = 2;
-            currentApUsed = 0;
-            currentUtilityAP = gameManager.utilityAP;
-        }
 		
-		currentTotalDefence = gameManager.startingDefence; 
+        saveDataManager.saveData.currentScene = "Battle";
+
+		currentDeck.Clear();
+		currentBanished.Clear();
+		currentDiscard.Clear();
+		currentHandObjects.Clear();
+		currentEquipmentArmor.Clear();
+		currentEquipmentMelee.Clear();
+		
+        // set op some basic variables 
+        maxHandSize = 5;
+
+        currentApUsed = 0;
+		currentStage = 0;
+        currentUtilityAP = gameManager.utilityAP;
+        currentTotalDefence = gameManager.startingDefence; 
 		currentToughness = 0;
 		currentNormalAttack = 0;
 		currentBluntAttack = 0;
@@ -119,104 +125,124 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks = 1;
 		currentPermenentSpiked = 0;
 		currentRage = 0;
-        if(isNewGame == true)        {
-            currentHandObjects.Clear();
-        } else {
-            Debug.Log(SaveDataManager.saveData.currentHandObjectsSave.Count);
-            
-            for (int i = 0; i < SaveDataManager.saveData.currentHandObjectsSave.Count; i++) {
-                Debug.Log(SaveDataManager.saveData.currentHandObjectsSave[i]);
-                GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
-                Sc_Card newCardScript = newCard.GetComponent<Sc_Card>();
-                newCardScript.cardID = SaveDataManager.saveData.currentHandObjectsSave[i];
+      
+        if (gameManager.isLoading == true){
+			Load();
+		}else {
+			for (int i = 0; i < gameManager.fullDeck.Count; i++) {
+                currentDeck.Add(gameManager.fullDeck[i]);
             }
-        }
-        if (isNewGame == true) {
-            currentEquipmentArmor.Clear();
-        } else {
-            Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave.Count);
-
-            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentArmorSave.Count; i++) {
-                Debug.Log(SaveDataManager.saveData.currentEquipmentArmorSave[i]);
-                int idArmor = SaveDataManager.saveData.currentEquipmentArmorSave[i];
-                Debug.Log(idArmor);
-               if (idArmor < 2000) {
-                    SO_CardArmor card = cardDataBase.FindArmorCardByID(idArmor);
-                    Defence(idArmor, card.armorBonus, card.spickedBonus);
-                    PrintLog("you just played " + card.name, "green");
-                }
-            }
-        }
-        if (isNewGame == true) {
-            currentEquipmentMelee.Clear();
-        } else {
-            Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave.Count);
-
-            for (int i = 0; i < SaveDataManager.saveData.currentEquipmentMeleeSave.Count; i++)
-            {
-                Debug.Log(SaveDataManager.saveData.currentEquipmentMeleeSave[i]);
-                int idMelee = SaveDataManager.saveData.currentEquipmentMeleeSave[i];
-                Debug.Log(idMelee);
-                if (idMelee < 1000)
-                { // If the card is a melee card 
-                    SO_CardMelee card = cardDataBase.FindMeleeCardByID(idMelee);
-                    Melee(idMelee, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
-                    PrintLog("you just played " + card.name, "green");
-                }
-            }
-        }
-        if (isNewGame == true)
-        {
-            currentEquimentDamage.Clear();
-        }
-		// effect realted varibles
-		mayPlayUtility = true;
+			currentApMax = 2;
+		}
+		// Create Ap Icons
+		for (int i = 0; i < currentApMax; i ++){
+			GameObject apIcon = (GameObject)Instantiate(standardApIcon, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			Sc_ApIcon newscript = apIcon.GetComponent<Sc_ApIcon>();
+			newscript.isStandard = true;
+		}
+		for (int i = 0; i < gameManager.utilityAP; i ++){
+			GameObject apIcon = (GameObject)Instantiate(standardApIcon, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			Sc_ApIcon newscript = apIcon.GetComponent<Sc_ApIcon>();
+			newscript.isUtility = true;
+		}
+        // effect realted varibles
+        mayPlayUtility = true;
 		mayPlayMelee = true;
 		mayPlayArmor = true;
 		HasLostTurn = false;
-		// Setting player related text
-		defenceText.text = "" + currentTotalDefence;
+   
+        // Setting player related text
+        defenceText.text = "" + currentTotalDefence;
         // Add some random cards to deck 
+        ShuffleDeck();
 
-        if (isNewGame == true) {
-			print("hallo" + gameManager.fullDeck.Count);
-            for (int i = 0; i < gameManager.fullDeck.Count; i++) {
-                currentDeck.Add(gameManager.fullDeck[i]);
-            }
-        }
-        
-		// Shuffle the deck 
-		ShuffleDeck();
-		// Draw Hand
-        
-		// DrawHand();
+	}
+
+	public void	Load(){
+		gameManager.isLoading = false;
+		currentDeck = saveDataManager.saveData.currentDeckSave;
+		currentDiscard = saveDataManager.saveData.currentDiscardSave;
+		currentBanished = saveDataManager.saveData.currentBanishedSave;
+		currentEffects = saveDataManager.saveData.currentEffectsSave;
+		currentApUsed = saveDataManager.saveData.currentApUsedSave;
+		currentUtilityAP = saveDataManager.saveData.currentUtilityAPSave;
+		currentApMax = saveDataManager.saveData.currentApMaxSave;
+		currentStage = 1;
+	
+		// Draw hand 
+		for (int i = 0; i < saveDataManager.saveData.currentHandObjectsSave.Count; i++) {
+			Debug.Log(saveDataManager.saveData.currentHandObjectsSave[i]);
+			GameObject newCard = (GameObject)Instantiate(card, new Vector3(2.50f, -3.1f, 3), Quaternion.Euler(0f, 180f, 90f));
+			Sc_Card newCardScript = newCard.GetComponent<Sc_Card>();
+			newCardScript.cardID = saveDataManager.saveData.currentHandObjectsSave[i]; 
+		}
+		// Add saved armor cards into play 
+		for (int i = 0; i < saveDataManager.saveData.currentEquipmentArmorSave.Count; i++) {
+			Debug.Log(saveDataManager.saveData.currentEquipmentArmorSave[i]);
+			int idArmor = saveDataManager.saveData.currentEquipmentArmorSave[i];
+			Debug.Log(idArmor);
+			if (idArmor < 2000) {
+				SO_CardArmor card = cardDataBase.FindArmorCardByID(idArmor);
+				Defence(idArmor, card.armorBonus, card.spickedBonus);
+				PrintLog("you just played " + card.name, "green");
+			}
+		}
+		// Add saved melee cards into play
+		for (int i = 0; i < saveDataManager.saveData.currentEquipmentMeleeSave.Count; i++){
+			Debug.Log(saveDataManager.saveData.currentEquipmentMeleeSave[i]);
+			int idMelee = saveDataManager.saveData.currentEquipmentMeleeSave[i];
+			Debug.Log(idMelee);
+			if (idMelee < 1000)	{ // If the card is a melee card 
+				SO_CardMelee card = cardDataBase.FindMeleeCardByID(idMelee);
+				Melee(idMelee, card.normalDamage, card.bluntDamage, card.piercingDamage, card.poisonDamage);
+				PrintLog("you just played " + card.name, "green");
+			}
+		}
+		// Draw hand 
+		for (int i = 0; i < gameManager.fullDeck.Count; i++) {
+			currentDeck.Add(gameManager.fullDeck[i]);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		SpikedText.text = "" + currentSpiked;
-		discardPile.text = currentDiscard.Count + " in the discard pile";
-		DeckPile.text = currentDeck.Count + " in the deck pile";
-		BanishPile.text = currentBanished.Count + " in the banish pile";
-        ApText.text = currentApMax - currentApUsed + " / " + currentApMax;
-		StageManager ();
+		if (gameManager == null){
+			// create a monster
+			
+		} else {
+			SpikedText.text = "" + currentSpiked;
+			discardPile.text = "Discard: " + currentDiscard.Count;
+			DeckPile.text = "Deck: " + currentDeck.Count;
+			BanishPile.text = "Banish: "  + currentBanished.Count;
+			StageManager ();
+		}
+
+		if (Input.GetButtonDown("Jump")){
+			GameObject apIcon = (GameObject)Instantiate(standardApIcon, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			Sc_ApIcon newscript = apIcon.GetComponent<Sc_ApIcon>();
+			newscript.isOneTime = true;
+		}
+		
+		
 	}
 	void StageManager () {
 		if (currentStage == 0){
-			TurnStart();
-		}
+            TurnStart();
+			saveDataManager.SaveGameData();
+        }
 		if (currentStage == 2){
+			
 			monster.MonsterTurn();
-		}
+            
+        }
 		if (currentStage == 10){
 			BattleWon();
 		}
 	}
 	public void TurnStart(){
         // Resetting Varibles
-        
-            if (isNewGame == true)
-        {
+		currentEquipmentMelee.Clear();
+        currentStage = 1;
             currentApUsed = 0;
             currentUtilityAP = gameManager.utilityAP;
             currentNormalAttack = 0;
@@ -225,9 +251,6 @@ public class Sc_BattleManager : MonoBehaviour {
             currentNumberOfAttacks = 1;
             // Draw a hand 
             DrawHand();
-            
-        }
-        isNewGame = true;
 
         mayPlayUtility = true;
 		mayPlayMelee = true;
@@ -245,8 +268,6 @@ public class Sc_BattleManager : MonoBehaviour {
 				i -=1;
 			}
 		}
-
-
 		
 		if (currentToughness != 0){
 			HasToughness();
@@ -256,7 +277,8 @@ public class Sc_BattleManager : MonoBehaviour {
 		} else if (HasLostTurn == true){
 			currentStage = 2;
 		}
-	}
+        
+    }
 	public void DrawHand() { // Used to draw a full hand 
 		for (int i = currentHandObjects.Count; i < maxHandSize ; i++){
 			Draw ();
@@ -266,11 +288,12 @@ public class Sc_BattleManager : MonoBehaviour {
 		for (int i = 0; i < toDraw; i++){
 			Draw ();
 		}
-	}
+        
+    }
 
 	public void Draw () {
 		if (currentDeck.Count != 0){
-            GameObject newCard = (GameObject)Instantiate(card, new Vector3(10.55f, 2.21f, 3), Quaternion.Euler(0f, 180f, 90f));
+            GameObject newCard = (GameObject)Instantiate(card, new Vector3(2.5f, -3.1f, 3), Quaternion.Euler(0f, 180f, 90f));
             //GameObject newCard = (GameObject)Instantiate(card, new Vector3(12.5f, 1.1f, 0), Quaternion.identity);
             // instantiate at deck pile
             // transform 180 from back to show front 
@@ -511,7 +534,11 @@ public class Sc_BattleManager : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)){
 			gameManager.slayCount += 1;
 			ExitBattle();
-			levelManager.ChangeSceneTo("Navigation");
+           // saveDataManager.saveData.readyfornewBattle = true;
+            // SaveDataManager.saveData.currentStageSave = 0;
+			currentEquipmentMelee.Clear();
+            saveDataManager.SaveGameData();
+            levelManager.ChangeSceneTo("Navigation");
 		}
 	}
 	public void ExitBattle() {
@@ -587,7 +614,12 @@ public class Sc_BattleManager : MonoBehaviour {
 	}
 
 	public void BonusAP (int apBonus){
-		currentApUsed -=1; 
+		currentApUsed -=1;
+		if (currentApUsed < 0){
+			GameObject apIcon = (GameObject)Instantiate(standardApIcon, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			Sc_ApIcon newscript = apIcon.GetComponent<Sc_ApIcon>();
+			newscript.isOneTime = true;
+		} 
 	}
 	public void Buffing (int toughness, int spiked){
 		if (toughness != 0){
@@ -628,6 +660,7 @@ public class Sc_BattleManager : MonoBehaviour {
 		currentNumberOfAttacks += extraAttacks;
 	}
 	public void EndTurn () {
+        
         for (int i = 0; i < currentEquipmentMelee.Count; i++)
         {
             
@@ -635,7 +668,6 @@ public class Sc_BattleManager : MonoBehaviour {
             meleeScript.moveToDiscard = true;
             // Destroy(currentEquipmentMelee[i]);
         }
-        currentEquipmentMelee.Clear();
         if (currentStage != 10){
 			currentStage = 2;
 		}
@@ -646,15 +678,19 @@ public class Sc_BattleManager : MonoBehaviour {
 				DamageCalc(target: 1, damage: currentBrawl);
 			}	
 		}
-        
-        SaveDataManager.SaveGameData();
+
+      
     }
 
     public void playerLost ()
     {
-            // SaveDataManager.saveData = new SaveData();
-            // SaveDataManager.SaveGameData();
-            FileUtil.DeleteFileOrDirectory(SaveDataManager.path);
+        // SaveDataManager.saveData = new SaveData();
+        // SaveDataManager.SaveGameData();
+            System.IO.File.Delete(saveDataManager.path);
+            //FileUtil.DeleteFileOrDirectory(SaveDataManager.path);
+            // SaveDataManager.LoadGameData();
+            gameManager.saveGameFound = false;
+
             levelManager.ChangeSceneTo(nyScene);
         
     }

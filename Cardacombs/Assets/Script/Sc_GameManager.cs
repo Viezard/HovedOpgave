@@ -21,6 +21,8 @@ public class Sc_GameManager : MonoBehaviour {
 	public static int buttonPress = 60;
 	public List<int> lostCards = new List<int>(); // A list of all the cards which the player has lost
     public bool saveGameFound = false;
+	public bool isLoading = false;
+  
 
 	void Awake()
 	{
@@ -35,23 +37,30 @@ public class Sc_GameManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-        saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+		monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
+    }
+	public void load(){
+		isLoading = true;
+		saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
         saveDataManager.LoadGameData();
-        if (saveDataManager.saveData.isNewGame == false)
+		 if(saveDataManager.saveData.currentMonsterSave == 0) {
+            currentMonster = monsterDataBase.IntroMonster[0];
+        } else if (saveDataManager.saveData.currentMonsterSave == 1) {
+            currentMonster = monsterDataBase.TierOneMonster[0];
+		} else if (saveDataManager.saveData.currentMonsterSave == 3) {
+            currentMonster = monsterDataBase.TierTwoMonster[0];
+        }
+		if (saveDataManager.saveData.isNewGame == false)
         {
             saveGameFound = true;
-        } 
-       
-        Debug.Log(saveDataManager.saveData.currentHandObjectsSave);
-		monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
-        
-        currentMonster = monsterDataBase.IntroMonster[0];
-        
+        }
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (monsterDataBase == null){
+        
+        if (monsterDataBase == null){
 			monsterDataBase = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
 		}
 		if (buttonPress > 0){

@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Confussine Spell
   image: {fileID: 21300000, guid: 2111236d4e5109a4d8f57a3e6e1fe485, type: 3}
   apCost: 1
+  decription: "Enemies Main\nAttack has \n50% of hitting self"
   decreaseDamage: 0
   chanceDecreaseDamage: 100
   cantHit: 0

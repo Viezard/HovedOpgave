@@ -10,14 +10,13 @@ public class Sc_Monster : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
-		GameObject newCard = (GameObject)Instantiate (gameManager.currentMonster, transform.position, transform.rotation);
+		
 	}
 
 	public GameObject FindMonsterByID(int id){
 		for (int i = 0; i < monsterdatabase.Length;i++){
 			GameObject newmonster = monsterdatabase[i];
 			MonsterClass newmonsterScript =  newmonster.GetComponent<MonsterClass>();
-			print("combaring " + newmonsterScript.monsterID + " to the current id " + id + "Which is named" + newmonsterScript.name);
 			if (newmonsterScript.monsterID == id){
 				return newmonster;
 			}

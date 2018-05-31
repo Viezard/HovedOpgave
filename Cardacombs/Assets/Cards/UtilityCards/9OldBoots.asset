@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Wizards Shoe
   image: {fileID: 21300000, guid: 20400fa0e77df4d4eb3671bd72be968e, type: 3}
   apCost: 0
+  decription: Gain 1 Ap
   apBonus: 1

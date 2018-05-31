@@ -7,8 +7,8 @@ public class Sc_Card : MonoBehaviour {
 	public int cardID;
 	private int apCost; 
 	private float yPosition;
-	private float infoPositionX = 7.5f;
-	private float infoPositionY = 5;
+	private float infoPositionX = -0.5f;
+	private float infoPositionY = 0;
 	public bool showingInfo = false;
 	public static bool aCardIsShowingInfo = false;
 	public float endPointX = 0;
@@ -17,7 +17,7 @@ public class Sc_Card : MonoBehaviour {
     public float endPointDiscardY = 0;
     public float endPointBanishX = 0;
     public float endPointBanishY = 0;
-
+	public float hoverbonus = 0;
     public GameObject background;
 	public GameObject description;
 	public GameObject banner;
@@ -50,10 +50,9 @@ public class Sc_Card : MonoBehaviour {
 		battleManager = GameObject.FindObjectOfType<Sc_BattleManager>();
         endPointDiscardX = GameObject.Find("DiscardPile").transform.position.x;
         endPointDiscardY = GameObject.Find("DiscardPile").transform.position.y;
-        Debug.Log(endPointDiscardX);
-        Debug.Log(endPointDiscardY);
 
-        endPointY = 0.5f;
+
+        endPointY = -4.4f;
 		Sc_BattleManager.currentHandObjects.Add(this.gameObject); // Add it to the array which holds all card objects 
 		placementInHand = Sc_BattleManager.currentHandObjects.Count; // Saves is place in the array 
         // Vector3 newPosition = new Vector3 (1.1f * placementInHand, 2.2f, 0); // Just places it the right place
@@ -160,7 +159,7 @@ public class Sc_Card : MonoBehaviour {
 		SpriteRenderer bannerSR = banner.GetComponent<SpriteRenderer>();
 		GameObject nameText = banner.gameObject.transform.GetChild(0).gameObject;
 		TextMesh nameTextR = nameText.GetComponent<TextMesh>();
-		bannerSR.sprite = utilityBanner;
+		bannerSR.sprite = armorBanner;
 		nameTextR.text = card.name;
 		// Set the left Icon 
 		SpriteRenderer leftIconSR = leftIcon.GetComponent<SpriteRenderer>();
@@ -177,7 +176,7 @@ public class Sc_Card : MonoBehaviour {
 		// Set the left bonus one icon 
 		if (card.spickedBonus > 0){
 			SpriteRenderer leftBonusIconOneR = leftBonusIconOne.GetComponent<SpriteRenderer>();
-			leftBonusIconOneR.sprite = greenBanner;
+			leftBonusIconOneR.sprite = yellowBanner;
 			GameObject leftBonusIconOneText = leftBonusIconOne.gameObject.transform.GetChild(0).gameObject;
 			TextMesh leftBonusIconOneTextR = leftBonusIconOneText.GetComponent<TextMesh>();
 			leftBonusIconOneTextR.text = card.spickedBonus + ""; 
@@ -198,7 +197,7 @@ public class Sc_Card : MonoBehaviour {
 		SpriteRenderer bannerSR = banner.GetComponent<SpriteRenderer>();
 		GameObject nameText = banner.gameObject.transform.GetChild(0).gameObject;
 		TextMesh nameTextR = nameText.GetComponent<TextMesh>();
-		bannerSR.sprite = curseBanner;
+		bannerSR.sprite = utilityBanner;
 		nameTextR.text = card.name;
 		// Set the left Icon 
 		Destroy (leftIcon);
@@ -259,19 +258,19 @@ public class Sc_Card : MonoBehaviour {
 	float timer = 0.0f;
 	void PositionCard() {
 		/// Moving the card 
-	if (this.transform.position.x != endPointX || this.transform.position.y != endPointY){
+	if (this.transform.position.x != endPointX || this.transform.position.y != endPointY || this.transform.position.z !=(placementInHand - 10 - hoverbonus)){
 		
 		if (timer < 1){
 			timer +=  0.05f;
 			float newCurrentX = Mathf.Lerp(this.transform.position.x, endPointX, timer);
 			float newCurrentY = Mathf.Lerp(this.transform.position.y, endPointY, timer);
 
-            Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand);
+            Vector3 newVector = new Vector3(newCurrentX, newCurrentY, placementInHand - 10 - hoverbonus);
 			transform.position = newVector;
             transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0f,0f,0f), timer);
 
             } else {
-			Vector3 newVector = new Vector3(endPointX, endPointY, placementInHand);
+			Vector3 newVector = new Vector3(endPointX, endPointY, placementInHand - 10 - hoverbonus);
 			transform.position = newVector;
 			
 		}
@@ -280,8 +279,6 @@ public class Sc_Card : MonoBehaviour {
 		timer = 0;
 	}
 		
-	
-
 		if (showingInfo == true){
 			if (timer < 1){
 				
@@ -304,29 +301,34 @@ public class Sc_Card : MonoBehaviour {
 			if (IsEven(Sc_BattleManager.currentHandObjects.Count)){ // Is the number of cards in the hand odd or even 
 				if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)){ // Is this card located on the left or right side of the middle
 					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - placementInHand;
-					endPointX = 7.5f - 1.1f * PositionFromMiddle - 0.6f;
+					endPointX = -0.5f - 1.1f * PositionFromMiddle - 0.6f;
 
 				} else { // if it was to the right 
 					float PositionFromMiddle = placementInHand - (Sc_BattleManager.currentHandObjects.Count /2f) - 1;
-					endPointX = 7.5f + 1.1f * PositionFromMiddle + 0.6f;
+					endPointX = -0.5f + 1.1f * PositionFromMiddle + 0.6f;
 
 				}
 			} else { // If the number of cards or odd 
 				if (placementInHand == (Sc_BattleManager.currentHandObjects.Count /2f + 0.5)){ // check if this is the middle card
-					endPointX = 7.5f;
+					endPointX = -0.5f;
 				} else if (placementInHand < (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // check if the card is to the left of the middle 
 					float PositionFromMiddle = (Sc_BattleManager.currentHandObjects.Count /2f) - 0.5f - placementInHand;
-					endPointX = 7.5f - 1.1f * PositionFromMiddle - 1.1f;
+					endPointX = -0.5f - 1.1f * PositionFromMiddle - 1.1f;
 				} else if (placementInHand > (Sc_BattleManager.currentHandObjects.Count /2 + 0.5)) { // else if the card is to the right of the midle
 					float PositionFromMiddle = placementInHand - 1.5f -  (Sc_BattleManager.currentHandObjects.Count /2f);
-					endPointX = 7.5f + 1.1f * PositionFromMiddle + 1.1f;
+					endPointX = -0.5f + 1.1f * PositionFromMiddle + 1.1f;
 				}
 			}
 		}
 		
 	}
-	public void OnMouseOver()
+	void OnMouseExit()
 	{
+		hoverbonus = 0;
+	}
+	public void OnMouseOver()
+	{	
+		hoverbonus = 5;
 		if(Input.GetMouseButtonDown(1)&& Sc_GameManager.buttonPress == 0){
 			Sc_GameManager.click();
 			if (aCardIsShowingInfo == false){
@@ -375,7 +377,7 @@ public class Sc_Card : MonoBehaviour {
 		showingInfo = false;
 		aCardIsShowingInfo = false;
 		Destroy(GameObject.FindGameObjectWithTag("CardInfo"));
-		endPointY =0.5f;
+		endPointY =-4.4f;
 	}
 	public void DestroyCard() {
 		Sc_BattleManager.currentHandObjects.RemoveAt(placementInHand - 1);

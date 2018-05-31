@@ -15,4 +15,9 @@ MonoBehaviour:
   name: Reycle Bottle
   image: {fileID: 21300000, guid: 926dcd6260bb5d845bc2ca2936632576, type: 3}
   apCost: 1
+  decription: 'Get a Random
+
+    Card from the
+
+    discard pile'
   cardsToTake: 1

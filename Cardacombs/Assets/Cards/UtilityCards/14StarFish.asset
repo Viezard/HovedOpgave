@@ -15,6 +15,7 @@ MonoBehaviour:
   name: StarFish
   image: {fileID: 21300000, guid: a0b0ed9022574004abeab2d7cac70090, type: 3}
   apCost: 1
+  decription: Deal 3 Damage
   damage: 3
   poison: 0
   chanceHitSelf: 0

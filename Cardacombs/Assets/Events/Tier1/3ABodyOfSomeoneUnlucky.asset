@@ -18,15 +18,15 @@ MonoBehaviour:
   decriptionFirstEvent: 'You take
 
     some of his scrolls'
-  FirstEventImage: {fileID: 21300000, guid: e1f3738f609c5cb4fa940605fbeb206c, type: 3}
+  FirstEventImage: {fileID: 21300000, guid: 0ad95f90a1b4c4b44bc2b64bef42ac70, type: 3}
   cardsFirstEvent: dd070000b80b0000
   decriptionSecondEvent: 'You take
 
     his dagger '
-  TwoEventImage: {fileID: 21300000, guid: b62da9b7051ac974f9163c7b6fc8132b, type: 3}
+  TwoEventImage: {fileID: 21300000, guid: b44a30486497d5444909fe46520b78ef, type: 3}
   cardsSecondEvent: 09000000
   decriptionThirdEvent: 'You take
 
     some of his utilities'
-  ThreeEventImage: {fileID: 21300000, guid: 17bd3441f23033149bfdbac290966411, type: 3}
+  ThreeEventImage: {fileID: 21300000, guid: 36b8847693f426c4c90baffc32cbd492, type: 3}
   cardsThirdEvent: b90b0000

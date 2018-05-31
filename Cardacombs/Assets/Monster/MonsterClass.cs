@@ -62,12 +62,14 @@ public abstract class MonsterClass : MonoBehaviour {
 		healthText.text = "" + health;
 		defenceText.text = "" + defence;
 	}
-	public void PlayingCard(int sprite){
+	public void PlayingCard(int sprite, string description, string name){
 		Vector3 position = new Vector3 (this.transform.position.x , 1400, -1);
 		GameObject newCard = (GameObject)Instantiate (card, position, transform.rotation);
 		Sc_MonsterCard newScript = newCard.GetComponent<Sc_MonsterCard>();
 		newScript.monster = this;
-		Image backgroundSR = newCard.GetComponent<Image>();
+		newScript.monsterDiscription = description;
+		newScript.monsterName = name;
+		Image backgroundSR = newCard.transform.GetChild(0).GetComponent<Image>();
 		backgroundSR.sprite = monsterCards[sprite];
 	}
 }

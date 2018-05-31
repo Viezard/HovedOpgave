@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sc_GelatinousCube : MonsterClass {
+	[TextArea]
+	public string consumeDescription;
+	public string consumeName;
+	[TextArea]
+	public string slamDescription;
+	public string slamName;
 	public override void MonsterTurn (){
 		if (monsterStage == 0 && doStuff == true){
 			Consume();
@@ -20,13 +26,13 @@ public class Sc_GelatinousCube : MonsterClass {
 	}
 
 	public void Consume() {
-		PlayingCard(0);
+		PlayingCard(0, consumeDescription, consumeName);
 		defence += battleManager.currentEquipmentArmor.Count;
 		damage += battleManager.currentEquipmentMelee.Count;
 		battleManager.PrintLog("Gelatinous Cube used Consume and it's attack became " + damage,"red");
 	}
 	public void Slam(){
-		PlayingCard(1);
+		PlayingCard(1, slamDescription, slamName);
 		battleManager.PrintLog("Gelatinous Cube used Slam","red");
 		battleManager.DamageCalc(target: 1, damage: battleManager.currentSpiked);
 		int target = FindTarget ();

@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Magic Missile
   image: {fileID: 21300000, guid: 719ce9ca27e884444b78a2ac3d40c0b1, type: 3}
   apCost: 1
+  decription: Deal 1 Damage
   damage: 1
   poison: 0
   chanceHitSelf: 0

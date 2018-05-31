@@ -12,7 +12,6 @@ public class Sc_Log : MonoBehaviour {
 		Update ();
 		placement = 0;
 		for (int i = 0;  i < battleManager.logBook.Count; i ++){
-			print (i);
 			Sc_Log newScript =  battleManager.logBook[i].GetComponent<Sc_Log>();
 			newScript.placement += 1;
 		}
@@ -25,7 +24,6 @@ public class Sc_Log : MonoBehaviour {
 		Vector3 newPosition = new Vector3 (950f, 500f - (placement * 30), 0f);
 		this.transform.position = newPosition;
 		if (placement >= 12){
-			print(battleManager.logBook.Count + "and the cards placement is " + placement);
 			battleManager.logBook.RemoveAt(0);
 			Destroy(this.gameObject);
 		}

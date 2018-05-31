@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Fireball
   image: {fileID: 21300000, guid: 69957c11750ad5d42b67cceeb557f40e, type: 3}
   apCost: 1
+  decription: Deal 2 Damage
   damage: 2
   poison: 0
   chanceHitSelf: 0

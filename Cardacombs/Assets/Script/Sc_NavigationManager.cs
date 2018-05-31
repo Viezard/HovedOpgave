@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Sc_NavigationManager : MonoBehaviour {
 
-	private Sc_EventDataBase eventDataBase;
+    public SaveDataManager saveDataManager;
+    private Sc_EventDataBase eventDataBase;
 	public Sc_GameManager gameManager;
 	public Sc_LevelManager levelManager;
 	public Sc_MonsterDataBase monsterManager;
@@ -25,30 +26,38 @@ public class Sc_NavigationManager : MonoBehaviour {
 		gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		levelManager = GameObject.FindObjectOfType<Sc_LevelManager>();
 		monsterManager = GameObject.FindObjectOfType<Sc_MonsterDataBase>();
-		MonsterChance = 6;
+        saveDataManager = GameObject.FindObjectOfType<SaveDataManager>();
+        saveDataManager.saveData.currentScene = "Navigation";
+        MonsterChance = 6;
 		EventPressed();
 	}
 	public void EventPressed (){
-		
-		int isNextMonster = Random.Range(0,MonsterChance);
-		if (firstEvent){
-			firstEvent = false;
-			isNextMonster = 1;
-		}
-		if (isNextMonster == 0){
-			NextMonster();
+		print(gameManager.isLoading + " is the state of loading");
+        if (gameManager.isLoading == true){
+				print("Did load");
+				loadEvent();
 		} else {
-			MonsterChance -= 1;
-			float tierTwoChance = 3/(-0.01f*gameManager.slayCount - 0.03f) +100;
-			float random = Random.Range (0, 100);
-			print ("is " + random + " higher then " +tierTwoChance);
-			if (random > tierTwoChance){
-				NextEvent(1);
+			int isNextMonster = Random.Range(0,MonsterChance);
+			if (firstEvent == true){
+				firstEvent = false;
+				isNextMonster = 1;
+			}
+			if (isNextMonster == 0){
+				NextMonster();
 			} else {
-				NextEvent(2);
+				MonsterChance -= 1;
+				float tierTwoChance = 3/(-0.01f*gameManager.slayCount - 0.03f) +100;
+				float random = Random.Range (0, 100);
+				print ("is " + random + " higher then " +tierTwoChance);
+				if (random > tierTwoChance){
+					NextEvent(1);
+				} else {
+					NextEvent(2);
+				}
 			}
 		}
-	}
+        
+    }
 	public void NextMonster(){
 		if(gameManager.slayCount == 0){
 			gameManager.currentMonster = monsterManager.IntroMonster[0];
@@ -74,19 +83,39 @@ public class Sc_NavigationManager : MonoBehaviour {
 		}
 
 		// Find and start new event 
-		int newEventID = 0;
-		if (tier == 1){
+     
+        int newEventID = 0;
+       
+		if (tier == 1)
+		{
 			newEventID = FindTierOneEvent();
-		} else if (tier == 2){
+		}
+		else if (tier == 2)
+		{
 			newEventID = FindTierTwoEvent();
 		}
+
 		gameManager.eventsDone.Add(newEventID);
 		CallEvent(newEventID);
+        
 	}
+	public void loadEvent (){
+		GameObject[] eventOptions = GameObject.FindGameObjectsWithTag("Event");
+		for (int i = eventOptions.Length; i > 0; i--){
+			print(i + "halloo" + eventOptions.Length);
+			Destroy(eventOptions[i - 1]);
+		}
+
+		// Find and start new event 
+        CallEvent(saveDataManager.saveData.currentEventSave);
+		gameManager.isLoading = false;
+	}
+
 	public int FindTierOneEvent () {
 		for (int i = 1; i > 0; i++){
 			int random = 0;
 			random =Random.Range(0,eventDataBase.tierOneEvents.Length); 
+			print(random);
 			bool isNewEvent = true;
 			for (int j= 0; j < gameManager.eventsDone.Count; j++){
 				if (eventDataBase.tierOneEvents[random].eventID ==  gameManager.eventsDone[j]){ // Checks if the random event id is allready in the eventsDone list
@@ -129,8 +158,8 @@ public class Sc_NavigationManager : MonoBehaviour {
 		if (!gameManager){
 			gameManager = GameObject.FindObjectOfType<Sc_GameManager>();
 		}
-		fullCards.text = gameManager.fullDeck.Count + " Cards in the fullDeck";
-		lostCards.text = gameManager.lostCards.Count + " Cards has been lost";
+		fullCards.text = gameManager.fullDeck.Count + " Cards in Deck";
+		lostCards.text = gameManager.lostCards.Count + " Cards Lost";
 	}
 
 	public void CallEvent(int id) {
@@ -146,17 +175,17 @@ public class Sc_NavigationManager : MonoBehaviour {
 				Sc_Event newOptionScript =  newOption.GetComponent<Sc_Event>();
 				newOptionScript.Eventid = id;
 				newOptionScript.OptionNumber = i;
-				print("hollooo " + i);
 			} else {
 				Vector3 newPostion = new Vector3 (transform.position.x - 1f + (i * 2f), transform.position.y - 1, transform.position.z);
 				GameObject newOption = (GameObject)Instantiate (fab_Event, newPostion, transform.rotation);
 				Sc_Event newOptionScript =  newOption.GetComponent<Sc_Event>();
 				newOptionScript.Eventid = id;
 				newOptionScript.OptionNumber = i;
-				print("hollooo " + i);
 			}
 			
 		}
+		gameManager.currentEvent = id;
+        saveDataManager.SaveGameData();
 	}
 
 	public void Restore (int restore){ // Add lost cards to the deck 

@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1727320030044868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.49, y: 6.63, z: 0}
-  m_LocalScale: {x: 0.57115316, y: 0.57115316, z: 0.57115316}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,11 +71,19 @@ MonoBehaviour:
   piercing: 0
   battleManager: {fileID: 0}
   monsterCards:
-  - {fileID: 21300000, guid: daa4ae848a74cde4d8d40dad9b215121, type: 3}
-  - {fileID: 21300000, guid: 9065328ad4ffe614aa0b09a126ecd398, type: 3}
-  - {fileID: 21300000, guid: 9488eb054c8cb844397fb95efadf4638, type: 3}
-  card: {fileID: 1643847685085044, guid: ee56741e82e33d442863f9dfdc3a196a, type: 2}
+  - {fileID: 21300000, guid: 08adff138fc10934abf01e16bcc978f1, type: 3}
+  - {fileID: 21300000, guid: f5887cfe06544684e956d51ffb7812d0, type: 3}
+  - {fileID: 21300000, guid: e5a4c300ab97e3142801d07331aad2ed, type: 3}
+  card: {fileID: 1990799071656978, guid: a13c2ee690e6bce4697456655eca011e, type: 2}
   doStuff: 1
+  biteDescription: 'Deals 2 Damage
+
+    And 1 Poison'
+  biteName: Bite
+  ratStormDescription: Deals 1 Damage
+  ratStormName: Rat Storm
+  ratDefenceDescription: Gives 1 Armor
+  ratDefenceName: Rat Wall
 --- !u!212 &212099115707559168
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -111,7 +119,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fe491b4523d5e42438177e4cd80e9ebc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86869270ce860d44ab6d1ca78f8c952e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

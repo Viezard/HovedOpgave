@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Mystery Possion
   image: {fileID: 21300000, guid: 2520f5e5ce78bd34d9391b3347a3aa72, type: 3}
   apCost: 1
+  decription: Heal 3 or 4
   maxHealth: 4
   minHealth: 3
   chance: 50

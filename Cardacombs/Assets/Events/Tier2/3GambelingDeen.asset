@@ -17,11 +17,13 @@ MonoBehaviour:
   eventDecription: You enter a large dark dome like room in the dungeon. It seems
     filt with life. Monsters and heroes gambeling and having fun every where.
   decriptionFirstEvent: Win over a Alkymist
-  FirstEventImage: {fileID: 21300000, guid: 0ed635b8d10ec0b40bbefd5dca530b87, type: 3}
+  FirstEventImage: {fileID: 21300000, guid: 2520f5e5ce78bd34d9391b3347a3aa72, type: 3}
   cardsFirstEvent: e3070000
-  decriptionSecondEvent: Win over a Tinker
-  TwoEventImage: {fileID: 21300000, guid: ec889650e69e74640b3125c4571c55b1, type: 3}
+  decriptionSecondEvent: 'Win over a Wizard
+
+'
+  TwoEventImage: {fileID: 21300000, guid: 8c5f2473e81035e429475dbab6431a2d, type: 3}
   cardsSecondEvent: e4070000
   decriptionThirdEvent: Win over a Smuggler
-  ThreeEventImage: {fileID: 21300000, guid: 06b38d56a6d1cf9498dfbabc9a52cbee, type: 3}
+  ThreeEventImage: {fileID: 21300000, guid: 2111236d4e5109a4d8f57a3e6e1fe485, type: 3}
   cardsThirdEvent: e5070000

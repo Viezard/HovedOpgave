@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Unstable Blast
   image: {fileID: 21300000, guid: 8c5f2473e81035e429475dbab6431a2d, type: 3}
   apCost: 1
+  decription: '66% Deal 3 Damage
+
+    33% Take 3 Damage'
   damage: 3
   poison: 0
   chanceHitSelf: 33

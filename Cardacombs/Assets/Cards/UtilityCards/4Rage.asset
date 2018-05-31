@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Rage
   image: {fileID: 21300000, guid: 5b048f6f7dd2542438d3e1c272423a8d, type: 3}
   apCost: 1
+  decription: Rage(1)
   rage: 1
   selfDamage: 0

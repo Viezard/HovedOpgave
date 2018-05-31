@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sc_RatKing : MonsterClass {
+	[TextArea]
+	public string biteDescription;
+	public string biteName;
+	[TextArea]
+	public string ratStormDescription;
+	public string ratStormName;
+	[TextArea]
+	public string ratDefenceDescription;
+	public string ratDefenceName;
 	public override void MonsterTurn (){
-		print("startering");
 		if (monsterStage == 0 && doStuff == true){
 			doStuff = false;
 			Bite();
@@ -21,7 +29,6 @@ public class Sc_RatKing : MonsterClass {
 		} else if (monsterStage == 2 && doStuff == true){
 			if(battleManager.currentStage != 10){
 				battleManager.currentStage = 0;
-				print("ending");
 			}
 			if (battleManager.currentStage != 10){
 				battleManager.currentStage = 0;
@@ -29,11 +36,11 @@ public class Sc_RatKing : MonsterClass {
 			monsterStage = 0;
 
 		}
-	}
+        
+    }
 
 	public void Bite() {
-		PlayingCard(0);
-		battleManager.PrintLog("Rat King used Bite","red");
+		PlayingCard(0, biteDescription, biteName);
 		damage = 2;
 		poison = 1;
 		for (int i = 0; i < debuffed; i++){
@@ -49,16 +56,14 @@ public class Sc_RatKing : MonsterClass {
 
 	}
 	public void RatStorm(){
-		PlayingCard(1);
-		battleManager.PrintLog("Rat King used RatStorm","red");
+		PlayingCard(1, ratStormDescription, ratStormName);
 		damage = 1;
 		int target = FindTarget ();
 		battleManager.DamageCalc(target: target, damage: damage);
 	}
 
 	public void RatDefence(){
-		PlayingCard(2);
-		battleManager.PrintLog("Rat King used RatDefence","red");
+		PlayingCard(2, ratDefenceDescription, ratDefenceName);
 		defence += 1;
 		UpdateText();
 	}

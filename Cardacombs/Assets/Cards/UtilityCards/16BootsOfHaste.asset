@@ -15,4 +15,7 @@ MonoBehaviour:
   name: Boots of Haste
   image: {fileID: 21300000, guid: 8149e87c6acf84f4f987993ddada8c08, type: 3}
   apCost: 1
+  decription: 'Attack twice
+
+    this turn'
   extraAttacks: 1

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: -10
   name: Thoughness
-  image: {fileID: 21300000, guid: 72240793b9d6b1a4d8edd88928d8884b, type: 3}
+  image: {fileID: 21300000, guid: 9ae636bcb27a89a4d881ed6202d38ba9, type: 3}
   apCost: 0
   armorBonus: 0
   spickedBonus: 0
   brawl: 0
+  decription: 

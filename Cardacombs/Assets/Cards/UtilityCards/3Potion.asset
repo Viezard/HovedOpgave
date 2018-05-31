@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Potion
   image: {fileID: 21300000, guid: a6f95f5ae2ea4ca48a710b8ba0c5d14d, type: 3}
   apCost: 1
+  decription: Heal 2
   maxHealth: 2
   minHealth: 0
   chance: 100

@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Hat of Rethinking
   image: {fileID: 21300000, guid: 1c1995d7db89a994ca62626e882e1b72, type: 3}
   apCost: 1
+  decription: 'Discard a ranom card
+
+    Draw 2'
   draw: 2
   discard: 1
   isRandom: 1
